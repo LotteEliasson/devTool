@@ -14,9 +14,9 @@ public class ProjectRepository
 	{
 		@Value("jdbc:mysql:${DB_URL}")
 		private String DB_URL;
-		@Value("${UID}")
+		@Value("${USER_IDE}")
 		private String UID;
-		@Value("${PWD}")
+		@Value("${PASSW}")
 		private String PWD;
 		public void addProject(Project project){
 			try{
