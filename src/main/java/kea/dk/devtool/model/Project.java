@@ -1,5 +1,6 @@
 package kea.dk.devtool.model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Project {
@@ -9,19 +10,19 @@ public class Project {
     private LocalDate expectedEndDate;
     private LocalDate dueDate;
     private String projectManager;
-    private String costumerName;
+    private String customerName;
 
     public Project() {
     }
 
-    public Project(int projectId, String projectName, LocalDate startDate, LocalDate expectedEndDate, LocalDate dueDate, String projectManager, String costumerName) {
+    public Project(int projectId, String projectName, LocalDate startDate, LocalDate expectedEndDate, LocalDate dueDate, String projectManager, String customerName) {
         this.projectId = projectId;
         this.projectName = projectName;
         this.startDate = startDate;
         this.expectedEndDate = expectedEndDate;
         this.dueDate = dueDate;
         this.projectManager = projectManager;
-        this.costumerName = costumerName;
+        this.customerName = customerName;
     }
 
     public int getProjectId() {
@@ -40,24 +41,24 @@ public class Project {
         this.projectName = projectName;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public Date getStartDate() {
+        return Date.valueOf(startDate);
     }
 
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getExpectedEndDate() {
-        return expectedEndDate;
+    public Date getExpectedEndDate() {
+        return Date.valueOf(expectedEndDate);
     }
 
     public void setExpectedEndDate(LocalDate expectedEndDate) {
         this.expectedEndDate = expectedEndDate;
     }
 
-    public LocalDate getDueDate() {
-        return dueDate;
+    public Date getDueDate() {
+        return Date.valueOf(dueDate);
     }
 
     public void setDueDate(LocalDate dueDate) {
@@ -72,12 +73,12 @@ public class Project {
         this.projectManager = projectManager;
     }
 
-    public String getCostumerName() {
-        return costumerName;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setCostumerName(String costumerName) {
-        this.costumerName = costumerName;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     @Override
@@ -89,7 +90,7 @@ public class Project {
                 ", expectedEndDate=" + expectedEndDate +
                 ", dueDate=" + dueDate +
                 ", projectManager='" + projectManager + '\'' +
-                ", costumerName='" + costumerName + '\'' +
+                ", costumerName='" + customerName + '\'' +
                 '}';
     }
 }
