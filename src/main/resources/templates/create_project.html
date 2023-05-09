@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-  <link rel="stylesheet" th:href="@{../css/style.css}" href="../static/css/style.css">
-    <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">
+  <link rel="stylesheet" th:href="@{../style.csss}">
+    <link rel="stylesheet" th:href="@{../popup.css}" href="../popup.css">
 </head>
 <body>
+<script>
+    function openForm() {
+        document.getElementById("myForm").style.display = "block";
+    }
 
+    function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+    }
+</script>
 <!-- A button to open the popup form -->
 <button class="open-button" onclick="openForm()">Open Form</button>
 
@@ -31,19 +39,9 @@
         <label for="customername"><b>Customer Name</b></label>
         <input id="customername" type="text"  placeholder="Enter Customer Name" name="customerName" required>
 
-        <button type="submit" class="btn">Create New</button>
+        <button type="submit" class="btn">Login</button>
         <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
     </form>
 </div>
-
-<script language="JavaScript" >
-    function openForm() {
-        document.getElementById("myForm").style.display = "block";
-    }
-
-    function closeForm() {
-        document.getElementById("myForm").style.display = "none";
-    }
-</script>
 </body>
 </html>
