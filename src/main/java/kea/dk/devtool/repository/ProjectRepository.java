@@ -1,5 +1,6 @@
 package kea.dk.devtool.repository;
 
+import kea.dk.devtool.model.Project;
 import kea.dk.devtool.utility.ConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -17,7 +18,7 @@ public class ProjectRepository
 		private String UID;
 		@Value("${PWD}")
 		private String PWD;
-		public void addProject(ProjectModel projectModel){
+		public void addProject(Project project){
 			try{
 				Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);
 				final String NEW_PROJECT = "INSERT INTO  projectdb.project(project_name, startdate, expected_enddate, due_date,project_manager,customer_name) VALUES(?,?,?,?,?,?) ";
