@@ -18,7 +18,7 @@ public class ProjectRepository
 		private String UID;
 		@Value("${PASSW}")
 		private String PWD;
-		public void addProject(Project project){
+
 		public void addProject(Project newproject){
 			try{
 				Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);
