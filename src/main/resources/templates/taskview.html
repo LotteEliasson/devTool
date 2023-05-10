@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Task view</title>
+</head>
+<body>
+<div>
+  <h1>Project Tasks</h1>
+  <br>
+</div>
+  <div >
+    <a th:href="@{/}" href="/"  >Create Task</a>
+    <a th:href="@{/}" href="/"  >Update Task</a>
+    <a th:href="@{/}" href="/"  >Delete Task</a>
+  </div>
+
+  <div th:each="task : ${taskView}">
+    <div>
+      <span th:text="${task.taskId}"></span>
+      <span th:text="${task.processId}"></span>
+      <span th:text="${task.taskName}"></span>
+      <span th:text="${task.effort}"></span>
+      <span th:text="${task.expectedStartDate}"></span>
+      <span th:text="${task.minAllocation}"></span>
+      <span th:text="${task.taskStatus}"></span>
+      <span th:text="${task.assignedID}"></span>
+      <span th:text="${task.taskSequenceNumber}"></span>
+    </div>
+  </div>
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
