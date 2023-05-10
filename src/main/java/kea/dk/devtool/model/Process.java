@@ -2,7 +2,7 @@ package kea.dk.devtool.model;
 
 import java.time.LocalDate;
 
-public class ProjectProcess {
+public class Process {
     private int processId;
     private int projectId;
     private String processName;
@@ -10,10 +10,10 @@ public class ProjectProcess {
     private LocalDate expectedFinish;
     private int startAfterTask;
 
-    public ProjectProcess() {
+    public Process() {
     }
 
-    public ProjectProcess(int processId, int projectId, String processName, LocalDate expectedStartDate, LocalDate expectedFinish, int startAfterTask) {
+    public Process(int processId, int projectId, String processName, LocalDate expectedStartDate, LocalDate expectedFinish, int startAfterTask) {
         this.processId = processId;
         this.projectId = projectId;
         this.processName = processName;
