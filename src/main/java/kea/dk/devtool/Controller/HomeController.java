@@ -17,11 +17,11 @@ public HomeController(ProjectRepository projectRepository){
 	this.projectRepository=projectRepository;
 }
 // controller of pages
-	@GetMapping("create_project")
+	@GetMapping("projects")
 	public String showProject(){
-	return "create_project";
+	return "projects";
 	}
-	@PostMapping("create_project")
+	@PostMapping("projects")
 	public String createProject(@RequestParam("projectName") String projectName, @RequestParam("startDate")Date startDate,
 										 @RequestParam("dueDate") Date dueDate, @RequestParam("projectManager") String projectManager,
 										 @RequestParam("customerName") String customerName){
@@ -33,7 +33,7 @@ public HomeController(ProjectRepository projectRepository){
 		newproject.setStartDate(startDate.toLocalDate());
 		newproject.setExpectedEndDate(dueDate.toLocalDate()); // når projektet er nyoprettet er expected og duedate ens
 		projectRepository.addProject(newproject);
-		return "redirect:create_project";
+		return "redirect:projects";
 
 	}
 
