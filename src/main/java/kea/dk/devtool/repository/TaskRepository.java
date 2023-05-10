@@ -21,7 +21,7 @@ public class TaskRepository {
     private String PWD;
 
     //Get Tasks by ID
-    public void getTaskById(int taskProcessId) {
+    public List<Task> getTaskById(int taskProcessId) {
         List<Task> task = new ArrayList<>();
 
         try {
@@ -49,6 +49,7 @@ public class TaskRepository {
             System.out.println("Could not get Tasks");
             e.printStackTrace();
         }
+        return task;
     }
 
     //Add new Tasks
