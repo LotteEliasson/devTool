@@ -41,24 +41,24 @@ public class Project {
         this.projectName = projectName;
     }
 
-    public Date getStartDate() {
-        return Date.valueOf(startDate);
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getExpectedEndDate() {
-        return Date.valueOf(expectedEndDate);
+    public LocalDate getExpectedEndDate() {
+        return expectedEndDate;
     }
 
     public void setExpectedEndDate(LocalDate expectedEndDate) {
         this.expectedEndDate = expectedEndDate;
     }
 
-    public Date getDueDate() {
-        return Date.valueOf(dueDate);
+    public LocalDate getDueDate() {
+        return dueDate;
     }
 
     public void setDueDate(LocalDate dueDate) {
