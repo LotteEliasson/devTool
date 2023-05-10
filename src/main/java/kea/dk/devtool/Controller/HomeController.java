@@ -17,14 +17,15 @@ import java.sql.Date;
 public class HomeController {
 ProjectRepository projectRepository;
 // constructor of HomeController
-public HomeController(ProjectRepository projectRepository){
-	this.projectRepository=projectRepository;
-}
-
 TaskRepository taskRepository;
-public HomeController(TaskRepository taskRepository){
+public HomeController(ProjectRepository projectRepository, TaskRepository taskRepository){
+	this.projectRepository=projectRepository;
 	this.taskRepository = taskRepository;
 }
+
+
+
+
 
 // controller of pages
 	@GetMapping("projects")
