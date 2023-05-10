@@ -9,7 +9,7 @@
 <body>
 <div class="projectslist">
     <ul class="list" th:each="project:${projects}">
-        <li th:text="${project.getProjectName()}" ><button class="show" onclick="" </li>
+        <li th:text="${project.getProjectName()}" ><a th:href="@{'/project/'+${project.projectID()}}" href="/project/" >Projekttest<a/></li>
     </ul>
 
 </div>

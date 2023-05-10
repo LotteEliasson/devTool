@@ -3,6 +3,7 @@ package kea.dk.devtool.Controller;
 import kea.dk.devtool.model.Project;
 import kea.dk.devtool.repository.ProjectRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +19,9 @@ public HomeController(ProjectRepository projectRepository){
 }
 // controller of pages
 	@GetMapping("projects")
-	public String showProject(){
+	public String showProject(Model projektModel){
+	String pmName="jacob"; //test - senere ændres til session
+	projektModel.addAttribute("projects",projectRepository.getMyProjects(pmName));
 	return "projects";
 	}
 	@PostMapping("projects")
