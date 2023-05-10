@@ -27,6 +27,8 @@
       <span th:text="${task.taskStatus}"></span>
       <span th:text="${task.assignedID}"></span>
       <span th:text="${task.taskSequenceNumber}"></span>
+
+      <a th:href="@{'/deletetask/' + ${task.taskId}}" href="/deletetask.html">Delete Task</a>
     </div>
   </div>
 
@@ -52,8 +54,8 @@
     <label for="effort-create"><b>Effort</b></label>
     <input id="effort-create" type="text" placeholder="Enter effort" name="Effort" required>
 
-    <label for="expectedStartSDate-create"><b>Expected Start Date</b></label>
-    <input id="expectedStartSDate-create" type="text" placeholder="Enter Expected Start Date" name="ExpectedStartDate" required>
+    <label for="expectedStartDate-create"><b>Expected Start Date</b></label>
+    <input id="expectedStartDate-create" type="text" placeholder="Enter Expected Start Date" name="ExpectedStartDate" required>
 
     <label for="minAllocation-create"><b>Minimum Allocation</b></label>
     <input id="minAllocation-create" type="text" placeholder="Enter Minimum Allocation" name="MinAllocation" required>
@@ -87,8 +89,8 @@
     <label for="effort-update"><b>Effort</b></label>
     <input id="effort-update" type="text" placeholder="Enter effort" name="Effort" required>
 
-    <label for="expectedStartSDate-update"><b>Expected Start Date</b></label>
-    <input id="expectedStartSDate-update" type="text" placeholder="Enter Expected Start Date" name="ExpectedStartDate" required>
+    <label for="expectedStartDate-update"><b>Expected Start Date</b></label>
+    <input id="expectedStartDate-update" type="text" placeholder="Enter Expected Start Date" name="ExpectedStartDate" required>
 
     <label for="minAllocation-update"><b>Minimum Allocation</b></label>
     <input id="minAllocation-update" type="text" placeholder="Enter Minimum Allocation" name="MinAllocation" required>

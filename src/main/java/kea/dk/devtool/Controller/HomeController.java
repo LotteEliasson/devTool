@@ -67,7 +67,7 @@ public HomeController(ProjectRepository projectRepository, TaskRepository taskRe
 							 @RequestParam("MinAllocation") int newMinAllocation,
 							 @RequestParam("TaskStatus") String newTaskStatus,
 							 @RequestParam("AssignedId") String newAssignedId,
-							 @RequestParam("TaskSequenceNumber") int newTaskSequencenumber,
+							 @RequestParam("TaskSequenceNumber") int newTaskSequenceNumber,
 							 HttpSession session){
 
 		//Opret ny Task
@@ -81,11 +81,23 @@ public HomeController(ProjectRepository projectRepository, TaskRepository taskRe
 		newTask.setMinAllocation(newMinAllocation);
 		newTask.setTaskStatus(newTaskStatus);
 		newTask.setAssignedId(newAssignedId);
-		newTask.setTaskSequenceNumber(newTaskSequencenumber);
+		newTask.setTaskSequenceNumber(newTaskSequenceNumber);
 
 		//Gem ny Task
 		taskRepository.addTask(newTask, newTaskId);
 
 		return "redirect:taskview/"+newTaskId;
+
+		//Opdater task
+
+
+		//Slet task
+		@GetMapping("/deletetask/{taskId}")
+		public String deleteTask(@PathVariable("taskId") int deleteTaskByID, Httpsession session){
+
+			taskRepository.deleteTask(deleteTaskByID);
+			int processId =
+		}
 	}
+
 }
