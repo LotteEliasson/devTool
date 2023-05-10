@@ -1,8 +1,9 @@
 package kea.dk.devtool.model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
-public class ProjectProcess {
+public class Processes {
     private int processId;
     private int projectId;
     private String processName;
@@ -10,10 +11,10 @@ public class ProjectProcess {
     private LocalDate expectedFinish;
     private int startAfterTask;
 
-    public ProjectProcess() {
+    public Processes() {
     }
 
-    public ProjectProcess(int processId, int projectId, String processName, LocalDate expectedStartDate, LocalDate expectedFinish, int startAfterTask) {
+    public Processes(int processId, int projectId, String processName, LocalDate expectedStartDate, LocalDate expectedFinish, int startAfterTask) {
         this.processId = processId;
         this.projectId = projectId;
         this.processName = processName;
@@ -46,16 +47,16 @@ public class ProjectProcess {
         this.processName = processName;
     }
 
-    public LocalDate getExpectedStartDate() {
-        return expectedStartDate;
+    public Date getExpectedStartDate() {
+        return Date.valueOf(expectedStartDate);
     }
 
     public void setExpectedStartDate(LocalDate expectedStartDate) {
         this.expectedStartDate = expectedStartDate;
     }
 
-    public LocalDate getExpectedFinish() {
-        return expectedFinish;
+    public Date getExpectedFinish() {
+        return Date.valueOf(expectedFinish);
     }
 
     public void setExpectedFinish(LocalDate expectedFinish) {
