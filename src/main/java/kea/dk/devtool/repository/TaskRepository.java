@@ -15,9 +15,9 @@ public class TaskRepository {
 
     @Value("jdbc:mysql:${DB_URL}")
     private String DB_URL;
-    @Value("${UID}")
+    @Value("${USER_IDE}")
     private String UID;
-    @Value("${PWD}")
+    @Value("${PASSW}")
     private String PWD;
 
     //Get Tasks by ID
@@ -57,7 +57,8 @@ public class TaskRepository {
 
         try {
             Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);
-            final String SQL_addTask = "INSERT INTO projectdb.task(processID, task_name, effort, expected_startdate, min_allocation, task_status, assignedID, tasksequencenumber) VALUES(?,?,?,?,?,?,?,?)";
+            final String SQL_addTask = "INSERT INTO projectdb.task(processID, task_name, effort, expected_startdate, " +
+                    "min_allocation, task_status, assignedID, tasksequencenumber) VALUES(?,?,?,?,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_addTask);
 
             preparedStatement.setInt(1, processId);
@@ -79,7 +80,8 @@ public class TaskRepository {
 
    //Update Tasks
    public void updateTask(Task task) {
-        final String UPDATE_task = "UPDATE projectdb.task SET task_name=?, effort=?, expected_startdate=?, min_allocation=?, task_status=?, assignedID=?, tasksequencenumber=? WHERE taskID=?";
+        final String UPDATE_task = "UPDATE projectdb.task SET task_name=?, effort=?, expected_startdate=?," +
+                " min_allocation=?, task_status=?, assignedID=?, tasksequencenumber=? WHERE taskID=?";
 
         try {
            Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);

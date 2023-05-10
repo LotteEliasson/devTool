@@ -2,9 +2,11 @@ package kea.dk.devtool.Controller;
 
 import jakarta.servlet.http.HttpSession;
 import kea.dk.devtool.model.Project;
+import kea.dk.devtool.model.Task;
 import kea.dk.devtool.repository.ProjectRepository;
 import kea.dk.devtool.repository.TaskRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,8 +54,38 @@ public HomeController(ProjectRepository projectRepository, TaskRepository taskRe
 
 
 	@GetMapping("/taskview/{processId}")
-	public String showWishes(@PathVariable("processId") int tasksId, Model modelTask){
-		modelTask.addAttribute("taskView", taskRepository.getTaskById(tasksId));
+	public String showWishes(@PathVariable("processId") int processId, Model modelTask, HttpSession session){
+		modelTask.addAttribute("taskView", taskRepository.getTaskById(processId));
+		session.setAttribute("currentProcess", processId);
 		return "taskview";
+	}
+
+	@PostMapping("/taskview")
+	public String createTask(@RequestParam("TaskName") String newTaskName,
+							 @RequestParam("Effort") int newEffort,
+							 @RequestParam("ExpectedStartDate") Date newExpectedStartDate,
+							 @RequestParam("MinAllocation") int newMinAllocation,
+							 @RequestParam("TaskStatus") String newTaskStatus,
+							 @RequestParam("AssignedId") String newAssignedId,
+							 @RequestParam("TaskSequenceNumber") int newTaskSequencenumber,
+							 HttpSession session){
+
+		//Opret ny Task
+		int newTaskId = (int) session.getAttribute("currentProcess");
+		Task newTask = new Task();
+
+		newTask.setTaskId(newTaskId);
+		newTask.setTaskName(newTaskName);
+		newTask.setEffort(newEffort);
+		newTask.setExpectedStartDate(newExpectedStartDate.toLocalDate());
+		newTask.setMinAllocation(newMinAllocation);
+		newTask.setTaskStatus(newTaskStatus);
+		newTask.setAssignedId(newAssignedId);
+		newTask.setTaskSequenceNumber(newTaskSequencenumber);
+
+		//Gem ny Task
+		taskRepository.addTask(newTask, newTaskId);
+
+		return "redirect:taskview/"+newTaskId;
 	}
 }
