@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Task view</title>
+</head>
+<body>
+<div>
+  <h1>Project Tasks</h1>
+  <br>
+</div>
+  <div >
+    <a th:href="@{/}" href="/"  >Create Task</a>
+    <a th:href="@{/}" href="/"  >Update Task</a>
+    <a th:href="@{/}" href="/"  >Delete Task</a>
+  </div>
+
+  <div th:each="task : ${taskView}">
+    <div>
+      <span th:text="${task.taskId}"></span>
+      <span th:text="${task.processId}"></span>
+      <span th:text="${task.taskName}"></span>
+      <span th:text="${task.effort}"></span>
+      <span th:text="${task.expectedStartDate}"></span>
+      <span th:text="${task.minAllocation}"></span>
+      <span th:text="${task.taskStatus}"></span>
+      <span th:text="${task.assignedID}"></span>
+      <span th:text="${task.taskSequenceNumber}"></span>
+    </div>
+  </div>
+
+<script>
+  function openForm() {
+    document.getElementById("myForm").style.display = "block";
+  }
+
+  function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+  }
+</script>
+<!-- A button to open the popup form -->
+<button class="open-button" onclick="openForm()">Create New Task</button>
+
+<!-- The  Create form -->
+<div class="form-popup" id="myFormCreate">
+  <form action="/tasks" class="form-container" method="post">
+
+    <label for="taskName-create"><b>Task Name</b></label>
+    <input id="taskName-create" type="text" placeholder="Enter Task Name" name="TaskName" required>
+
+    <label for="effort-create"><b>Effort</b></label>
+    <input id="effort-create" type="text" placeholder="Enter effort" name="Effort" required>
+
+    <label for="expectedStartSDate-create"><b>Expected Start Date</b></label>
+    <input id="expectedStartSDate-create" type="text" placeholder="Enter Expected Start Date" name="ExpectedStartDate" required>
+
+    <label for="minAllocation-create"><b>Minimum Allocation</b></label>
+    <input id="minAllocation-create" type="text" placeholder="Enter Minimum Allocation" name="MinAllocation" required>
+
+    <label for="taskStatus-create"><b>Task status</b></label>
+    <input id="taskStatus-create" type="text" placeholder="Enter Task Status" name="TaskStatus" required>
+
+    <label for="assignedId-create"><b>Assigned ID</b></label>
+    <input id="assignedId-create" type="text" placeholder="Enter Assignment ID" name="AssignedId" required>
+
+    <label for="taskSequenceNumber-create"><b>Task Sequence Number</b></label>
+    <input id="taskSequenceNumber-create" type="text" placeholder="Enter Task Sequence Number" name="TaskSequenceNumber" required>
+
+    <button type="submit" class="btn">Create Task</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+
+
+</script>
+<!-- A button to open the popup form -->
+<button class="open-button" onclick="openForm()">Update Task</button>
+
+<!-- The  Create form -->
+<div class="form-popup" id="myFormUpdate">
+  <form action="/tasks" class="form-container" method="post">
+
+    <label for="taskName-update"><b>Task Name</b></label>
+    <input id="taskName-update" type="text" placeholder="Enter Task Name" name="TaskName" required>
+
+    <label for="effort-update"><b>Effort</b></label>
+    <input id="effort-update" type="text" placeholder="Enter effort" name="Effort" required>
+
+    <label for="expectedStartSDate-update"><b>Expected Start Date</b></label>
+    <input id="expectedStartSDate-update" type="text" placeholder="Enter Expected Start Date" name="ExpectedStartDate" required>
+
+    <label for="minAllocation-update"><b>Minimum Allocation</b></label>
+    <input id="minAllocation-update" type="text" placeholder="Enter Minimum Allocation" name="MinAllocation" required>
+
+    <label for="taskStatus-update"><b>Task status</b></label>
+    <input id="taskStatus-update" type="text" placeholder="Enter Task Status" name="TaskStatus" required>
+
+    <label for="assignedId-update"><b>Assigned ID</b></label>
+    <input id="assignedId-update" type="text" placeholder="Enter Assignment ID" name="AssignedId" required>
+
+    <label for="taskSequenceNumber-update"><b>Task Sequence Number</b></label>
+    <input id="taskSequenceNumber-update" type="text" placeholder="Enter Task Sequence Number" name="TaskSequenceNumber" required>
+
+    <button type="submit" class="btn">Update Task</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
