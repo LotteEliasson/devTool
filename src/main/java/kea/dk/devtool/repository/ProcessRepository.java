@@ -24,7 +24,7 @@ public class ProcessRepository {
 
     //Hent Liste over processer baseret på Projekt ID
     public List<Processes> getProcessByProjectId(int projectID) {
-        List<Processes>processes = new ArrayList<>();
+        List<Processes>processList = new ArrayList<>();
         final String SQL_QUERY = "SELECT * FROM projectdb.processes WHERE projectID =" +projectID;
         try {
             Connection connection = ConnectionManager.getConnection(DB_URL,UID,PWD);
@@ -37,6 +37,9 @@ public class ProcessRepository {
             LocalDate expected_start_date = resultSet.getDate(3).toLocalDate();
             LocalDate expected_finish = resultSet.getDate(4).toLocalDate();
             int start_after_task = resultSet.getInt(5);
+
+            Processes processes= new Processes(processID, projectID, process_name, expected_start_date, expected_finish, start_after_task);
+            processList.add(processes);
             }
         }
 
@@ -44,7 +47,7 @@ public class ProcessRepository {
         catch(SQLException e) {
             System.out.println("Can't connect to DB.");
         }
-        return processes;
+        return processList;
     }
 
     //tilføje Processer
