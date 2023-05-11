@@ -3,7 +3,7 @@ package kea.dk.devtool.repository;
 import kea.dk.devtool.model.Processes;
 import kea.dk.devtool.utility.ConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.parameters.P;
+
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
