@@ -47,16 +47,16 @@ public class Processes {
         this.processName = processName;
     }
 
-    public Date getExpectedStartDate() {
-        return Date.valueOf(expectedStartDate);
+    public LocalDate getExpectedStartDate() {
+        return expectedStartDate;
     }
 
     public void setExpectedStartDate(LocalDate expectedStartDate) {
         this.expectedStartDate = expectedStartDate;
     }
 
-    public Date getExpectedFinish() {
-        return Date.valueOf(expectedFinish);
+    public LocalDate getExpectedFinish() {
+        return expectedFinish;
     }
 
     public void setExpectedFinish(LocalDate expectedFinish) {
