@@ -54,9 +54,14 @@ public HomeController(ProjectRepository projectRepository, TaskRepository taskRe
 
 
 	@GetMapping("/taskview/{processId}")
-	public String showWishes(@PathVariable("processId") int processId, Model modelTask, HttpSession session){
+	public String taskview(@PathVariable("processId") int processId, Model modelTask, HttpSession session){
 		modelTask.addAttribute("taskView", taskRepository.getTaskById(processId));
 		session.setAttribute("currentProcess", processId);
+		return "taskview";
+	}
+
+	@GetMapping("/taskview/")
+	public String createTask(){
 		return "taskview";
 	}
 
@@ -68,7 +73,7 @@ public HomeController(ProjectRepository projectRepository, TaskRepository taskRe
 							 @RequestParam("TaskStatus") String newTaskStatus,
 							 @RequestParam("AssignedId") String newAssignedId,
 							 @RequestParam("TaskSequenceNumber") int newTaskSequenceNumber,
-							 HttpSession session){
+							 HttpSession session) {
 
 		//Opret ny Task
 		int newTaskId = (int) session.getAttribute("currentProcess");
@@ -86,18 +91,42 @@ public HomeController(ProjectRepository projectRepository, TaskRepository taskRe
 		//Gem ny Task
 		taskRepository.addTask(newTask, newTaskId);
 
-		return "redirect:taskview/"+newTaskId;
+		return "redirect:taskview/" + newTaskId;
+	}
 
-		//Opdater task
+	//Opdater task
+	@PostMapping("/taskview")
+	public String updateTask(@RequestParam("TaskId") int updateTaskId,
+							 @RequestParam("ProcessId") int updateProcessId,
+							 @RequestParam("TaskName") String updateTaskName,
+							 @RequestParam("Effort") int updateEffort,
+							 @RequestParam("ExpectedStartDate") Date updateExpectedStartDate,
+							 @RequestParam("MinAllocation") int updateMinAllocation,
+							 @RequestParam("TaskStatus") String updateTaskStatus,
+							 @RequestParam("AssignedId") String updateAssignedId,
+							 @RequestParam("TaskSequenceNumber") int updateTaskSequenceNumber,
+							 Model modelUpdateTask,
+							 HttpSession session) {
+	Task updateTasks = new Task(updateTaskId, updateProcessId, updateTaskName, updateEffort, updateExpectedStartDate.toLocalDate(), updateMinAllocation, updateTaskStatus,updateAssignedId,updateTaskSequenceNumber);
+
+	taskRepository.updateTask(updateTasks);
+	int processID = (int) session.getAttribute("currentProcess");
+	modelUpdateTask.addAttribute("updateTask", processID);
 
 
-		//Slet task
-		@GetMapping("/deletetask/{taskId}")
-		public String deleteTask(@PathVariable("taskId") int deleteTaskByID, Httpsession session){
+	return "redirect:/taskview/" + processID;
 
-			taskRepository.deleteTask(deleteTaskByID);
-			int processId =
-		}
+}
+
+
+	//Slet task
+	@GetMapping("/deletetask/{taskId}")
+	public String deleteTask(@PathVariable("taskId") int deleteTaskByID, HttpSession session){
+
+		taskRepository.deleteTask(deleteTaskByID);
+		int processId = (int) session.getAttribute("currentProcess");
+
+		return "redirect:/taskview/" + processId;
 	}
 
 }
