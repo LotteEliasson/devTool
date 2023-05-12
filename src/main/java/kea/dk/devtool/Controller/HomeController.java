@@ -1,6 +1,7 @@
 package kea.dk.devtool.Controller;
 
 import jakarta.servlet.http.HttpSession;
+import kea.dk.devtool.model.Processes;
 import kea.dk.devtool.model.Project;
 import kea.dk.devtool.repository.ProcessRepository;
 import kea.dk.devtool.repository.ProjectRepository;
@@ -12,12 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Controller
 public class HomeController {
 ProjectRepository projectRepository;
 ProcessRepository processRepository;
-
 // constructor of HomeController
 public HomeController(ProjectRepository projectRepository, ProcessRepository processRepository){
 	this.projectRepository=projectRepository;
@@ -68,5 +69,40 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 
 	return "redirect:projects";
 	}
+@PostMapping("/processes")
+	public String createProcess(@RequestParam("processName") String processName,
+								@RequestParam("expectedStartDate") LocalDate expectedStartDate,
+								@RequestParam("expectedFinish") LocalDate expectedFinish,
+								@RequestParam("startAfterTask") int startAfter){
 
+	Processes newProcess = new Processes();
+	newProcess.setProcessName(processName);
+	newProcess.setExpectedStartDate(expectedStartDate);
+	newProcess.setExpectedFinish(expectedFinish);
+	newProcess.setStartAfterTask(startAfter);
+	processRepository.addProcess(newProcess);
+	return "redirect:/processes";
+	}
+	@PostMapping("updateprocess")
+	public String updateProcess(@RequestParam("processId") int updateprocessId,
+								@RequestParam("projectId") int updateprojectId,
+								@RequestParam("processName")String updateprocessName,
+								@RequestParam("expectedStartDate") LocalDate updateexpectedStartDate,
+								@RequestParam("expectedFinish") LocalDate updateexpectedFinish,
+								@RequestParam("startAfterTask")int updatestartAfter) {
+
+		Processes updatedProcess = new Processes(updateprocessId, updateprojectId, updateprocessName,
+								updateexpectedStartDate,updateexpectedFinish,
+								updatestartAfter);
+		processRepository.updateProcess(updatedProcess);
+
+		return "redirect:/processes";
+	}
+	@GetMapping("/deleteprocess/{processId}")
+	public String deleteProcess(@PathVariable("processId") int deleteProcessTask, HttpSession session, Model model) {
+		processRepository.deleteProcessTasksById(deleteProcessTask);
+		processRepository.deleteProcessById(deleteProcessTask);
+
+	return "redirect:/processes";
+	}
 }
