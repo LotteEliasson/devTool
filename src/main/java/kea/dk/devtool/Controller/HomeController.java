@@ -17,6 +17,7 @@ import java.sql.Date;
 public class HomeController {
 ProjectRepository projectRepository;
 ProcessRepository processRepository;
+
 // constructor of HomeController
 public HomeController(ProjectRepository projectRepository, ProcessRepository processRepository){
 	this.projectRepository=projectRepository;
@@ -24,9 +25,10 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 }
 // controller of pages
 	@GetMapping("projects")
-	public String showProject(Model projektModel){
+	public String showProject(Model projektModel,HttpSession session){
+	int projektManagerID= (int) session.getAttribute("PmID");
 	String pmName="jacob"; //test - senere ændres til session
-	projektModel.addAttribute("projects",projectRepository.getMyProjects(pmName));
+	projektModel.addAttribute("projects",projectRepository.getMyProjects(projektManagerID));
 	return "projects";
 	}
 	@PostMapping("projects")
@@ -55,6 +57,16 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		processes.addAttribute("processes", processRepository.getProcessByProjectId(id) );
 
 	return "processes";
+	}
+	@GetMapping("/delete/{id}")
+	public String deleteProject(@PathVariable("id") int projectID, Model projektModel, HttpSession session){
+	int pmID=(int) session.getAttribute("PmID") ;
+	projectRepository.deleteTasksByProjecID(projectID);
+	projectRepository.deleteProcessByProjecID(projectID);
+	projectRepository.deleteProjectByID(projectID);
+	projektModel.addAttribute("projects",projectRepository.getMyProjects(pmID));
+
+	return "redirect:projects";
 	}
 
 }

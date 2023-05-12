@@ -41,13 +41,13 @@ public class ProjectRepository
 				e.printStackTrace();
 			}
 		}
-		public List<Project> getMyProjects(String pmName){
+		public List<Project> getMyProjects(int pmID){
 			ArrayList<Project> myProjects=new ArrayList<>();
-			final String QUERY_MYPROJECTS="SELECT * FROM projectdb.project WHERE project_manager=?";
+			final String QUERY_MYPROJECTS="SELECT * FROM projectdb.project WHERE project_manager_id=?";
 			try {
 				Connection connection=ConnectionManager.getConnection(DB_URL,UID,PWD);
 				PreparedStatement preparedStatement=connection.prepareStatement(QUERY_MYPROJECTS);
-				preparedStatement.setString(1,pmName);
+				preparedStatement.setInt(1,pmID);
 				ResultSet resultSet=preparedStatement.executeQuery();
 				while (resultSet.next()){
 					int projectId=resultSet.getInt(1);
@@ -55,8 +55,9 @@ public class ProjectRepository
 					LocalDate startdate= resultSet.getDate(3).toLocalDate();
 					LocalDate expectedend= resultSet.getDate(4).toLocalDate();
 					LocalDate duedate= resultSet.getDate(5).toLocalDate();
+					String pmName=resultSet.getString(6);
 					String customerName=resultSet.getString(7);
-					Project myProject= new Project(projectId,projectName,startdate,expectedend,duedate,pmName,customerName);
+					Project myProject= new Project(projectId,projectName,startdate,expectedend,duedate,pmName,customerName,pmID);
 					myProjects.add(myProject);
 				}
 
@@ -92,6 +93,72 @@ public class ProjectRepository
 
 			}catch(SQLException e){
 				System.out.println(" unable to update project");
+				e.printStackTrace();
+			}
+		}
+		public Project findProjectByID(int id){
+			Project myProject=new Project();
+			final String FIND_PROJECT="SELECT * FROM projectdb.project WHERE projectID=?";
+			try{
+				Connection connection=ConnectionManager.getConnection(DB_URL,UID,PWD);
+				PreparedStatement preparedStatement=connection.prepareStatement(FIND_PROJECT);
+				preparedStatement.setInt(1,id);
+				ResultSet resultSet= preparedStatement.executeQuery();
+				while (resultSet.next()){
+					myProject.setProjectId(id);
+					myProject.setProjectName(resultSet.getString(2));
+					myProject.setStartDate(resultSet.getDate(3).toLocalDate());
+					myProject.setExpectedEndDate(resultSet.getDate(4).toLocalDate());
+					myProject.setDueDate(resultSet.getDate(5).toLocalDate());
+					myProject.setProjectManager(resultSet.getString(6));
+					myProject.setCustomerName(resultSet.getString(7));
+					myProject.setProjectManagerID(resultSet.getInt(8));
+				}
+
+
+			}catch(SQLException e){
+				System.out.println("could not find project");
+				e.printStackTrace();
+
+			}
+			return myProject;
+		}
+		public void deleteProjectByID(int id){
+			final String DELETE_QUERY = "DELETE FROM projectdb.project WHERE projectID=?";
+
+			try {
+				Connection connection=ConnectionManager.getConnection(DB_URL,UID,PWD);
+				PreparedStatement preparedStatement=connection.prepareStatement(DELETE_QUERY);
+				preparedStatement.setInt(1,id);
+				preparedStatement.executeUpdate();
+			}catch (SQLException e){
+				System.out.println("unable to delete project");
+				e.printStackTrace();
+			}
+		}
+		public void deleteProcessByProjecID(int id){
+			final String DELETE_QUERY = "DELETE FROM projectdb.process WHERE projectID=?";
+
+			try {
+				Connection connection=ConnectionManager.getConnection(DB_URL,UID,PWD);
+				PreparedStatement preparedStatement=connection.prepareStatement(DELETE_QUERY);
+				preparedStatement.setInt(1,id);
+				preparedStatement.executeUpdate();
+			}catch (SQLException e){
+				System.out.println("unable to delete project's processes");
+				e.printStackTrace();
+			}
+		}
+		public void deleteTasksByProjecID(int id){
+			final String DELETE_QUERY = "DELETE FROM projectdb.task WHERE projectID=?";
+
+			try {
+				Connection connection=ConnectionManager.getConnection(DB_URL,UID,PWD);
+				PreparedStatement preparedStatement=connection.prepareStatement(DELETE_QUERY);
+				preparedStatement.setInt(1,id);
+				preparedStatement.executeUpdate();
+			}catch (SQLException e){
+				System.out.println("unable to delete project's tasks");
 				e.printStackTrace();
 			}
 		}
