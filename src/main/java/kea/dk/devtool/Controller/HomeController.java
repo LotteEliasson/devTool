@@ -63,7 +63,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	public String showProcesses(@PathVariable("projektid") int id, Model processes, HttpSession session){
 
 		processes.addAttribute("processes", processRepository.getProcessByProjectId(id) );
-
+		session.setAttribute("currentProject", id);
 	return "processes";
 	}
 	@GetMapping("/delete/{id}")
