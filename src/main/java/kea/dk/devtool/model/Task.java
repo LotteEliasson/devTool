@@ -14,10 +14,12 @@ public class Task {
     private String assignedId;
     private int taskSequenceNumber;
 
+    private int projectID;
+
     public Task() {
     }
 
-    public Task(int taskId, int processId, String taskName, int effort, LocalDate expectedStartDate, int minAllocation, String taskStatus, String assignedId, int taskSequenceNumber) {
+    public Task(int taskId, int processId, String taskName, int effort, LocalDate expectedStartDate, int minAllocation, String taskStatus, String assignedId, int taskSequenceNumber, int projectId) {
         this.taskId = taskId;
         this.processId = processId;
         this.taskName = taskName;
@@ -27,6 +29,7 @@ public class Task {
         this.taskStatus = taskStatus;
         this.assignedId = assignedId;
         this.taskSequenceNumber = taskSequenceNumber;
+        this.projectID = projectId;
     }
 
     public int getTaskId() {
@@ -101,6 +104,14 @@ public class Task {
         this.taskSequenceNumber = taskSequenceNumber;
     }
 
+    public int getProjectID() {
+        return projectID;
+    }
+
+    public void setProjectID(int projectID) {
+        this.projectID = projectID;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
@@ -113,6 +124,7 @@ public class Task {
                 ", taskStatus='" + taskStatus + '\'' +
                 ", assignedId='" + assignedId + '\'' +
                 ", taskSequenceNumber=" + taskSequenceNumber +
+                ", projectID=" + projectID +
                 '}';
     }
 }

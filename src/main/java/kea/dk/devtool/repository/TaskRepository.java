@@ -15,13 +15,13 @@ public class TaskRepository {
 
     @Value("jdbc:mysql:${DB_URL}")
     private String DB_URL;
-    @Value("${UID}")
+    @Value("${USER_IDE}")
     private String UID;
-    @Value("${PWD}")
+    @Value("${PASSW}")
     private String PWD;
 
     //Get Tasks by ID
-    public void getTaskById(int taskProcessId) {
+    public List<Task> getTaskById(int taskProcessId) {
         List<Task> task = new ArrayList<>();
 
         try {
@@ -49,14 +49,16 @@ public class TaskRepository {
             System.out.println("Could not get Tasks");
             e.printStackTrace();
         }
+        return task;
     }
 
     //Add new Tasks
-    public void addTask(Task task, int processId) {
+    public void addTask(Task task, int processId, int projectId) {
 
         try {
             Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);
-            final String SQL_addTask = "INSERT INTO projectdb.task(processID, task_name, effort, expected_startdate, min_allocation, task_status, assignedID, tasksequencenumber) VALUES(?,?,?,?,?,?,?,?)";
+            final String SQL_addTask = "INSERT INTO projectdb.task(processID, task_name, effort, expected_startdate, " +
+                    "min_allocation, task_status, assignedID, tasksequencenumber, projectID) VALUES(?,?,?,?,?,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_addTask);
 
             preparedStatement.setInt(1, processId);
@@ -67,6 +69,7 @@ public class TaskRepository {
             preparedStatement.setString(6, task.getTaskStatus());
             preparedStatement.setString(7, task.getAssignedId());
             preparedStatement.setInt(8, task.getTaskSequenceNumber());
+            preparedStatement.setInt(9, task.getProjectID());
 
             preparedStatement.executeUpdate();
 
@@ -78,7 +81,8 @@ public class TaskRepository {
 
    //Update Tasks
    public void updateTask(Task task) {
-        final String UPDATE_task = "UPDATE projectdb.task SET task_name=?, effort=?, expected_startdate=?, min_allocation=?, task_status=?, assignedID=?, tasksequencenumber=? WHERE taskID=?";
+        final String UPDATE_task = "UPDATE projectdb.task SET task_name=?, effort=?, expected_startdate=?," +
+                " min_allocation=?, task_status=?, assignedID=?, tasksequencenumber=? WHERE taskID=?";
 
         try {
            Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);
