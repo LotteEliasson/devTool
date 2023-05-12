@@ -33,6 +33,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 // controller of pages
 	@GetMapping("projects")
 	public String showProject(Model projektModel,HttpSession session){
+	session.setAttribute("PmID",1);
 	int projektManagerID= (int) session.getAttribute("PmID");
 	String pmName="jacob"; //test - senere ændres til session
 	projektModel.addAttribute("projects",projectRepository.getMyProjects(projektManagerID));
@@ -58,11 +59,11 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 
 	return "redirect:projects";
 	}
-	@GetMapping("/processes/{id}")
-	public String showProcesses(@PathVariable("id") int id, Model processes, HttpSession session){
+	@GetMapping("/processes/{projektid}")
+	public String showProcesses(@PathVariable("projektid") int id, Model processes, HttpSession session){
 
 		processes.addAttribute("processes", processRepository.getProcessByProjectId(id) );
-
+		session.setAttribute("currentProject", id);
 	return "processes";
 	}
 	@GetMapping("/delete/{id}")
@@ -113,7 +114,8 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	}
 	@GetMapping("/taskview/{processId}")
 	public String taskview(@PathVariable("processId") int processId, Model modelTask, HttpSession session){
-		modelTask.addAttribute("taskView", taskRepository.getTaskById(processId));
+		int projektID = (int) session.getAttribute("currentProject");
+		modelTask.addAttribute("taskView", taskRepository.getTaskById(processId,projektID));
 		session.setAttribute("currentProcess", processId);
 		return "taskview";
 	}
@@ -135,6 +137,8 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 
 		//Opret ny Task
 		int newProcessId = (int) session.getAttribute("currentProcess");
+		int newProjectId = (int) session.getAttribute("currentProject");
+
 		Task newTask = new Task();
 
 		newTask.setTaskId(newProcessId);
@@ -148,13 +152,15 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		newTask.setTaskSequenceNumber(newTaskSequenceNumber);
 
 		//Gem ny Task
-		taskRepository.addTask(newTask, newProcessId);
+		taskRepository.addTask(newTask, newProcessId,newProjectId);
 
 		return "redirect:taskview/" + newProcessId;
 	}
 
-	@GetMapping("/taskview")
-	public String updateTask(@PathVariable("processId") int updateTasks, Model updateModel ){
+	@GetMapping("/taskview/{taskID}")
+	public String updateTask(@PathVariable("taskID") int taskID, Model updateModel){
+	Task updatetask = taskRepository.findTaskById(taskID);
+
 
 	return "taskview";
 	}

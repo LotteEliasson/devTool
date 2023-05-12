@@ -113,7 +113,7 @@ public class TaskRepository {
    }
 
     //Find Tasks by ID
-    public void findTaskById(int tasksId) {
+    public Task findTaskById(int tasksId) {
         final String FIND_task = "SELECT * FROM projectdb.task WHERE taskID=?";
 
         Task task = new Task();
@@ -146,6 +146,7 @@ public class TaskRepository {
             System.out.println("Could not find Task");
             e.printStackTrace();
         }
+        return task;
     }
     //Delete Tasks
     public void deleteTask(int taskId) {
