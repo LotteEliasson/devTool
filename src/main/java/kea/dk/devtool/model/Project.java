@@ -11,11 +11,12 @@ public class Project {
     private LocalDate dueDate;
     private String projectManager;
     private String customerName;
+    private int projectManagerID;
 
     public Project() {
     }
 
-    public Project(int projectId, String projectName, LocalDate startDate, LocalDate expectedEndDate, LocalDate dueDate, String projectManager, String customerName) {
+    public Project(int projectId, String projectName, LocalDate startDate, LocalDate expectedEndDate, LocalDate dueDate, String projectManager, String customerName,int projectManagerID) {
         this.projectId = projectId;
         this.projectName = projectName;
         this.startDate = startDate;
@@ -23,6 +24,7 @@ public class Project {
         this.dueDate = dueDate;
         this.projectManager = projectManager;
         this.customerName = customerName;
+        this.projectManagerID=projectManagerID;
     }
 
     public int getProjectId() {
@@ -91,6 +93,16 @@ public class Project {
                 ", dueDate=" + dueDate +
                 ", projectManager='" + projectManager + '\'' +
                 ", costumerName='" + customerName + '\'' +
-                '}';
+                " Project Manager ID="+projectManagerID+" }";
     }
+
+    public int getProjectManagerID()
+        {
+            return projectManagerID;
+        }
+
+    public void setProjectManagerID(int projectManagerID)
+        {
+            this.projectManagerID = projectManagerID;
+        }
 }
