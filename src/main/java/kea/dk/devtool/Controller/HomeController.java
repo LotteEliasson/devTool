@@ -120,12 +120,9 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		return "taskview";
 	}
 
-	@GetMapping("/taskview/")
-	public String createTask(){
-		return "taskview";
-	}
 
-	@PostMapping("/taskview")
+
+	@PostMapping("/createTasks")
 	public String createTask(@RequestParam("TaskName") String newTaskName,
 							 @RequestParam("Effort") int newEffort,
 							 @RequestParam("ExpectedStartDate") Date newExpectedStartDate,
@@ -157,16 +154,9 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		return "redirect:taskview/" + newProcessId;
 	}
 
-	@GetMapping("/taskview/{taskID}")
-	public String updateTask(@PathVariable("taskID") int taskID, Model updateModel){
-	Task updatetask = taskRepository.findTaskById(taskID);
-
-
-	return "taskview";
-	}
 
 	//Opdater task
-	@PostMapping("/taskview")
+	@PostMapping("/opdaterTask"/{taskId})
 	public String updateTask(@RequestParam("TaskId") int updateTaskId,
 							 @RequestParam("ProcessId") int updateProcessId,
 							 @RequestParam("TaskName") String updateTaskName,

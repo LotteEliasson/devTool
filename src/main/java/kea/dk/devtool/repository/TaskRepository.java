@@ -40,6 +40,7 @@ public class TaskRepository {
                 String taskStatus = resultSet.getString(7);
                 String assignedId = resultSet.getString(8);
                 int taskSequenceNumber = resultSet.getInt(9);
+                int projectID = resultSet.getInt(10)
 
                 Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedId,taskSequenceNumber, taskProjectId);
                 tasks.add(newTask);
