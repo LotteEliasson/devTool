@@ -133,10 +133,11 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 							 HttpSession session) {
 
 		//Opret ny Task
-		int newTaskId = (int) session.getAttribute("currentProcess");
+		int newProcessId = (int) session.getAttribute("currentProcess");
 		Task newTask = new Task();
 
-		newTask.setTaskId(newTaskId);
+		newTask.setTaskId(newProcessId);
+
 		newTask.setTaskName(newTaskName);
 		newTask.setEffort(newEffort);
 		newTask.setExpectedStartDate(newExpectedStartDate.toLocalDate());
@@ -146,9 +147,9 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		newTask.setTaskSequenceNumber(newTaskSequenceNumber);
 
 		//Gem ny Task
-		taskRepository.addTask(newTask, newTaskId);
+		taskRepository.addTask(newTask, newProcessId);
 
-		return "redirect:taskview/" + newTaskId;
+		return "redirect:taskview/" + newProcessId;
 	}
 
 	@GetMapping("/taskview")

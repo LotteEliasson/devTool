@@ -21,13 +21,13 @@ public class TaskRepository {
     private String PWD;
 
     //Get Tasks by ID
-    public List<Task> getTaskById(int taskProcessId) {
-        List<Task> task = new ArrayList<>();
+    public List<Task> getTaskById(int taskProcessId, int taskProjectId) {
+        List<Task> tasks = new ArrayList<>();
 
         try {
             Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);
             Statement statement = connection.createStatement();
-            final String SQL_GETTASKS = "SELECT * FROM projectdb.tasks WHERE processID=" + taskProcessId;
+            final String SQL_GETTASKS = "SELECT * FROM projectdb.task WHERE processID=" + taskProcessId;
             ResultSet resultSet = statement.executeQuery(SQL_GETTASKS);
 
             while (resultSet.next()){
@@ -41,15 +41,15 @@ public class TaskRepository {
                 String assignedId = resultSet.getString(8);
                 int taskSequenceNumber = resultSet.getInt(9);
 
-                Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedId,taskSequenceNumber);
-                task.add(newTask);
+                Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedId,taskSequenceNumber, taskProjectId);
+                tasks.add(newTask);
             }
 
         } catch (SQLException e) {
             System.out.println("Could not get Tasks");
             e.printStackTrace();
         }
-        return task;
+        return tasks;
     }
 
     //Add new Tasks
