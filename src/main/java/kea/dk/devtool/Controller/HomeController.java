@@ -23,10 +23,9 @@ import java.time.LocalDate;
 public class HomeController {
 ProjectRepository projectRepository;
 ProcessRepository processRepository;
-// constructor of HomeController
-public HomeController(ProjectRepository projectRepository, ProcessRepository processRepository){
 TaskRepository taskRepository;
-public HomeController(ProjectRepository projectRepository, TaskRepository taskRepository){
+// constructor of HomeController
+public HomeController(ProjectRepository projectRepository, ProcessRepository processRepository, TaskRepository taskRepository){
 	this.projectRepository=projectRepository;
 	this.taskRepository = taskRepository;
 	this.processRepository=processRepository;
