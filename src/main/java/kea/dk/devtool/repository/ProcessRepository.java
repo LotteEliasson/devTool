@@ -3,7 +3,6 @@ package kea.dk.devtool.repository;
 import kea.dk.devtool.model.Processes;
 import kea.dk.devtool.utility.ConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -22,9 +21,9 @@ public class ProcessRepository {
     @Value("${PASSW}")
     private String PWD;
 
-
+    //Hent Liste over processer baseret på Projekt ID
     public List<Processes> getProcessByProjectId(int projectID) {
-        List<Processes>processes = new ArrayList<>();
+        List<Processes>processList = new ArrayList<>();
         final String SQL_QUERY = "SELECT * FROM projectdb.processes WHERE projectID =" +projectID;
         try {
             Connection connection = ConnectionManager.getConnection(DB_URL,UID,PWD);
@@ -37,6 +36,9 @@ public class ProcessRepository {
             LocalDate expected_start_date = resultSet.getDate(3).toLocalDate();
             LocalDate expected_finish = resultSet.getDate(4).toLocalDate();
             int start_after_task = resultSet.getInt(5);
+
+            Processes processes= new Processes(processID, projectID, process_name, expected_start_date, expected_finish, start_after_task);
+            processList.add(processes);
             }
         }
 
@@ -44,8 +46,10 @@ public class ProcessRepository {
         catch(SQLException e) {
             System.out.println("Can't connect to DB.");
         }
-        return processes;
+        return processList;
     }
+
+    //tilføje Processer
     public void addProcess(Processes processes){
 
         final String SQL_ADD_PROCESS =  "INSERT INTO projectdb.processes(process_name, expected_start_date," +
@@ -65,6 +69,8 @@ public class ProcessRepository {
             e.printStackTrace();
         }
     }
+
+    //Opdatere processer
     public void updateProcess(Processes processes) {
 
         final String SQL_UPDATE_QUERY = "UPDATE projectdb.processes SET process_name = ?, expected_start_date = ?, " +
@@ -90,6 +96,7 @@ public class ProcessRepository {
             e.printStackTrace();
         }
     }
+    //Find process på ID
      public Processes findProcessById(int id){
         final String FIND_QUERY = "SELECT * FROM projectdb.processes WHERE processID = ?";
         Processes process = new Processes();
@@ -119,6 +126,8 @@ public class ProcessRepository {
          }
          return process;
      }
+
+     //Slet Process på ID
      public void deleteProcessById(int processID){
         final String DELETE_QUERY = "DELETE FROM projectdb.processes WHERE processID = ?";
 
@@ -133,9 +142,8 @@ public class ProcessRepository {
             System.out.println("could not delete process");
             e.printStackTrace();
          }
-
-
      }
+    //Slet Tasks i enkelte process på ID
      public void deleteProcessTasksById(int processID){
          final String DELETE_QUERY = "DELETE FROM projectdb.task WHERE processID = ?";
 
