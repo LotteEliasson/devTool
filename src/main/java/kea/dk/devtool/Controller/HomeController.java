@@ -58,11 +58,10 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 
 	return "redirect:projects";
 	}
-	@GetMapping("/processes/{id}")
-	public String showProcesses(@PathVariable("id") int id, Model processes, HttpSession session){
-
+	@GetMapping("/processes/{projectid}")
+	public String showProcesses(@PathVariable("projectid") int id, Model processes, HttpSession session){
 		processes.addAttribute("processes", processRepository.getProcessByProjectId(id) );
-
+		session.setAttribute("currentProject", id);
 	return "processes";
 	}
 	@GetMapping("/delete/{id}")
