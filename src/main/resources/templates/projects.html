@@ -9,12 +9,19 @@
 <body>
 <div class="projectslist">
     <ul class="list" th:each="project:${projects}">
-        <li th:text="${project.getProjectName()}" ><button class="show" onclick="" </li>
+        <li>
+            <div>
+                <span th:text="${project.getProjectName()}"> </span>
+                <button th:text="update" onclick="openForm(update)"> </button>
+            <a th:href="@{'/processes/'+${project.getProjectId()}}"> Show processes</a>
+            </div>
+        </li>
     </ul>
 
 </div>
 <script>
     function openForm() {
+
         document.getElementById("myForm").style.display = "block";
     }
 
@@ -23,12 +30,12 @@
     }
 </script>
 <!-- A button to open the popup form -->
-<button class="open-button" onclick="openForm()">Open Form</button>
+<button  class="open-button" onclick="openForm()">Open Form</button>
 
 <!-- The  Create form -->
 <div class="form-popup" id="myForm">
     <form action="/projects" class="form-container" method="post">
-        <h1>Login</h1>
+        <h1>Create project</h1>
 
         <label for="projectname"><b>Project Name</b></label>
         <input id="projectname" type="text"  placeholder="Enter Project Name" name="projectName" required>

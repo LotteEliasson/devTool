@@ -1,15 +1,14 @@
 package kea.dk.devtool.repository;
 
-import com.sun.jarsigner.ContentSignerParameters;
 import kea.dk.devtool.model.Processes;
 import kea.dk.devtool.utility.ConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class ProcessRepository {
@@ -22,16 +21,45 @@ public class ProcessRepository {
     @Value("${PASSW}")
     private String PWD;
 
+    //Hent Liste over processer baseret på Projekt ID
+    public List<Processes> getProcessByProjectId(int projectID) {
+        List<Processes>processList = new ArrayList<>();
+        final String SQL_QUERY = "SELECT * FROM projectdb.processes WHERE projectID =" +projectID;
+        try {
+            Connection connection = ConnectionManager.getConnection(DB_URL,UID,PWD);
+            Statement statement =connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(SQL_QUERY);
+
+            while(resultSet.next()) {
+            int processID = resultSet.getInt(1);
+            String process_name = resultSet.getString(2);
+            LocalDate expected_start_date = resultSet.getDate(3).toLocalDate();
+            LocalDate expected_finish = resultSet.getDate(4).toLocalDate();
+            int start_after_task = resultSet.getInt(5);
+
+            Processes processes= new Processes(processID, projectID, process_name, expected_start_date, expected_finish, start_after_task);
+            processList.add(processes);
+            }
+        }
+
+
+        catch(SQLException e) {
+            System.out.println("Can't connect to DB.");
+        }
+        return processList;
+    }
+
+    //tilføje Processer
     public void addProcess(Processes processes){
+
+        final String SQL_ADD_PROCESS =  "INSERT INTO projectdb.processes(process_name, expected_start_date," +
+                "expected_finish, start_after_task) VALUES (?,?,?,?)";
         try {
             Connection connection = ConnectionManager.getConnection(DB_URL, UID,PWD);
-
-            final String SQL_ADD_PROCESS =  "INSERT INTO projectdb.processes(process_name, expected_start_date," +
-                                            "expected_finish, start_after_task) VALUES (?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_PROCESS);
             preparedStatement.setString(1, processes.getProcessName());
-            preparedStatement.setDate(2,processes.getExpectedStartDate());
-            preparedStatement.setDate(3, processes.getExpectedFinish());
+            preparedStatement.setDate(2, Date.valueOf(processes.getExpectedStartDate()));
+            preparedStatement.setDate(3, Date.valueOf(processes.getExpectedFinish()));
             preparedStatement.setInt(4, processes.getStartAfterTask());
             preparedStatement.executeUpdate();
         }
@@ -41,21 +69,25 @@ public class ProcessRepository {
             e.printStackTrace();
         }
     }
+
+    //Opdatere processer
     public void updateProcess(Processes processes) {
+
+        final String SQL_UPDATE_QUERY = "UPDATE projectdb.processes SET process_name = ?, expected_start_date = ?, " +
+                "                        expected_finish = ?, start_after_task = ?";
         try{
             Connection connection = ConnectionManager.getConnection(DB_URL,UID,PWD);
-            final String SQL_UPDATE_QUERY = "UPDATE projectdb.processes SET process_name = ?, expected_start_date = ?, " +
-                    "                        expected_finish = ?, start_after_task = ?";
+
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_QUERY);
 
             String process_name= processes.getProcessName();
-            Date expected_start_date = processes.getExpectedStartDate();
-            Date expected_finish = processes.getExpectedFinish();
+            LocalDate expected_start_date = processes.getExpectedStartDate();
+            LocalDate expected_finish = processes.getExpectedFinish();
             int start_after_task = processes.getStartAfterTask();
 
             preparedStatement.setString(1,process_name);
-            preparedStatement.setDate(2,expected_start_date);
-            preparedStatement.setDate(3,expected_finish);
+            preparedStatement.setDate(2, Date.valueOf(expected_start_date));
+            preparedStatement.setDate(3, Date.valueOf(expected_finish));
             preparedStatement.setInt(4,start_after_task);
             preparedStatement.executeUpdate();
         }
@@ -64,10 +96,67 @@ public class ProcessRepository {
             e.printStackTrace();
         }
     }
-     public void findProcessById(){
+    //Find process på ID
+     public Processes findProcessById(int id){
+        final String FIND_QUERY = "SELECT * FROM projectdb.processes WHERE processID = ?";
+        Processes process = new Processes();
+        process.setProcessId(id);
+         try{
+            Connection connection = ConnectionManager.getConnection(DB_URL,UID,PWD);
 
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_QUERY);
+
+            preparedStatement.setInt(1,id);
+
+             ResultSet resultSet = preparedStatement.executeQuery();
+             resultSet.next();
+             String process_name = resultSet.getString(2);
+             LocalDate expected_start_date = resultSet.getDate(3).toLocalDate();
+             LocalDate expected_finish = resultSet.getDate(4).toLocalDate();
+             int start_after_task = resultSet.getInt(5);
+
+             process.setProcessName(process_name);
+             process.setExpectedStartDate(expected_start_date);
+             process.setExpectedFinish(expected_finish);
+             process.setStartAfterTask(start_after_task);
+         }
+         catch(SQLException e) {
+             System.out.println("could not find process");
+             e.printStackTrace();
+         }
+         return process;
      }
-     public void deleteProcess(){
 
+     //Slet Process på ID
+     public void deleteProcessById(int processID){
+        final String DELETE_QUERY = "DELETE FROM projectdb.processes WHERE processID = ?";
+
+        try {
+            Connection connection = ConnectionManager.getConnection(DB_URL,UID, PWD);
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY);
+            preparedStatement.setInt(1,processID);
+            preparedStatement.executeUpdate();
+
+        }
+        catch(SQLException e) {
+            System.out.println("could not delete process");
+            e.printStackTrace();
+         }
+     }
+    //Slet Tasks i enkelte process på ID
+     public void deleteProcessTasksById(int processID){
+         final String DELETE_QUERY = "DELETE FROM projectdb.task WHERE processID = ?";
+
+         try {
+             Connection connection = ConnectionManager.getConnection(DB_URL,UID, PWD);
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY);
+             preparedStatement.setInt(1,processID);
+             preparedStatement.executeUpdate();
+
+         }
+         catch(SQLException e) {
+             System.out.println("could not delete process");
+             e.printStackTrace();
+         }
      }
 }
