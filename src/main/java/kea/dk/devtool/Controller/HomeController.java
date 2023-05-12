@@ -59,8 +59,8 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 
 	return "redirect:projects";
 	}
-	@GetMapping("/processes/{id}")
-	public String showProcesses(@PathVariable("id") int id, Model processes, HttpSession session){
+	@GetMapping("/processes/{projektid}")
+	public String showProcesses(@PathVariable("projektid") int id, Model processes, HttpSession session){
 
 		processes.addAttribute("processes", processRepository.getProcessByProjectId(id) );
 
