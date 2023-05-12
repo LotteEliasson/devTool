@@ -27,6 +27,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 // controller of pages
 	@GetMapping("projects")
 	public String showProject(Model projektModel,HttpSession session){
+	session.setAttribute("PmID",1);
 	int projektManagerID= (int) session.getAttribute("PmID");
 	String pmName="jacob"; //test - senere ændres til session
 	projektModel.addAttribute("projects",projectRepository.getMyProjects(projektManagerID));
