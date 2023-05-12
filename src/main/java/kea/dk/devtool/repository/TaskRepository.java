@@ -53,12 +53,12 @@ public class TaskRepository {
     }
 
     //Add new Tasks
-    public void addTask(Task task, int processId) {
+    public void addTask(Task task, int processId, int projectId) {
 
         try {
             Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);
             final String SQL_addTask = "INSERT INTO projectdb.task(processID, task_name, effort, expected_startdate, " +
-                    "min_allocation, task_status, assignedID, tasksequencenumber) VALUES(?,?,?,?,?,?,?,?)";
+                    "min_allocation, task_status, assignedID, tasksequencenumber, projectID) VALUES(?,?,?,?,?,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_addTask);
 
             preparedStatement.setInt(1, processId);
@@ -69,6 +69,7 @@ public class TaskRepository {
             preparedStatement.setString(6, task.getTaskStatus());
             preparedStatement.setString(7, task.getAssignedId());
             preparedStatement.setInt(8, task.getTaskSequenceNumber());
+            preparedStatement.setInt(9, task.getProjectID());
 
             preparedStatement.executeUpdate();
 
