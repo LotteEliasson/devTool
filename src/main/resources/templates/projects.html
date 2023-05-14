@@ -10,9 +10,14 @@
 <div class="projectslist">
     <ul class="list" th:each="project:${projects}">
         <li>
-            <div>
+            <div class="proj">
                 <span th:text="${project.getProjectName()}"> </span>
-                <button th:text="update" onclick="updateForm()" th:> </button>
+                <span th:text="${project.getProjectManager()}"> Project Manager </span>
+                <span th:text="${project.getCustomerName()}"> Customer </span>
+                <span th:text="${project.getStartDate()}"> Start Date </span>
+                <span th:text="${project.getDueDate()}"> Delivery Date </span>
+
+                <button class="update-button" th:text="update" th:href="@{'/updateproject/'+${project.getProjectId()}}"  > </button>
             <a th:href="@{'/processes/'+${project.getProjectId()}}"> Show processes</a>
                 <a th:href="@{'project/delete/'+${project.getProjectId()}}">Delete project</a>
             </div>
@@ -20,6 +25,7 @@
     </ul>
 
 </div>
+<div>
 <script>
     function openForm() {
 
@@ -57,8 +63,9 @@
         <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
     </form>
 </div>
-
+</div>
 <!--    update -->
+<div>
     <script>
         function updateForm() {
 
@@ -80,7 +87,7 @@
             <input id="projectID" type="hidden" >
 
             <label for="updatename"><b>Project Name</b></label>
-            <input id="updatename" type="text"  placeholder="Enter Project Name" name="projectName" th:default="${project.getProjectName}" required>
+            <input id="updatename" type="text"  placeholder="Enter Project Name" name="projectName"  required>
 
             <label for="newstartdate"><b>Startdate</b></label>
             <input id="newstartdate" type="date" placeholder="Enter Start Date" name="startDate" required>
@@ -97,6 +104,7 @@
             <button type="submit" class="btn" formaction="/project/">Update</button>
             <button type="button" class="btn cancel" onclick="closeUpdateForm()">Close</button>
         </form>
+</div>
 </div>
 </body>
 </html>
