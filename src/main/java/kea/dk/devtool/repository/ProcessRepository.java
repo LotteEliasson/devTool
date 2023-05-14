@@ -50,17 +50,18 @@ public class ProcessRepository {
     }
 
     //tilføje Processer
-    public void addProcess(Processes processes){
+    public void addProcess(Processes processes, int projectID){
 
         final String SQL_ADD_PROCESS =  "INSERT INTO projectdb.processes(process_name, expected_start_date," +
                 "expected_finish, start_after_task) VALUES (?,?,?,?)";
         try {
             Connection connection = ConnectionManager.getConnection(DB_URL, UID,PWD);
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_PROCESS);
-            preparedStatement.setString(1, processes.getProcessName());
-            preparedStatement.setDate(2, Date.valueOf(processes.getExpectedStartDate()));
-            preparedStatement.setDate(3, Date.valueOf(processes.getExpectedFinish()));
-            preparedStatement.setInt(4, processes.getStartAfterTask());
+            preparedStatement.setInt(1, projectID);
+            preparedStatement.setString(2, processes.getProcessName());
+            preparedStatement.setDate(3, Date.valueOf(processes.getExpectedStartDate()));
+            preparedStatement.setDate(4, Date.valueOf(processes.getExpectedFinish()));
+            preparedStatement.setInt(5, processes.getStartAfterTask());
             preparedStatement.executeUpdate();
         }
 

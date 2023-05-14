@@ -10,11 +10,7 @@
   <h1>Project Tasks</h1>
   <br>
 </div>
-  <div>
-    <a th:href="@{/}" href="/"  >Create Task</a>
-    <a th:href="@{/}" href="/"  >Update Task</a>
-    <a th:href="@{/}" href="/"  >Delete Task</a>
-  </div>
+
 
   <div th:each="task : ${taskView}">
     <div>
@@ -38,7 +34,7 @@
 
 <!-- The  Create form -->
 <div class="form-popup" id="myFormCreate">
-  <form action="/tasks" class="form-container" method="post">
+  <form th:action="${/createTasks"} class="form-container" method="post">
 
     <label for="taskName-create"><b>Task Name</b></label>
     <input id="taskName-create" type="text" placeholder="Enter Task Name" name="TaskName" required>
@@ -73,7 +69,7 @@
 
 <!-- The  Create form -->
 <div class="form-popup" id="myFormUpdate">
-  <form action="/tasks" class="form-container" method="post">
+  <form action="/updateTasks" class="form-container" method="post">
 
     <label for="taskName-update"><b>Task Name</b></label>
     <input id="taskName-update" type="text" placeholder="Enter Task Name" name="TaskName" th:value="${task.taskName}" required>

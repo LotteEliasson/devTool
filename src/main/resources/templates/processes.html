@@ -13,9 +13,39 @@
         </div>
 
     </div>
-
-
 </div>
+<button  class="open-button" onclick="openForm()">Create new process</button>
 
+<!-- The  Create form -->
+<div class="form-popup modal" id="myForm">
+    <form action="/createprocess" class="form-container" method="post">
+        <h1>Create project</h1>
+
+        <label for="processname"><b>Process name</b></label>
+        <input id="processname" type="text" placeholder="Enter Process Name" name="processName" required>
+
+        <label for="startdate"><b>Expected startdate</b></label>
+        <input id="startdate" type="date" placeholder="Enter Start Date" name="startDate" required>
+
+        <label for="duedate"><b>Expected finish</b></label>
+        <input id="duedate" type="date" placeholder="Enter Finish Date" name="finishDate" required>
+
+        <label for="startAfterTask"><b>Start after task</b></label>
+        <input id="startAfterTask" type="text"  placeholder="Enter task name/id" name="startAfterTask" required>
+
+        <button type="submit" class="btn">Create process</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    </form>
+</div>
+<script>
+    function openForm() {
+
+        document.getElementById("myForm").style.display = "inline";
+    }
+
+    function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+    }
+</script>
 </body>
 </html>
