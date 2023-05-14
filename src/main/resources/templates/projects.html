@@ -12,8 +12,9 @@
         <li>
             <div>
                 <span th:text="${project.getProjectName()}"> </span>
-                <button th:text="update" onclick="openForm(update)"> </button>
+                <button th:text="update" onclick="updateForm()" th:> </button>
             <a th:href="@{'/processes/'+${project.getProjectId()}}"> Show processes</a>
+                <a th:href="@{'project/delete/'+${project.getProjectId()}}">Delete project</a>
             </div>
         </li>
     </ul>
@@ -34,7 +35,7 @@
 
 <!-- The  Create form -->
 <div class="form-popup" id="myForm">
-    <form action="/projects" class="form-container" method="post">
+    <form action="/create_projects" class="form-container" method="post">
         <h1>Create project</h1>
 
         <label for="projectname"><b>Project Name</b></label>
@@ -55,6 +56,47 @@
         <button type="submit" class="btn">Create project</button>
         <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
     </form>
+</div>
+
+<!--    update -->
+    <script>
+        function updateForm() {
+
+            document.getElementById("updateForm").style.display = "block";
+        }
+
+        function closeUpdateForm() {
+            document.getElementById("updateForm").style.display = "none";
+        }
+    </script>
+    <!-- A button to open the popup form -->
+    <button  class="update-button" onclick="updateForm()">Update</button>
+
+    <!-- The  Update form -->
+    <div class="form-popup" id="updateForm">
+        <form action="/udate_projects" class="form-container" method="post" >
+            <h1>Update</h1>
+
+            <input id="projectID" type="hidden" >
+
+            <label for="updatename"><b>Project Name</b></label>
+            <input id="updatename" type="text"  placeholder="Enter Project Name" name="projectName" th:default="${project.getProjectName}" required>
+
+            <label for="newstartdate"><b>Startdate</b></label>
+            <input id="newstartdate" type="date" placeholder="Enter Start Date" name="startDate" required>
+
+            <label for="newduedate"><b>Due Date</b></label>
+            <input id="newduedate" type="date" placeholder="Enter Due Date" name="dueDate" required>
+
+            <label for="newprojectmanager"><b>Project Manager</b></label>
+            <input id="newprojectmanager" type="text"  placeholder="Enter Project Managers Name" name="projectManager" required>
+
+            <label for="newcustomername"><b>Customer Name</b></label>
+            <input id="newcustomername" type="text"  placeholder="Enter Customer Name" name="customerName" required>
+
+            <button type="submit" class="btn" formaction="/project/">Update</button>
+            <button type="button" class="btn cancel" onclick="closeUpdateForm()">Close</button>
+        </form>
 </div>
 </body>
 </html>

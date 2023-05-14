@@ -33,32 +33,43 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 // controller of pages
 	@GetMapping("projects")
 	public String showProject(Model projektModel,HttpSession session){
-	session.setAttribute("PmID",1);
+	if(session.getAttribute("PmID") ==null){
+		int projektManagerID=1;
+		session.setAttribute("PmID",projektManagerID);
+	}
+
 	int projektManagerID= (int) session.getAttribute("PmID");
-	String pmName="jacob"; //test - senere ændres til session
+//	String pmName="jacob"; //test - senere ændres til session
 	projektModel.addAttribute("projects",projectRepository.getMyProjects(projektManagerID));
 	return "projects";
 	}
-	@PostMapping("projects")
+	@PostMapping("create_projects")
 	public String createProject(@RequestParam("projectName") String projectName, @RequestParam("startDate")Date startDate,
 										 @RequestParam("dueDate") Date dueDate, @RequestParam("projectManager") String projectManager,
-										 @RequestParam("customerName") String customerName){
+										 @RequestParam("customerName") String customerName,HttpSession session){
 		Project newproject=new Project();
+		int pmID=(int) session.getAttribute("PmID");
 		newproject.setProjectName(projectName);
 		newproject.setCustomerName(customerName);
 		newproject.setProjectManager(projectManager);
 		newproject.setDueDate(dueDate.toLocalDate());
 		newproject.setStartDate(startDate.toLocalDate());
 		newproject.setExpectedEndDate(dueDate.toLocalDate()); // når projektet er nyoprettet er expected og duedate ens
+		newproject.setProjectManagerID(pmID); // her skal bygges noget andet til en admin!
 		projectRepository.addProject(newproject);
 		return "redirect:projects";
 
 	}
-	@GetMapping("update/{id}")
-	public String updateProject(@PathVariable("id") int projectID, Project project){
+//	@GetMapping("/project/update/{id}")
+//	public String updateProject(@PathVariable("id") int projectID, Model projektModel){
+//	Project project;
+//	project=projectRepository.findProjectByID(projectID);
+//	projektModel.addAttribute()
+//	projectRepository.updateProject(project);
+//
+//	return "redirect:projects";
+//	}
 
-	return "redirect:projects";
-	}
 	@GetMapping("/processes/{projektid}")
 	public String showProcesses(@PathVariable("projektid") int id, Model processes, HttpSession session){
 
@@ -66,15 +77,25 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		session.setAttribute("currentProject", id);
 	return "processes";
 	}
-	@GetMapping("/delete/{id}")
+	@GetMapping("/project/delete/{id}")
 	public String deleteProject(@PathVariable("id") int projectID, Model projektModel, HttpSession session){
 	int pmID=(int) session.getAttribute("PmID") ;
-	projectRepository.deleteTasksByProjecID(projectID);
-	projectRepository.deleteProcessByProjecID(projectID);
-	projectRepository.deleteProjectByID(projectID);
-	projektModel.addAttribute("projects",projectRepository.getMyProjects(pmID));
+	String check;
+	check=projectRepository.checkProject(pmID);
+	if (check.contains("task")) {
+		projectRepository.deleteTasksByProjecID(projectID);
+	}
+	else if (check.contains("process")) {
+		projectRepository.deleteProcessByProjecID(projectID);
+	}
+	else {
+		projectRepository.deleteProjectByID(projectID);
+	}
 
-	return "redirect:projects";
+
+//	projektModel.addAttribute("projects",projectRepository.getMyProjects(pmID));
+
+	return "redirect:/projects";
 	}
 @PostMapping("/processes")
 	public String createProcess(@RequestParam("processName") String processName,
@@ -120,10 +141,10 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		return "taskview";
 	}
 
-	@GetMapping("/taskview/")
-	public String createTask(){
-		return "taskview";
-	}
+//	@GetMapping("/taskview/")
+//	public String createTask(){
+//		return "taskview";
+//	}
 
 	@PostMapping("/taskview")
 	public String createTask(@RequestParam("TaskName") String newTaskName,
@@ -157,38 +178,38 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		return "redirect:taskview/" + newProcessId;
 	}
 
-	@GetMapping("/taskview/{taskID}")
-	public String updateTask(@PathVariable("taskID") int taskID, Model updateModel){
-	Task updatetask = taskRepository.findTaskById(taskID);
-
-
-	return "taskview";
-	}
+//	@GetMapping("/taskview/{taskID}")
+//	public String updateTask(@PathVariable("taskID") int taskID, Model updateModel){
+//	Task updatetask = taskRepository.findTaskById(taskID);
+//
+//
+//	return "taskview";
+//	}
 
 	//Opdater task
-	@PostMapping("/taskview")
-	public String updateTask(@RequestParam("TaskId") int updateTaskId,
-							 @RequestParam("ProcessId") int updateProcessId,
-							 @RequestParam("TaskName") String updateTaskName,
-							 @RequestParam("Effort") int updateEffort,
-							 @RequestParam("ExpectedStartDate") Date updateExpectedStartDate,
-							 @RequestParam("MinAllocation") int updateMinAllocation,
-							 @RequestParam("TaskStatus") String updateTaskStatus,
-							 @RequestParam("AssignedId") String updateAssignedId,
-							 @RequestParam("TaskSequenceNumber") int updateTaskSequenceNumber,
-							 @RequestParam("ProjectId") int updateProjectId,
-							 Model modelUpdateTask,
-							 HttpSession session) {
-		Task updateTasks = new Task(updateTaskId, updateProcessId, updateTaskName, updateEffort, updateExpectedStartDate.toLocalDate(), updateMinAllocation, updateTaskStatus,updateAssignedId,updateTaskSequenceNumber,updateProjectId);
-
-		taskRepository.updateTask(updateTasks);
-		int processID = (int) session.getAttribute("currentProcess");
-		modelUpdateTask.addAttribute("updateTask", processID);
-
-
-		return "redirect:/taskview/" + processID;
-
-}
+//	@PostMapping("/taskview")
+//	public String updateTask(@RequestParam("TaskId") int updateTaskId,
+//							 @RequestParam("ProcessId") int updateProcessId,
+//							 @RequestParam("TaskName") String updateTaskName,
+//							 @RequestParam("Effort") int updateEffort,
+//							 @RequestParam("ExpectedStartDate") Date updateExpectedStartDate,
+//							 @RequestParam("MinAllocation") int updateMinAllocation,
+//							 @RequestParam("TaskStatus") String updateTaskStatus,
+//							 @RequestParam("AssignedId") String updateAssignedId,
+//							 @RequestParam("TaskSequenceNumber") int updateTaskSequenceNumber,
+//							 @RequestParam("ProjectId") int updateProjectId,
+//							 Model modelUpdateTask,
+//							 HttpSession session) {
+//		Task updateTasks = new Task(updateTaskId, updateProcessId, updateTaskName, updateEffort, updateExpectedStartDate.toLocalDate(), updateMinAllocation, updateTaskStatus,updateAssignedId,updateTaskSequenceNumber,updateProjectId);
+//
+//		taskRepository.updateTask(updateTasks);
+//		int processID = (int) session.getAttribute("currentProcess");
+//		modelUpdateTask.addAttribute("updateTask", processID);
+//
+//
+//		return "redirect:/taskview/" + processID;
+//
+//}
 
 
 	//Slet task
