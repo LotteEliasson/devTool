@@ -40,6 +40,7 @@ public class TaskRepository {
                 String taskStatus = resultSet.getString(7);
                 String assignedId = resultSet.getString(8);
                 int taskSequenceNumber = resultSet.getInt(9);
+                int projectID = resultSet.getInt(10)
 
                 Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedId,taskSequenceNumber, taskProjectId);
                 tasks.add(newTask);
@@ -113,7 +114,7 @@ public class TaskRepository {
    }
 
     //Find Tasks by ID
-    public void findTaskById(int tasksId) {
+    public Task findTaskById(int tasksId) {
         final String FIND_task = "SELECT * FROM projectdb.task WHERE taskID=?";
 
         Task task = new Task();
@@ -146,6 +147,7 @@ public class TaskRepository {
             System.out.println("Could not find Task");
             e.printStackTrace();
         }
+        return task;
     }
     //Delete Tasks
     public void deleteTask(int taskId) {

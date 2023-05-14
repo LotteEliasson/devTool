@@ -2,16 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create Process</title>
-    <link rel="stylesheet" th:href="@{../css/jacobtest.css}" href="../static/css/jacobtest.css">
-
+    <title>ProjectView</title>
 </head>
 <body>
 <div class="projectview">
     <div class="processes" th:each="proces:${processes}">
         <div class="proces">
-            <span th:text="${proces.getProcessName()+' starts: '+proces.getExpectedStartDate()+' finishes: '+proces.getExpectedFinish()}">
-            </span>
+            <span th:text="${proces.getProcessName()+' starts: '+proces.getExpectedStartDate()+' finishes: '+proces.getExpectedFinish()}"></span>
+
         </div>
 
     </div>
