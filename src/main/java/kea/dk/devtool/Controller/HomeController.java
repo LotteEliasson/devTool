@@ -117,7 +117,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	public String createProcess(@RequestParam("processName") String processName,
 								@RequestParam("expectedStartDate") LocalDate expectedStartDate,
 								@RequestParam("expectedFinish") LocalDate expectedFinish,
-								@RequestParam("startAfterTask") int startAfter,
+								@RequestParam("startAfter") int startAfter,
 								HttpSession session){
 	int projectIdSess =(int)session.getAttribute("currentProject");
 	Processes newProcess = new Processes();

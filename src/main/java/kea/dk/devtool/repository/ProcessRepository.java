@@ -54,7 +54,7 @@ public class ProcessRepository {
     //tilføje Processer
     public void addProcess(Processes processes, int projectID){
 
-        final String SQL_ADD_PROCESS =  "INSERT INTO projectdb.processes(process_name, expected_start_date," +
+        final String SQL_ADD_PROCESS =  "INSERT INTO projectdb.processes(projectID, process_name, expected_start_date," +
                                         "expected_finish, start_after_task) VALUES (?,?,?,?,?)";
         try {
             Connection connection = ConnectionManager.getConnection(DB_URL, UID,PWD);
