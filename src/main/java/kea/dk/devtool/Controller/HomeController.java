@@ -76,7 +76,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 
 	return "redirect:projects";
 	}
-@PostMapping("/createprocess")
+@PostMapping("/processes")
 	public String createProcess(@RequestParam("processName") String processName,
 								@RequestParam("expectedStartDate") LocalDate expectedStartDate,
 								@RequestParam("expectedFinish") LocalDate expectedFinish,
@@ -104,8 +104,8 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 								updateexpectedStartDate,updateexpectedFinish, updatestartAfter);
 		processRepository.updateProcess(updatedProcess);
 		int projectid=(int)session.getAttribute("currentProject");
-		model.addAttribute("")
-		return "redirect:/processes"+;
+		model.addAttribute("");
+		return "redirect:/processes"+ projectid;
 	}
 	@GetMapping("/deleteprocess/{processId}")
 	public String deleteProcess(@PathVariable("processId") int deleteProcessTask, HttpSession session, Model model) {
