@@ -80,15 +80,16 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	public String createProcess(@RequestParam("processName") String processName,
 								@RequestParam("expectedStartDate") LocalDate expectedStartDate,
 								@RequestParam("expectedFinish") LocalDate expectedFinish,
-								@RequestParam("startAfterTask") int startAfter){
-
+								@RequestParam("startAfterTask") int startAfter,
+								HttpSession session){
+	int projectIdSess =(int)session.getAttribute("currentProject");
 	Processes newProcess = new Processes();
 	newProcess.setProcessName(processName);
 	newProcess.setExpectedStartDate(expectedStartDate);
 	newProcess.setExpectedFinish(expectedFinish);
 	newProcess.setStartAfterTask(startAfter);
-	processRepository.addProcess(newProcess);
-	return "redirect:/processes";
+	processRepository.addProcess(newProcess, projectIdSess);
+	return "redirect:/processes/" +projectIdSess;
 	}
 	@PostMapping("updateprocess")
 	public String updateProcess(@RequestParam("processId") int updateprocessId,
@@ -96,14 +97,15 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 								@RequestParam("processName")String updateprocessName,
 								@RequestParam("expectedStartDate") LocalDate updateexpectedStartDate,
 								@RequestParam("expectedFinish") LocalDate updateexpectedFinish,
-								@RequestParam("startAfterTask")int updatestartAfter) {
+								@RequestParam("startAfterTask")int updatestartAfter,
+								Model model, HttpSession session) {
 
 		Processes updatedProcess = new Processes(updateprocessId, updateprojectId, updateprocessName,
-								updateexpectedStartDate,updateexpectedFinish,
-								updatestartAfter);
+								updateexpectedStartDate,updateexpectedFinish, updatestartAfter);
 		processRepository.updateProcess(updatedProcess);
-
-		return "redirect:/processes";
+		int projectid=(int)session.getAttribute("currentProject");
+		model.addAttribute("");
+		return "redirect:/processes"+ projectid;
 	}
 	@GetMapping("/deleteprocess/{processId}")
 	public String deleteProcess(@PathVariable("processId") int deleteProcessTask, HttpSession session, Model model) {
