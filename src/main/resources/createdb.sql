@@ -21,7 +21,7 @@ expected_enddate date,
 due_date date,
 project_manager varchar(255),
 customer_name varchar(255),
- project_manager_id int NOT NULL ,
+ project_manager_id int NOT NULL DEFAULT 0,
  FOREIGN KEY (project_manager_id) REFERENCES projectmanager(project_manager_id)
 );
 

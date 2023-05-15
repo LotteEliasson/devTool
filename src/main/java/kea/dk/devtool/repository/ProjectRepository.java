@@ -20,9 +20,36 @@ public class ProjectRepository
 		@Value("${PASSW}")
 		private String PWD;
 
+		public String checkProject(int projectID){
+			String response="";
+			final String QueryProcess="SELECT * FROM projectdb.processes WHERE projectID=?";
+			final String QueryTasks="SELECT * FROM projectdb.task WHERE projectID=?";
+
+			try{
+				Connection connection=ConnectionManager.getConnection(DB_URL,UID,PWD);
+				PreparedStatement preparedStatementTask=connection.prepareStatement(QueryTasks);
+				PreparedStatement preparedStatementProces=connection.prepareStatement(QueryProcess);
+				preparedStatementTask.setInt(1,projectID);
+				preparedStatementProces.setInt(1,projectID);
+				ResultSet rsTask=preparedStatementTask.executeQuery();
+				ResultSet rsProces=preparedStatementTask.executeQuery();
+				if (rsProces.next()==false){
+					response=response.concat("project");
+				}
+				if (rsTask.next()==false){
+					response=response.concat("process");
+				}
+				response=response.concat(" task");
+
+			}catch (SQLException e){
+				System.out.println("could not query database");
+			}
+			return response;
+		}
+
 		public void addProject(Project newproject){
 			final String NEW_PROJECT = "INSERT INTO  projectdb.project(project_name, startdate, expected_enddate, " +
-					"due_date,project_manager,customer_name) VALUES(?,?,?,?,?,?) ";
+					"due_date,project_manager,customer_name,project_manager_id) VALUES(?,?,?,?,?,?,?) ";
 			try{
 				Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);
 
@@ -33,6 +60,7 @@ public class ProjectRepository
 				preparedStatement.setDate(4, Date.valueOf(newproject.getDueDate()));
 				preparedStatement.setString(5,newproject.getProjectManager());
 				preparedStatement.setString(6,newproject.getCustomerName());
+				preparedStatement.setInt(7,newproject.getProjectManagerID());
 
 				preparedStatement.executeUpdate();
 

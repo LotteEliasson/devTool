@@ -20,8 +20,8 @@ public class TaskRepository {
     @Value("${PASSW}")
     private String PWD;
 
-    //Get Tasks by ID
-    public List<Task> getTaskById(int taskProcessId, int taskProjectId) {
+  //  Get Tasks by ID
+    public List<Task> getTaskById(int taskProcessId ) {
         List<Task> tasks = new ArrayList<>();
 
         try {
@@ -40,9 +40,9 @@ public class TaskRepository {
                 String taskStatus = resultSet.getString(7);
                 String assignedId = resultSet.getString(8);
                 int taskSequenceNumber = resultSet.getInt(9);
-                int projectID = resultSet.getInt(10)
+                int projectID = resultSet.getInt(10);
 
-                Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedId,taskSequenceNumber, taskProjectId);
+                Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedId,taskSequenceNumber, projectID);
                 tasks.add(newTask);
             }
 
