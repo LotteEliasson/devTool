@@ -128,7 +128,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	processRepository.addProcess(newProcess, projectIdSess);
 	return "redirect:/processes/" +projectIdSess;
 	}
-	@PostMapping("updateprocess")
+	@PostMapping("/updateprocess")
 	public String updateProcess(@RequestParam("processId") int updateprocessId,
 								@RequestParam("projectId") int updateprojectId,
 								@RequestParam("processName")String updateprocessName,

@@ -55,7 +55,7 @@ public class ProcessRepository {
     public void addProcess(Processes processes, int projectID){
 
         final String SQL_ADD_PROCESS =  "INSERT INTO projectdb.processes(process_name, expected_start_date," +
-                "expected_finish, start_after_task) VALUES (?,?,?,?)";
+                                        "expected_finish, start_after_task) VALUES (?,?,?,?,?)";
         try {
             Connection connection = ConnectionManager.getConnection(DB_URL, UID,PWD);
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_PROCESS);
@@ -149,6 +149,7 @@ public class ProcessRepository {
     //Slet Tasks i enkelte process på ID
      public void deleteProcessTasksById(int processID){
          final String DELETE_QUERY = "DELETE FROM projectdb.task WHERE processID = ?";
+
 
          try {
              Connection connection = ConnectionManager.getConnection(DB_URL,UID, PWD);
