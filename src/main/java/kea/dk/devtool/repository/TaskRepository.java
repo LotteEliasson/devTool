@@ -21,7 +21,7 @@ public class TaskRepository {
     private String PWD;
 
   //  Get Tasks by ID
-    public List<Task> getTaskById(int taskProcessId, int taskProjectId) {
+    public List<Task> getTaskById(int taskProcessId ) {
         List<Task> tasks = new ArrayList<>();
 
         try {
@@ -42,7 +42,7 @@ public class TaskRepository {
                 int taskSequenceNumber = resultSet.getInt(9);
                 int projectID = resultSet.getInt(10);
 
-                Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedId,taskSequenceNumber, taskProjectId);
+                Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedId,taskSequenceNumber, projectID);
                 tasks.add(newTask);
             }
 

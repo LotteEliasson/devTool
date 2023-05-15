@@ -90,7 +90,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 
 		processes.addAttribute("processes", processRepository.getProcessByProjectId(id) );
 		session.setAttribute("currentProject", id);
-	return "processes";
+	return "/processes";
 	}
 	@GetMapping("/project/delete/{id}")
 	public String deleteProject(@PathVariable("id") int projectID, Model projektModel, HttpSession session){
@@ -152,10 +152,10 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	}
 	@GetMapping("/taskview/{processId}")
 	public String taskview(@PathVariable("processId") int processId, Model modelTask, HttpSession session){
-		int projektID = (int) session.getAttribute("currentProject");
-		modelTask.addAttribute("taskView", taskRepository.getTaskById(processId,projektID));
+		int projectID = (int) session.getAttribute("currentProject");
+		modelTask.addAttribute("taskView", taskRepository.getTaskById(processId));
 		session.setAttribute("currentProcess", processId);
-		return "taskview";
+		return "taskview/"+processId;
 	}
 
 

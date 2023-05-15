@@ -7,11 +7,13 @@
 
 </head>
 <body>
-<div class="projectview">
+<div class="processview">
     <div class="processes" th:each="proces:${processes}">
         <div class="proces">
             <span th:text="${proces.getProcessName()+' starts: '+proces.getExpectedStartDate()+' finishes: '+proces.getExpectedFinish()}"></span>
-
+            <a th:href="@{'/taskview/'+${proces.getProcessId()}}"> Show tasks</a>
+            <a th:href="@{'/deleteprocess/'+${proces.getProcessId()}}"> Delete process</a>
+            <a th:href="@{'/updateprocess/'+${proces.getProcessId()}}"> Update proces</a>
         </div>
 
     </div>
