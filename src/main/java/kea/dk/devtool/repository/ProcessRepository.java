@@ -23,22 +23,24 @@ public class ProcessRepository {
 
     //Hent Liste over processer baseret på Projekt ID
     public List<Processes> getProcessByProjectId(int projectID) {
-        List<Processes>processList = new ArrayList<>();
-        final String SQL_QUERY = "SELECT * FROM projectdb.processes WHERE projectID =" +projectID;
+        ArrayList<Processes> processList = new ArrayList<>();
+        final String SQL_QUERY = "SELECT * FROM projectdb.processes WHERE projectID = ?"; //+projectID;
         try {
             Connection connection = ConnectionManager.getConnection(DB_URL,UID,PWD);
-            Statement statement =connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(SQL_QUERY);
+            //Statement statement =connection.createStatement();
+           PreparedStatement preparedStatement=connection.prepareStatement(SQL_QUERY);
+           preparedStatement.setInt(1,projectID);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             while(resultSet.next()) {
-            int processID = resultSet.getInt(1);
-            String process_name = resultSet.getString(2);
-            LocalDate expected_start_date = resultSet.getDate(3).toLocalDate();
-            LocalDate expected_finish = resultSet.getDate(4).toLocalDate();
-            int start_after_task = resultSet.getInt(5);
+               int processID = resultSet.getInt(1);
+               String process_name = resultSet.getString(3);
+               LocalDate expected_start_date = resultSet.getDate(4).toLocalDate();
+               LocalDate expected_finish = resultSet.getDate(5).toLocalDate();
+               int start_after_task = resultSet.getInt(6);
 
-            Processes processes= new Processes(processID, projectID, process_name, expected_start_date, expected_finish, start_after_task);
-            processList.add(processes);
+               Processes processes= new Processes(processID, projectID, process_name, expected_start_date, expected_finish, start_after_task);
+               processList.add(processes);
             }
         }
 

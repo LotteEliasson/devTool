@@ -54,7 +54,7 @@ public class TaskRepository {
     }
 
     //Add new Tasks
-    public void addTask(Task task, int processId, int projectId) {
+    public void addTask(Task task, int processId) {
 
         try {
             Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);

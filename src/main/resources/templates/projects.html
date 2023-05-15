@@ -31,18 +31,18 @@
 <script>
     function openForm() {
 
-        document.getElementById("myForm").style.display = "block";
+        document.getElementById("createProject").style.display = "block";
     }
 
     function closeForm() {
-        document.getElementById("myForm").style.display = "none";
+        document.getElementById("createProject").style.display = "none";
     }
 </script>
 <!-- A button to open the popup form -->
 <button  class="open-button" onclick="openForm()">Open Form</button>
 
 <!-- The  Create form -->
-<div class="form-popup" id="myForm">
+<div class="form-popup" id="createProject">
     <form action="/create_projects" class="form-container" method="post">
         <h1>Create project</h1>
 

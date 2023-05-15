@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>ProjectView</title>
-    <link rel="stylesheet" th:href="@{../static/css/jacobtest.css}" href="../static/css/jacobtest.css">
+    <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">
 
 </head>
 <body>
 <div class="processview">
     <div class="processes" th:each="proces:${processes}">
         <div class="proces">
-            <span th:text="${proces.getProcessName()+' starts: '+proces.getExpectedStartDate()+' finishes: '+proces.getExpectedFinish()}"></span>
+            <span th:text="${proces.getProcessName()}"></span>
+            <span th:href="${' starts: '+ proces.getExpectedStartDate()}"></span>
+            <span th:href="${'finishes: '+ proces.getExpectedFinish()}"></span>
             <a th:href="@{'/taskview/'+${proces.getProcessId()}}"> Show tasks</a>
             <a th:href="@{'/deleteprocess/'+${proces.getProcessId()}}"> Delete process</a>
             <a th:href="@{'/updateprocess/'+${proces.getProcessId()}}"> Update proces</a>
@@ -21,7 +23,7 @@
 <button  class="open-button" onclick="openForm()">Create new process</button>
 
 <!-- The  Create form -->
-<div class="form-popup modal" id="myForm">
+<div class="form-popup " id="createproces">
     <form action="/createprocess" class="form-container" method="post">
         <h1>Create process</h1>
 
@@ -44,11 +46,11 @@
 <script>
     function openForm() {
 
-        document.getElementById("myForm").style.display = "block";
+        document.getElementById("createproces").style.display = "block";
     }
 
     function closeForm() {
-        document.getElementById("myForm").style.display = "none";
+        document.getElementById("createproces").style.display = "none";
     }
 </script>
 </body>

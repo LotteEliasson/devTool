@@ -89,8 +89,9 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	public String showProcesses(@PathVariable("projektid") int id, Model processes, HttpSession session){
 
 		processes.addAttribute("processes", processRepository.getProcessByProjectId(id) );
+
 		session.setAttribute("currentProject", id);
-	return "/processes";
+	return "processes";
 	}
 	@GetMapping("/project/delete/{id}")
 	public String deleteProject(@PathVariable("id") int projectID, Model projektModel, HttpSession session){
@@ -155,7 +156,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		int projectID = (int) session.getAttribute("currentProject");
 		modelTask.addAttribute("taskView", taskRepository.getTaskById(processId));
 		session.setAttribute("currentProcess", processId);
-		return "taskview/"+processId;
+		return "taskview";
 	}
 
 
@@ -176,7 +177,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 
 		Task newTask = new Task();
 
-		newTask.setTaskId(newProcessId);
+		newTask.setProcessId(newProcessId);
 
 		newTask.setTaskName(newTaskName);
 		newTask.setEffort(newEffort);
@@ -185,9 +186,11 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		newTask.setTaskStatus(newTaskStatus);
 		newTask.setAssignedId(newAssignedId);
 		newTask.setTaskSequenceNumber(newTaskSequenceNumber);
+		newTask.setProjectID(newProjectId);
 
 		//Gem ny Task
-		taskRepository.addTask(newTask, newProcessId,newProjectId);
+		taskRepository.addTask(newTask, newProcessId);
+
 
 		return "redirect:taskview/" + newProcessId;
 	}
