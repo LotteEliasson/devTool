@@ -24,6 +24,9 @@
       <span th:text="${task.assignedID}"></span>
       <span th:text="${task.taskSequenceNumber}"></span>
 
+      <!-- A button to open the popup form -->
+      <button class="open-button" onclick="openForm()">Update Task</button>
+
       <a th:href="@{'/deletetask/' + ${task.taskId}}" href="/deletetask.html">Delete Task</a>
     </div>
   </div>
@@ -34,7 +37,7 @@
 
 <!-- The  Create form -->
 <div class="form-popup" id="myFormCreate">
-  <form th:action="${/createTasks"} class="form-container" method="post">
+  <form action="/createTasks" class="form-container" method="post">
 
     <label for="taskName-create"><b>Task Name</b></label>
     <input id="taskName-create" type="text" placeholder="Enter Task Name" name="TaskName" required>
@@ -64,8 +67,8 @@
 
 
 
-<!-- A button to open the popup form -->
-<button class="open-button" onclick="openForm()">Update Task</button>
+
+
 
 <!-- The  Create form -->
 <div class="form-popup" id="myFormUpdate">
@@ -104,11 +107,11 @@
 
 <script>
   function openForm() {
-    document.getElementById("myForm").style.display = "block";
+    document.getElementById("myFormUpdate").style.display = "block";
   }
 
   function closeForm() {
-    document.getElementById("myForm").style.display = "none";
+    document.getElementById("myFormUpdate").style.display = "none";
   }
 </script>
 </body>

@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>ProjectView</title>
+    <link rel="stylesheet" th:href="@{../static/css/jacobtest.css}" href="../static/css/jacobtest.css">
+
 </head>
 <body>
 <div class="projectview">
@@ -19,7 +21,7 @@
 <!-- The  Create form -->
 <div class="form-popup modal" id="myForm">
     <form action="/createprocess" class="form-container" method="post">
-        <h1>Create project</h1>
+        <h1>Create process</h1>
 
         <label for="processname"><b>Process name</b></label>
         <input id="processname" type="text" placeholder="Enter Process Name" name="processName" required>
@@ -40,7 +42,7 @@
 <script>
     function openForm() {
 
-        document.getElementById("myForm").style.display = "inline";
+        document.getElementById("myForm").style.display = "block";
     }
 
     function closeForm() {
