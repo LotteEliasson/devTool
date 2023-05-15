@@ -17,16 +17,9 @@
                 <span th:text="${project.getStartDate()}"> Start Date </span>
                 <span th:text="${project.getDueDate()}"> Delivery Date </span>
 
-                <button class="update-button" th:text="update" th:href="@{'/updateproject/'+${project.getProjectId()}}"  > </button>
-            <div>
-            <div class="proj">
-                <span th:text="${project.getProjectName()}"> </span>
-                <span th:text="${project.getProjectManager()}"> Project Manager </span>
-                <span th:text="${project.getCustomerName()}"> Customer </span>
-                <span th:text="${project.getStartDate()}"> Start Date </span>
-                <span th:text="${project.getDueDate()}"> Delivery Date </span>
+                <button class="update-button" th:text="update" ><a th:href="@{'/updateproject/'+${project.getProjectId()}}"></a> </button>
 
-                <button class="update-button" th:text="update" th:href="@{'/updateproject/'+${project.getProjectId()}}"  > </button>
+
             <a th:href="@{'/processes/'+${project.getProjectId()}}"> Show processes</a>
                 <a th:href="@{'project/delete/'+${project.getProjectId()}}">Delete project</a>
             </div>

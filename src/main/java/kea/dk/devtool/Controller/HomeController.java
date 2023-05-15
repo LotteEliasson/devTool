@@ -228,7 +228,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 //		return "redirect:/taskview/" + processID;
 //
 //}
-	@PostMapping("/opdaterTask"/{taskId})
+	@PostMapping("/opdaterTask/{taskId}")
 	public String updateTask(@RequestParam("TaskId") int updateTaskId,
 							 @RequestParam("ProcessId") int updateProcessId,
 							 @RequestParam("TaskName") String updateTaskName,

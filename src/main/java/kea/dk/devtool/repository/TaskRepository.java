@@ -20,38 +20,38 @@ public class TaskRepository {
     @Value("${PASSW}")
     private String PWD;
 
-    //Get Tasks by ID
-//    public List<Task> getTaskById(int taskProcessId, int taskProjectId) {
-//        List<Task> tasks = new ArrayList<>();
-//
-//        try {
-//            Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);
-//            Statement statement = connection.createStatement();
-//            final String SQL_GETTASKS = "SELECT * FROM projectdb.task WHERE processID=" + taskProcessId;
-//            ResultSet resultSet = statement.executeQuery(SQL_GETTASKS);
-//
-//            while (resultSet.next()){
-//                int taskId = resultSet.getInt(1);
-//                int processId = resultSet.getInt(2);
-//                String taskName = resultSet.getString(3);
-//                int effort = resultSet.getInt(4);
-//                LocalDate expectedStartDate = resultSet.getDate(5).toLocalDate();
-//                int minAllocation = resultSet.getInt(6);
-//                String taskStatus = resultSet.getString(7);
-//                String assignedId = resultSet.getString(8);
-//                int taskSequenceNumber = resultSet.getInt(9);
-//                int projectID = resultSet.getInt(10)
-//
-//                Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedId,taskSequenceNumber, taskProjectId);
-//                tasks.add(newTask);
-//            }
-//
-//        } catch (SQLException e) {
-//            System.out.println("Could not get Tasks");
-//            e.printStackTrace();
-//        }
-//        return tasks;
-//    }
+  //  Get Tasks by ID
+    public List<Task> getTaskById(int taskProcessId, int taskProjectId) {
+        List<Task> tasks = new ArrayList<>();
+
+        try {
+            Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);
+            Statement statement = connection.createStatement();
+            final String SQL_GETTASKS = "SELECT * FROM projectdb.task WHERE processID=" + taskProcessId;
+            ResultSet resultSet = statement.executeQuery(SQL_GETTASKS);
+
+            while (resultSet.next()){
+                int taskId = resultSet.getInt(1);
+                int processId = resultSet.getInt(2);
+                String taskName = resultSet.getString(3);
+                int effort = resultSet.getInt(4);
+                LocalDate expectedStartDate = resultSet.getDate(5).toLocalDate();
+                int minAllocation = resultSet.getInt(6);
+                String taskStatus = resultSet.getString(7);
+                String assignedId = resultSet.getString(8);
+                int taskSequenceNumber = resultSet.getInt(9);
+                int projectID = resultSet.getInt(10);
+
+                Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedId,taskSequenceNumber, taskProjectId);
+                tasks.add(newTask);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Could not get Tasks");
+            e.printStackTrace();
+        }
+        return tasks;
+    }
 
     //Add new Tasks
     public void addTask(Task task, int processId, int projectId) {
