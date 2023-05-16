@@ -1,9 +1,4 @@
-/* ====================================================
-Recreating the email field from https://webflow.com/cms. Just an experiment - not as cross-browser friendly as the original.
-Changed:
-- animated gradient bar to :after element
-- flexbox for layout
-==================================================== */
+
 html {
     box-sizing: border-box;
     font-size: 10px;
