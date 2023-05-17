@@ -25,8 +25,9 @@
       <span th:text="${task.taskSequenceNumber}"></span>
 
 
-
+      <a th:href="@{'/updatetask/' + ${task.taskId}}" href="/updatetask.html">Update Task</a>
       <a th:href="@{'/deletetask/' + ${task.taskId}}" href="/deletetask.html">Delete Task</a>
+
     </div>
   </div>
 
@@ -63,48 +64,6 @@
     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
   </form>
 </div>
-
-
-
-
-
-
-<!-- The  Create form -->
-<!-- A button to open the popup form -->
-<!--<button class="open-button" onclick="openForm()">Update Task</button>-->
-<!--<div class="form-popup" id="myFormUpdate">-->
-<!--  <form action="/updateTasks" class="form-container" method="post">-->
-
-<!--    <label for="taskName-update"><b>Task Name</b></label>-->
-<!--    <input id="taskName-update" type="text" placeholder="Enter Task Name" name="TaskName" th:value="${task.taskName}" required>-->
-
-<!--    <label for="effort-update"><b>Effort</b></label>-->
-<!--    <input id="effort-update" type="text" placeholder="Enter effort" name="Effort" th:value="${task.effort}" required>-->
-
-<!--    <label for="expectedStartDate-update"><b>Expected Start Date</b></label>-->
-<!--    <input id="expectedStartDate-update" type="text" placeholder="Enter Expected Start Date" name="ExpectedStartDate" th:value="${task.expectedStartDate}" required>-->
-
-<!--    <label for="minAllocation-update"><b>Minimum Allocation</b></label>-->
-<!--    <input id="minAllocation-update" type="text" placeholder="Enter Minimum Allocation" name="MinAllocation" th:value="${task.minAllocation}" required>-->
-
-<!--    <label for="taskStatus-update"><b>Task status</b></label>-->
-<!--    <input id="taskStatus-update" type="text" placeholder="Enter Task Status" name="TaskStatus" th:value="${task.taskStatus}" required>-->
-
-<!--    <label for="assignedId-update"><b>Assigned ID</b></label>-->
-<!--    <input id="assignedId-update" type="text" placeholder="Enter Assignment ID" name="AssignedId" th:value="${task.assignedId}" required>-->
-
-<!--    <label for="taskSequenceNumber-update"><b>Task Sequence Number</b></label>-->
-<!--    <input id="taskSequenceNumber-update" type="text" placeholder="Enter Task Sequence Number" name="TaskSequenceNumber" th:value="${task.taskSequenceNumber}"required>-->
-
-<!--    <button type="submit" class="btn">Update Task</button>-->
-<!--    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>-->
-
-<!--    <input id="taskId-update" type="hidden" name="TaskId" th:value="${task.taskId}" required>-->
-<!--    <input id="processId-update" type="hidden" name="ProcessId" th:value="${task.processId}" required>-->
-<!--    <input id="projectId-update" type="hidden" name="ProjectId" th:value="${task.projectId}" required>-->
-<!--  </form>-->
-<!--</div>-->
-
 
 <script>
   function openForm() {
