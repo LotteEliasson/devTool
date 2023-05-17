@@ -60,7 +60,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		return "redirect:projects";
 
 	}
-	@GetMapping("/updateproject/{id}")
+	@GetMapping("updateproject/{id}")
 	public String updateProject(@PathVariable("id") int projectID, Model projektModel){
 	Project project;
 	project=projectRepository.findProjectByID(projectID);
@@ -69,7 +69,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 
 	return "updateproject";
 	}
-	@PostMapping("/updateproject")
+	@PostMapping("updateproject")
 	public String showUpdateprojects(@RequestParam("projectID") int projectID, @RequestParam("projectName") String projectName, @RequestParam("startDate")Date startDate,
 												@RequestParam("dueDate") Date dueDate, @RequestParam("projectManager") String projectManager,
 												@RequestParam("customerName") String customerName, @RequestParam("expectedEnddate") Date expectedEnddate){
