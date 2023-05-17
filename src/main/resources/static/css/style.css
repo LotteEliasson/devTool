@@ -3,18 +3,62 @@
 }
 
 .two-column-summary{
-    max-width: 350px;
+    max-width: 400px;
     padding: 10px;
-    background-color: white;
+    background-color: #bababa;
 }
+.row {
+    display: flex;
+}
+
+/* Create two equal columns that sits next to each other */
 .column {
-    float: left;
-    width: 50%;
+    flex: 50%;
     padding: 10px;
-    height: 300px; /* Should be removed. Only for demonstration */
+
 }
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
+.update-form{
+    max-width: 400px;
+    position: center;
+    bottom: 50%;
+    right: 50%;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    /*background-color: cornsilk;*/
+    background-color: whitesmoke;
 }
+.formupdate h1{
+    position: relative;
+    left: 38%;
+
+    /*flex: auto;*/
+    /*align-self: center;*/
+}
+.formupdate input[type=text], .formupdate input[type=password], .formupdate input[type=date] {
+    width: 90%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+}
+ input[type=submit]{
+    margin: auto;
+    width: 80%;
+    /*align-self: center;*/
+    /*align-content: center ;*/
+    padding: 15px;
+    /*margin: 5px 0 22px 0;*/
+    border: 1px darkslategrey;
+    background: #f1f1f1;
+    position: relative;
+    left: 10%;
+}
+/* When the inputs get focus, do something */
+.formupdate input[type=text]:focus, .formupdate input[type=password]:focus, .formupdate input[type=submit] {
+    background-color: #ddd;
+    outline: none;
+}
+/*.center{*/
+/*    position: absolute;*/
+/*    right: 50%;*/
+/*}*/

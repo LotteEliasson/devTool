@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+  <link rel="stylesheet" th:href="../css/style.css" href="../static/css/style.css">
+    <link rel="stylesheet" th:href="../css/logintest.css" href="../static/css/logintest.css">
+</head>
+<body>
+<div class="login-form">
+<!--    <div th:switch="${session.loginStatus}">-->
+<!--        <h2 th:case="''">Login</h2>-->
+<!--        <h2 th:case="'fail'">Forkert brugernavn eller adgangskode</h2>-->
+<!--    </div>-->
+    <form action="/login" method="post">
+        <div class="user-box">
+            <select id="access"  name="usertype" >
+            <label for="access"></label>
+                <option value="0"> Log in as...</option>
+<!--                <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>-->
+                <option value="Project Manager">Project Manager</option>
+                <option value="Project Admin">Project Admin</option>
+                <option value="Developer">Developer</option>
+            </select>
+        </div>
+        <div class="user-box">
+            <input id="user-id" type="text" name="username" required="">
+            <label for="user-id">Email</label>
+        </div>
+        <div class="user-box">
+            <input id="password" type="password" name="pwd" required="">
+            <label for="password">Adgangskode</label>
+        </div>
+        <a>
+
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <input type="submit" value="Submit">
+        </a>
+    </form>
+
+</div>
+
+</body>
+</html>

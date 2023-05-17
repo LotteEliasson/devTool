@@ -31,6 +31,8 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	this.processRepository=processRepository;
 }
 // controller of pages
+
+	// projects:
 	@GetMapping("projects")
 	public String showProject(Model projektModel,HttpSession session){
 	if(session.getAttribute("PmID") ==null){
@@ -84,7 +86,25 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	projectRepository.updateProject(updateproject);
 	return "redirect:projects";
 	}
+	@GetMapping("/project/delete/{id}")
+	public String deleteProject(@PathVariable("id") int projectID, Model projektModel, HttpSession session){
+		int pmID=(int) session.getAttribute("PmID") ;
+		String check;
+		check=projectRepository.checkProject(pmID);
+		if (check.contains("task")) {
+			projectRepository.deleteTasksByProjecID(projectID);
+		}
+		else if (check.contains("process")) {
+			projectRepository.deleteProcessByProjecID(projectID);
+		}
+		else {
+			projectRepository.deleteProjectByID(projectID);
+		}
 
+		return "redirect:/projects";
+	}
+
+	// processes:
 	@GetMapping("/processes/{projektid}")
 	public String showProcesses(@PathVariable("projektid") int id, Model processes, HttpSession session){
 
@@ -93,26 +113,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		session.setAttribute("currentProject", id);
 	return "processes";
 	}
-	@GetMapping("/project/delete/{id}")
-	public String deleteProject(@PathVariable("id") int projectID, Model projektModel, HttpSession session){
-	int pmID=(int) session.getAttribute("PmID") ;
-	String check;
-	check=projectRepository.checkProject(pmID);
-	if (check.contains("task")) {
-		projectRepository.deleteTasksByProjecID(projectID);
-	}
-	else if (check.contains("process")) {
-		projectRepository.deleteProcessByProjecID(projectID);
-	}
-	else {
-		projectRepository.deleteProjectByID(projectID);
-	}
 
-
-//	projektModel.addAttribute("projects",projectRepository.getMyProjects(pmID));
-
-	return "redirect:/projects";
-	}
 @PostMapping("/createprocess")
 	public String createProcess(@RequestParam("processName") String processName,
 								@RequestParam("expectedStartDate") LocalDate expectedStartDate,
@@ -151,6 +152,8 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 
 	return "redirect:/processes";
 	}
+
+	// Tasks:
 	@GetMapping("/taskview/{processId}")
 	public String taskview(@PathVariable("processId") int processId, Model modelTask, HttpSession session){
 		int projectID = (int) session.getAttribute("currentProject");
@@ -158,8 +161,6 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		session.setAttribute("currentProcess", processId);
 		return "taskview";
 	}
-
-
 
 	@PostMapping("/createTasks")
 	public String createTask(@RequestParam("TaskName") String newTaskName,
@@ -237,6 +238,23 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		int processId = (int) session.getAttribute("currentProcess");
 
 		return "redirect:/taskview/" + processId;
+	}
+
+	//Users:
+	@GetMapping("/")
+	public String index(){
+	return "login";
+	}
+	@GetMapping("login")
+	public String showLogin(HttpSession session){
+		String loginStatus="";
+		int userID=0;
+		if(session.isNew()){
+			session.setAttribute("loginStatus",loginStatus);
+			session.setAttribute("UserID",userID);
+		}
+
+	return "login";
 	}
 
 }
