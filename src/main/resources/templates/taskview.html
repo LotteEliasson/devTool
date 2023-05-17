@@ -25,8 +25,9 @@
       <span th:text="${task.taskSequenceNumber}"></span>
 
 
-
+      <a th:href="@{'/updatetask/' + ${task.taskId}}" href="/updatetask.html">Update Task</a>
       <a th:href="@{'/deletetask/' + ${task.taskId}}" href="/deletetask.html">Delete Task</a>
+
     </div>
   </div>
 

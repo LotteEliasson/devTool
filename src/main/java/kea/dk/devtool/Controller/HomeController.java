@@ -195,9 +195,15 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		return "redirect:taskview/" + newProcessId;
 	}
 
-
-
 	//Opdater task
+	@GetMapping("/updatetask/{taskId}")
+	public String updateTask(@PathVariable("taskId") int updateTask, Model taskModel) {
+
+	Task updateTasks = taskRepository.findTaskById(updateTask);
+	taskModel.addAttribute("taskUpdate", updateTasks);
+		return "updatetask";
+	}
+
 
 	@PostMapping("/opdaterTask/{taskId}")
 	public String updateTask(@RequestParam("TaskId") int updateTaskId,
