@@ -9,8 +9,6 @@ import kea.dk.devtool.repository.ProjectRepository;
 import kea.dk.devtool.repository.TaskRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.stereotype.Repository;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -87,7 +85,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	return "redirect:projects";
 	}
 	@GetMapping("/project/delete/{id}")
-	public String deleteProject(@PathVariable("id") int projectID, Model projektModel, HttpSession session){
+	public String deleteProject(@PathVariable("id") int projectID, HttpSession session){
 		int pmID=(int) session.getAttribute("PmID") ;
 		String check;
 		check=projectRepository.checkProject(pmID);
@@ -241,10 +239,10 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	}
 
 	//Users:
-	@GetMapping("/")
-	public String index(){
-	return "login";
-	}
+//	@GetMapping("/")
+//	public String index(){
+//	return "login";
+//	}
 	@GetMapping("login")
 	public String showLogin(HttpSession session){
 		String loginStatus="";
@@ -255,6 +253,17 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		}
 
 	return "login";
+	}
+	@PostMapping("/login")
+	public String testlogin(@RequestParam ("usertype") String access,@RequestParam("username") String username,
+									@RequestParam("pwd") String pwd,HttpSession session){
+	session.setAttribute("access",access);
+	session.setAttribute("username",username);
+	return "redirect:post_test";
+	}
+	@GetMapping("post_test")
+	public String showPost(){
+	return "post_test";
 	}
 
 }

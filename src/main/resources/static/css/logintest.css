@@ -65,6 +65,46 @@ input[type=submit]{
     pointer-events: none;
     transition: .5s;
 }
+#access{
+    position: relative;
+    left: 80px;
+    margin: 50px;
+    background: #5caafc;
+    font-size: 16px;
+    color: #fff;
+}
+/*.login-box .user-box select{*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    right: 0;*/
+/*    padding: 10px 0;*/
+/*    font-size: 16px;*/
+/*    color: #fff;*/
+/*    outline: none;*/
+/*    pointer-events: auto;*/
+/*    background: transparent;*/
+/*}*/
+.user-box select>option{
+    position: relative;
+    top:0;
+    right: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    background: #5caafc;
+    pointer-events: none;
+    transition: .5s;
+    /*background: transparent;*/
+}
+select>option{
+    background: #5caafc;
+    /*background: transparent;*/
+    font-size: 16px;
+    color: #fff;
+}
+select>option:hover{
+    color: #fddb3a;
+}
 
 .login-box .user-box input:focus ~ label,
 .login-box .user-box input:valid ~ label {
@@ -179,7 +219,7 @@ input[type=submit]:hover{
         bottom: 100%;
     }
 }
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
 * {
     margin: 0;
     padding: 0;
@@ -189,7 +229,7 @@ input[type=submit]:hover{
 html, body {
     background: #ffffff;
     font-family: "Montserrat", sans-serif;
-    background-image: url("../pictures/bluegifts.png");
+
     background-size: cover;
 }
 
@@ -235,7 +275,7 @@ li a {
 }
 li::after {
     content: '';
-    width: 0rem;
+    width: 0;
     height: 0.15rem;
     background-color: #ffffff;
     display:block;
@@ -251,4 +291,3 @@ li:hover::after{
     width: 150px;
     height: 100px;
 }
-
