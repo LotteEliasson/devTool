@@ -154,7 +154,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	public String deleteProcess(@PathVariable("processid") int projectID, HttpSession session){
 		int pmID=(int) session.getAttribute("PmID") ;
 		String check;
-		check=projectRepository.checkProject(pmID);
+		check=processRepository.checkProcess(pmID);
 		if (check.contains("task")) {
 			processRepository.deleteProcessTasksById(projectID);
 		}
