@@ -21,6 +21,35 @@ public class ProcessRepository {
     @Value("${PASSW}")
     private String PWD;
 
+
+    public String checkProcess(int projectID){
+        String response="";
+        final String QueryProcess="SELECT * FROM projectdb.processes WHERE projectID=?";
+        final String QueryTasks="SELECT * FROM projectdb.task WHERE projectID=?";
+
+        try{
+            Connection connection=ConnectionManager.getConnection(DB_URL,UID,PWD);
+            PreparedStatement preparedStatementTask=connection.prepareStatement(QueryTasks);
+            PreparedStatement preparedStatementProces=connection.prepareStatement(QueryProcess);
+            preparedStatementTask.setInt(1,projectID);
+            preparedStatementProces.setInt(1,projectID);
+            ResultSet rsTask=preparedStatementTask.executeQuery();
+//            ResultSet rsProces=preparedStatementTask.executeQuery();
+            if (!rsTask.next()){
+                response=response.concat("process");
+            }
+//            if (!rsProces.next()){
+//                response=response.concat("project");
+//            }
+
+            response=response.concat(" task");
+
+        }catch (SQLException e){
+            System.out.println("could not query database");
+        }
+        return response;
+    }
+
     //Hent Liste over processer baseret på Projekt ID
     public List<Processes> getProcessByProjectId(int projectID) {
         ArrayList<Processes> processList = new ArrayList<>();

@@ -144,11 +144,28 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		return "redirect:/processes"+ projectid;
 	}
 	@GetMapping("/deleteprocess/{processId}")
-	public String deleteProcess(@PathVariable("processId") int deleteProcessTask, HttpSession session, Model model) {
+	public String deleteProces(@PathVariable("processId") int deleteProcessTask, HttpSession session, Model model) {
 		processRepository.deleteProcessTasksById(deleteProcessTask);
 		processRepository.deleteProcessById(deleteProcessTask);
 
 	return "redirect:/processes";
+	}
+	@GetMapping("/processes/delete/{processid}")
+	public String deleteProcess(@PathVariable("processid") int projectID, HttpSession session){
+		int projectid=(int)session.getAttribute("currentProject");
+		String check;
+		check=projectRepository.checkProject(projectid);
+		if (check.contains("task")) {
+			projectRepository.deleteTasksByProjecID(projectID);
+		}
+		else if (check.contains("process")) {
+			projectRepository.deleteProcessByProjecID(projectID);
+		}
+		else {
+			projectRepository.deleteProjectByID(projectID);
+		}
+
+		return "redirect:/processes";
 	}
 
 	// Tasks:
