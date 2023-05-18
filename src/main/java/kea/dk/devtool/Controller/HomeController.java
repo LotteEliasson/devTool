@@ -118,14 +118,14 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 								@RequestParam("expectedFinish") LocalDate expectedFinish,
 								@RequestParam("startAfter") int startAfter,
 								HttpSession session){
-	int projectIdSess =(int)session.getAttribute("currentProject");
+	int projectid =(int)session.getAttribute("currentProject");
 	Processes newProcess = new Processes();
 	newProcess.setProcessName(processName);
 	newProcess.setExpectedStartDate(expectedStartDate);
 	newProcess.setExpectedFinish(expectedFinish);
 	newProcess.setStartAfterTask(startAfter);
-	processRepository.addProcess(newProcess, projectIdSess);
-	return "redirect:/processes/" +projectIdSess;
+	processRepository.addProcess(newProcess, projectid);
+	return "redirect:/processes/" +projectid;
 	}
 	@PostMapping("/updateprocess")
 	public String updateProcess(@RequestParam("processId") int updateprocessId,
@@ -141,31 +141,28 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		processRepository.updateProcess(updatedProcess);
 		int projectid=(int)session.getAttribute("currentProject");
 		model.addAttribute("");
-		return "redirect:/processes"+ projectid;
+		return "redirect:/processes/"+ projectid;
 	}
-	@GetMapping("/deleteprocess/{processId}")
-	public String deleteProces(@PathVariable("processId") int deleteProcessTask, HttpSession session, Model model) {
-		processRepository.deleteProcessTasksById(deleteProcessTask);
-		processRepository.deleteProcessById(deleteProcessTask);
-
-	return "redirect:/processes";
-	}
+//	@GetMapping("/deleteprocess/{processId}")
+//	public String deleteProces(@PathVariable("processId") int deleteProcessTask, HttpSession session, Model model) {
+//		processRepository.deleteProcessTasksById(deleteProcessTask);
+//		processRepository.deleteProcessById(deleteProcessTask);
+//
+//	return "redirect:/processes";
+//	}
 	@GetMapping("/processes/delete/{processid}")
 	public String deleteProcess(@PathVariable("processid") int projectID, HttpSession session){
-		int projectid=(int)session.getAttribute("currentProject");
+		int pmID=(int) session.getAttribute("PmID") ;
 		String check;
-		check=projectRepository.checkProject(projectid);
+		check=projectRepository.checkProject(pmID);
 		if (check.contains("task")) {
-			projectRepository.deleteTasksByProjecID(projectID);
-		}
-		else if (check.contains("process")) {
-			projectRepository.deleteProcessByProjecID(projectID);
+			processRepository.deleteProcessTasksById(projectID);
 		}
 		else {
-			projectRepository.deleteProjectByID(projectID);
+			processRepository.deleteProcessById(projectID);
 		}
-
-		return "redirect:/processes";
+		int projectid=(int)session.getAttribute("currentProject");
+		return "redirect:/processes/" +projectid;
 	}
 
 	// Tasks:
