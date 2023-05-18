@@ -40,9 +40,9 @@ public class TaskRepository {
                 String taskStatus = resultSet.getString(7);
                 String assignedId = resultSet.getString(8);
                 int taskSequenceNumber = resultSet.getInt(9);
-                int projectID = resultSet.getInt(10);
+                int projectId = resultSet.getInt(10);
 
-                Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedId,taskSequenceNumber, projectID);
+                Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedId,taskSequenceNumber, projectId);
                 tasks.add(newTask);
             }
 
@@ -70,7 +70,7 @@ public class TaskRepository {
             preparedStatement.setString(6, task.getTaskStatus());
             preparedStatement.setString(7, task.getAssignedId());
             preparedStatement.setInt(8, task.getTaskSequenceNumber());
-            preparedStatement.setInt(9, task.getProjectID());
+            preparedStatement.setInt(9, task.getProjectId());
 
             preparedStatement.executeUpdate();
 

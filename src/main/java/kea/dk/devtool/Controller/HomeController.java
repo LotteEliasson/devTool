@@ -185,13 +185,13 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		newTask.setTaskStatus(newTaskStatus);
 		newTask.setAssignedId(newAssignedId);
 		newTask.setTaskSequenceNumber(newTaskSequenceNumber);
-		newTask.setProjectID(newProjectId);
+		newTask.setProjectId(newProjectId);
 
 		//Gem ny Task
 		taskRepository.addTask(newTask, newProcessId);
 
 
-		return "redirect:taskview/" + newProcessId;
+		return "redirect:/taskview/" + newProcessId;
 	}
 
 	//Opdater task
@@ -204,7 +204,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	}
 
 
-	@PostMapping("/opdaterTask/{taskId}")
+	@PostMapping("/opdaterTask")
 	public String updateTask(@RequestParam("TaskId") int updateTaskId,
 							 @RequestParam("ProcessId") int updateProcessId,
 							 @RequestParam("TaskName") String updateTaskName,
