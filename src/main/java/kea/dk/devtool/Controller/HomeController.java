@@ -9,10 +9,7 @@ import kea.dk.devtool.repository.ProjectRepository;
 import kea.dk.devtool.repository.TaskRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -151,18 +148,19 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 //	return "redirect:/processes";
 //	}
 	@GetMapping("/processes/delete/{processid}")
-	public String deleteProcess(@PathVariable("processid") int projectID, HttpSession session){
-		int pmID=(int) session.getAttribute("PmID") ;
+	public String deleteProcess(@PathVariable("processid") int deleteProcess, HttpSession session){
+		int projectid=(int)session.getAttribute("currentProject");
+		processRepository.findProcessById(deleteProcess);
 		String check;
-		check=processRepository.checkProcess(pmID);
+		check=processRepository.checkProcess(deleteProcess);
 		if (check.contains("task")) {
-			processRepository.deleteProcessTasksById(projectID);
+			processRepository.deleteProcessTasksById(deleteProcess);
 		}
 		else {
-			processRepository.deleteProcessById(projectID);
+			processRepository.deleteProcessById(deleteProcess);
 		}
-		int projectid=(int)session.getAttribute("currentProject");
-		return "redirect:/processes/" +projectid;
+
+		return "redirect:/processes/"+ projectid;
 	}
 
 	// Tasks:

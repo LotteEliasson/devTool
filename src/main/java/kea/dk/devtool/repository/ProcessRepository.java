@@ -22,7 +22,7 @@ public class ProcessRepository {
     private String PWD;
 
 
-    public String checkProcess(int projectID){
+    public String checkProcess(int processID){
         String response="";
         final String QueryProcess="SELECT * FROM projectdb.processes WHERE projectID=?";
         final String QueryTasks="SELECT * FROM projectdb.task WHERE projectID=?";
@@ -31,8 +31,8 @@ public class ProcessRepository {
             Connection connection=ConnectionManager.getConnection(DB_URL,UID,PWD);
             PreparedStatement preparedStatementTask=connection.prepareStatement(QueryTasks);
             PreparedStatement preparedStatementProces=connection.prepareStatement(QueryProcess);
-            preparedStatementTask.setInt(1,projectID);
-            preparedStatementProces.setInt(1,projectID);
+            preparedStatementTask.setInt(1,processID);
+            preparedStatementProces.setInt(1,processID);
             ResultSet rsTask=preparedStatementTask.executeQuery();
 //            ResultSet rsProces=preparedStatementTask.executeQuery();
             if (!rsTask.next()){
