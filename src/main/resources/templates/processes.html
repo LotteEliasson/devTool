@@ -7,6 +7,7 @@
 
 </head>
 <body>
+<button onclick="history.back()">Go Back</button>
 <div class="processview">
     <div class="processes" th:each="proces:${processes}">
         <div class="proces">
@@ -15,7 +16,7 @@
             <span th:href="${'finishes: '+ proces.getExpectedFinish()}"></span>
             <a th:href="@{'/taskview/'+${proces.getProcessId()}}"> Show tasks</a>
             <a th:href="@{'/processes/delete/'+${proces.getProcessId()}}"> Delete process</a>
-            <a th:href="@{'/updateprocess/'+${proces.getProcessId()}}"> Update proces</a>
+            <a th:href="@{'/processes/update-process/'+${proces.getProcessId()}}"> Update proces</a>
         </div>
 
     </div>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Update Process</title>
+  <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">
+  <link rel="stylesheet" th:href="@{../css/style.css}" href="../static/css/style.css">
+
+</head>
+<body>
+<button onclick="history.back()">Go Back</button>
+<div class="update-form">
+
+  <!-- The  Update form -->
+
+  <form action="/update-process" class="formupdate" method="post">
+    <h1>Update</h1>
+    <div class="two-column-summary">
+      <input id="processID" th:value="${processes.getProcessId()}" name="ProcessID" type="hidden">
+      <div class="row">
+        <div class="column">
+          <div>
+            <label for="updatename"><b>Process Name</b></label>
+            <input id="updatename" type="text" placeholder="Enter Process Name"
+                   th:value="${processes.getProcessName()}" name="processName" >
+          </div>
+        </div>
+        <div class="column">
+          <div>
+            <label for="newstartdate"><b>Start Date</b></label>
+            <input id="newstartdate" type="date" placeholder="Enter Start Date"
+                   th:value="${processes.getExpectedStartDate()}" name="startDate" >
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <div>
+            <label for="newfinishdate"><b>Finish Date</b></label>
+            <input id="newfinishdate" type="date" placeholder="Enter Finish Date"
+                   th:value="${processes.getExpectedFinish()}" name="newfinishdate" >
+          </div>
+        </div>
+        <div class="column">
+          <div>
+            <label for="newstartaftertask"><b>Start After Task</b></label>
+            <input id="newstartaftertask" type="date" placeholder="Enter Start After Task"
+                   th:value="${processes.getStartAfterTask()}" name="newstartaftertask" >
+          </div>
+        </div>
+      </div>
+      <div class="center">
+        <input type="submit" class="btn" value="Save Changes">
+      </div>
+    </div>
+  </form>
+</div>
+</body>
+</html>

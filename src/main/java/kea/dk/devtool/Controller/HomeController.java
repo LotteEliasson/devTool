@@ -130,7 +130,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	processRepository.addProcess(newProcess, projectid);
 	return "redirect:/processes/" +projectid;
 	}
-	@PostMapping("/updateprocess")
+	@PostMapping("/processes/update-process/")
 	public String updateProcess(@RequestParam("processId") int updateprocessId,
 								@RequestParam("projectId") int updateprojectId,
 								@RequestParam("processName")String updateprocessName,
@@ -143,16 +143,9 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 								updateexpectedStartDate,updateexpectedFinish, updatestartAfter);
 		processRepository.updateProcess(updatedProcess);
 		int projectid=(int)session.getAttribute("currentProject");
-		model.addAttribute("");
+		model.addAttribute("updateProcess", projectid);
 		return "redirect:/processes/"+ projectid;
 	}
-//	@GetMapping("/deleteprocess/{processId}")
-//	public String deleteProces(@PathVariable("processId") int deleteProcessTask, HttpSession session, Model model) {
-//		processRepository.deleteProcessTasksById(deleteProcessTask);
-//		processRepository.deleteProcessById(deleteProcessTask);
-//
-//	return "redirect:/processes";
-//	}
 	@GetMapping("/processes/delete/{processid}")
 	public String deleteProcess(@PathVariable("processid") int deleteProcess, HttpSession session){
 		int projectid=(int)session.getAttribute("currentProject");
