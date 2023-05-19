@@ -1,12 +1,11 @@
 package kea.dk.devtool.Controller;
 
 import jakarta.servlet.http.HttpSession;
-import kea.dk.devtool.model.Processes;
-import kea.dk.devtool.model.Project;
+import kea.dk.devtool.model.*;
 import kea.dk.devtool.repository.ProcessRepository;
-import kea.dk.devtool.model.Task;
 import kea.dk.devtool.repository.ProjectRepository;
 import kea.dk.devtool.repository.TaskRepository;
+import kea.dk.devtool.repository.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +18,13 @@ public class HomeController {
 ProjectRepository projectRepository;
 ProcessRepository processRepository;
 TaskRepository taskRepository;
+UserRepository userRepository;
 // constructor of HomeController
-public HomeController(ProjectRepository projectRepository, ProcessRepository processRepository, TaskRepository taskRepository){
+public HomeController(ProjectRepository projectRepository, ProcessRepository processRepository, TaskRepository taskRepository,UserRepository userRepository){
 	this.projectRepository=projectRepository;
 	this.taskRepository = taskRepository;
 	this.processRepository=processRepository;
+	this.userRepository=userRepository;
 }
 // controller of pages
 
@@ -257,7 +258,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		return "redirect:/taskview/" + processId;
 	}
 
-	//Users:
+	//User:
 //	@GetMapping("/")
 //	public String index(){
 //	return "login";
@@ -276,8 +277,29 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	@PostMapping("/login")
 	public String testlogin(@RequestParam ("usertype") String access,@RequestParam("username") String username,
 									@RequestParam("pwd") String pwd,HttpSession session){
-	session.setAttribute("access",access);
-	session.setAttribute("username",username);
+
+		User user;
+		String loginstatus="";
+		user=userRepository.login(username,pwd);
+		if(user.getUserName()==null){
+			loginstatus="fail";
+			session.setAttribute("loginstatus",loginstatus);
+			return "/login";
+		}
+		else if (user.getRole()== hasRole.valueOf(access)) {
+			session.setAttribute("access", access);
+			session.setAttribute("userId", user.getUserId());
+			loginstatus = "succes";
+			session.setAttribute("loginstatus", loginstatus);
+		}
+		else {
+			loginstatus="limited";
+			session.setAttribute("loginstatus", loginstatus);
+		}
+
+
+
+
 	return "redirect:post_test";
 	}
 	@GetMapping("post_test")
