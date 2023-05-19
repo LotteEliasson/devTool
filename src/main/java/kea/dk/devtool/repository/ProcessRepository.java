@@ -24,17 +24,17 @@ public class ProcessRepository {
 
     public String checkProcess(int processID){
         String response="";
-        final String QueryProcess="SELECT * FROM projectdb.processes WHERE projectID=?";
-        final String QueryTasks="SELECT * FROM projectdb.task WHERE projectID=?";
+       //final String QueryProcess="SELECT * FROM projectdb.processes WHERE processID=?";
+        final String QueryTasks="SELECT * FROM projectdb.task WHERE processID=?";
 
         try{
             Connection connection=ConnectionManager.getConnection(DB_URL,UID,PWD);
             PreparedStatement preparedStatementTask=connection.prepareStatement(QueryTasks);
-            PreparedStatement preparedStatementProces=connection.prepareStatement(QueryProcess);
+           // PreparedStatement preparedStatementProces=connection.prepareStatement(QueryProcess);
             preparedStatementTask.setInt(1,processID);
-            preparedStatementProces.setInt(1,processID);
+         //   preparedStatementProces.setInt(1,processID);
             ResultSet rsTask=preparedStatementTask.executeQuery();
-//            ResultSet rsProces=preparedStatementTask.executeQuery();
+          //  ResultSet rsProces=preparedStatementProces.executeQuery();
             if (!rsTask.next()){
                 response=response.concat("process");
             }
@@ -142,10 +142,11 @@ public class ProcessRepository {
 
              ResultSet resultSet = preparedStatement.executeQuery();
              resultSet.next();
-             String process_name = resultSet.getString(2);
-             LocalDate expected_start_date = resultSet.getDate(3).toLocalDate();
-             LocalDate expected_finish = resultSet.getDate(4).toLocalDate();
-             int start_after_task = resultSet.getInt(5);
+
+             String process_name = resultSet.getString(3);
+             LocalDate expected_start_date = resultSet.getDate(4).toLocalDate();
+             LocalDate expected_finish = resultSet.getDate(5).toLocalDate();
+             int start_after_task = resultSet.getInt(6);
 
              process.setProcessName(process_name);
              process.setExpectedStartDate(expected_start_date);
