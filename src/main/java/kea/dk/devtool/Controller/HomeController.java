@@ -33,14 +33,20 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	// projects:
 	@GetMapping("projects")
 	public String showProject(Model projektModel,HttpSession session){
+	// tjek for project manager status - nedenstående er kun indtil modellen er udbygget og implementeret:
 	if(session.getAttribute("PmID") ==null){
-		int projektManagerID=1;
-		session.setAttribute("PmID",projektManagerID);
+		int projectManagerID=1;
+		session.setAttribute("PmID",projectManagerID);
 	}
+	// skal fx erstattes af nedenstående og kædes sammen så flere brugertyper kan se projekter
 
-	int projektManagerID= (int) session.getAttribute("PmID");
-//	String pmName="jacob"; //test - senere ændres til session
-	projektModel.addAttribute("projects",projectRepository.getMyProjects(projektManagerID));
+		/* if(session.getAttribute("Role").equals("ProjectManager"){
+			int projectManagerID= user.getUserId();
+			}
+		*/
+	int projectManagerID= (int) session.getAttribute("PmID"); // skal erstattes af ovenstående når modellen er klar
+
+	projektModel.addAttribute("projects",projectRepository.getMyProjects(projectManagerID));
 	return "projects";
 	}
 	@PostMapping("create_projects")
