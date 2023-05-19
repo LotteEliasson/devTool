@@ -9,10 +9,7 @@ import kea.dk.devtool.repository.ProjectRepository;
 import kea.dk.devtool.repository.TaskRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -94,7 +91,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	public String deleteProject(@PathVariable("id") int projectID, HttpSession session){
 		int pmID=(int) session.getAttribute("PmID") ;
 		String check;
-		check=projectRepository.checkProject(pmID);
+		check=projectRepository.checkProject(projectID);
 		if (check.contains("task")) {
 			projectRepository.deleteTasksByProjecID(projectID);
 		}
@@ -124,14 +121,14 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 								@RequestParam("expectedFinish") LocalDate expectedFinish,
 								@RequestParam("startAfter") int startAfter,
 								HttpSession session){
-	int projectIdSess =(int)session.getAttribute("currentProject");
+	int projectid =(int)session.getAttribute("currentProject");
 	Processes newProcess = new Processes();
 	newProcess.setProcessName(processName);
 	newProcess.setExpectedStartDate(expectedStartDate);
 	newProcess.setExpectedFinish(expectedFinish);
 	newProcess.setStartAfterTask(startAfter);
-	processRepository.addProcess(newProcess, projectIdSess);
-	return "redirect:/processes/" +projectIdSess;
+	processRepository.addProcess(newProcess, projectid);
+	return "redirect:/processes/" +projectid;
 	}
 	@PostMapping("/updateprocess")
 	public String updateProcess(@RequestParam("processId") int updateprocessId,
@@ -147,14 +144,30 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		processRepository.updateProcess(updatedProcess);
 		int projectid=(int)session.getAttribute("currentProject");
 		model.addAttribute("");
-		return "redirect:/processes"+ projectid;
+		return "redirect:/processes/"+ projectid;
 	}
-	@GetMapping("/deleteprocess/{processId}")
-	public String deleteProcess(@PathVariable("processId") int deleteProcessTask, HttpSession session, Model model) {
-		processRepository.deleteProcessTasksById(deleteProcessTask);
-		processRepository.deleteProcessById(deleteProcessTask);
+//	@GetMapping("/deleteprocess/{processId}")
+//	public String deleteProces(@PathVariable("processId") int deleteProcessTask, HttpSession session, Model model) {
+//		processRepository.deleteProcessTasksById(deleteProcessTask);
+//		processRepository.deleteProcessById(deleteProcessTask);
+//
+//	return "redirect:/processes";
+//	}
+	@GetMapping("/processes/delete/{processid}")
+	public String deleteProcess(@PathVariable("processid") int deleteProcess, HttpSession session, Model processModel){
+		int projectid=(int)session.getAttribute("currentProject");
+		//processRepository.findProcessById(deleteProcess);
+		String check;
+		check=processRepository.checkProcess(deleteProcess);
+		if (check.contains("task")) {
+			processRepository.deleteProcessTasksById(deleteProcess);
+		}
 
-	return "redirect:/processes";
+			processRepository.deleteProcessById(deleteProcess);
+
+
+		processModel.addAttribute("processes", processRepository.getProcessByProjectId(projectid) );
+		return "redirect:/processes/"+projectid;
 	}
 
 	// Tasks:
