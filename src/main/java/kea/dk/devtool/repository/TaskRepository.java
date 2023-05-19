@@ -103,7 +103,7 @@ public class TaskRepository {
             preparedStatement.setString(5, taskStatus);
             preparedStatement.setString(6, assignedId);
             preparedStatement.setInt(7, taskSequenceNumber);
-
+            preparedStatement.setInt(8,task.getTaskId());
             preparedStatement.executeUpdate();
 
        } catch (SQLException e) {
