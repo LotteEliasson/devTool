@@ -12,7 +12,6 @@
 <div class="update-form">
 
   <!-- The  Update form -->
-  <input id="projectID" th:value="${updateProcess.getProcessId()}" name="projectID" type="hidden">
   <form action="/updateprocess" class="formupdate" method="post">
     <h1>Update</h1>
     <div class="two-column-summary">
@@ -21,35 +20,38 @@
           <div>
             <label for="updatename"><b>Process Name</b></label>
             <input id="updatename" type="text" placeholder="Enter Process Name"
-                   th:value="${updateProcess.getProcessName()}" name="processName" >
+                   th:value="${processUpdate.getProcessName()}" name="processName" >
           </div>
         </div>
         <div class="column">
           <div>
-            <label for="newstartdate"><b>Start Date</b></label>
-            <input id="newstartdate" type="date" placeholder="Enter Start Date"
-                   th:value="${updateProcess.getExpectedStartDate()}" name="startDate" >
+            <label for="expectedStartDate"><b>Start Date</b></label>
+            <input id="expectedStartDate" type="date" placeholder="Enter Start Date"
+                   th:value="${processUpdate.getExpectedStartDate()}" name="expectedStartDate" >
           </div>
         </div>
       </div>
       <div class="row">
         <div class="column">
           <div>
-            <label for="newfinishdate"><b>Finish Date</b></label>
-            <input id="newfinishdate" type="date" placeholder="Enter Finish Date"
-                   th:value="${updateProcess.getExpectedFinish()}" name="newfinishdate" >
+            <label for="expectedFinish"><b>Finish Date</b></label>
+            <input id="expectedFinish" type="date" placeholder="Enter Finish Date"
+                   th:value="${processUpdate.getExpectedFinish()}" name="expectedFinish" >
           </div>
         </div>
         <div class="column">
           <div>
-            <label for="newstartaftertask"><b>Start After Task</b></label>
-            <input id="newstartaftertask" type="date" placeholder="Enter Start After Task"
-                   th:value="${updateProcess.getStartAfterTask()}" name="newstartaftertask" >
+            <label for="startAfterTask"><b>Start After Task</b></label>
+            <input id="startAfterTask" type="text" placeholder="Enter Start After Task"
+                   th:value="${processUpdate.getStartAfterTask()}" name="startAfterTask" >
           </div>
         </div>
       </div>
       <div class="center">
         <input type="submit" class="btn" value="Save Changes">
+        <input id="processID" th:value="${processUpdate.getProcessId()}" name="processId" type="hidden">
+        <input id="projectID" th:value="${processUpdate.getProjectId()}" name="projectId" type="hidden">
+
       </div>
     </div>
   </form>

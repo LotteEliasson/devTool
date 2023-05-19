@@ -106,7 +106,7 @@ public class ProcessRepository {
     public void updateProcess(Processes processes) {
 
         final String SQL_UPDATE_QUERY = "UPDATE projectdb.processes SET process_name = ?, expected_start_date = ?, " +
-                "                        expected_finish = ?, start_after_task = ?";
+                "                        expected_finish = ?, start_after_task = ? WHERE processID = ? ";
         try{
             Connection connection = ConnectionManager.getConnection(DB_URL,UID,PWD);
 
@@ -117,10 +117,12 @@ public class ProcessRepository {
             LocalDate expected_finish = processes.getExpectedFinish();
             int start_after_task = processes.getStartAfterTask();
 
+
             preparedStatement.setString(1,process_name);
             preparedStatement.setDate(2, Date.valueOf(expected_start_date));
             preparedStatement.setDate(3, Date.valueOf(expected_finish));
             preparedStatement.setInt(4,start_after_task);
+            preparedStatement.setInt(5,processes.getProcessId());
             preparedStatement.executeUpdate();
         }
         catch(SQLException e) {
