@@ -132,9 +132,9 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	}
 	@GetMapping("/processes/updateprocess/{processid}")
 	public String updateProcess(@PathVariable("processid") int processID, Model processModel) {
-
-		Processes updateProcess = processRepository.findProcessById(processID);
-		processModel.addAttribute("processUpdate", updateProcess);
+		Processes updateProcess;
+		 updateProcess = processRepository.findProcessById(processID);
+		processModel.addAttribute(updateProcess);
 		return "updateprocess";
 	}
 	@PostMapping("/updateprocess")

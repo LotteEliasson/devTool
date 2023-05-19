@@ -5,6 +5,7 @@ public class Users {
 
     private String userName;
     private String userPassword;
+    private hasRole role=hasRole.UNASSIGNED; // default indtil user er logget ind med en rolle
 
     public Users(){
     }
@@ -39,12 +40,24 @@ public class Users {
         this.userPassword = userPassword;
     }
 
+    public hasRole getRole()
+        {
+            return role;
+        }
+
+    public void setRole(hasRole role)
+        {
+            this.role = role;
+        }
+
     @Override
-    public String toString() {
-        return "Users{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                '}';
-    }
+    public String toString()
+        {
+            return "Users{" +
+                  "userId=" + userId +
+                  ", userName='" + userName + '\'' +
+                  ", userPassword='" + userPassword + '\'' +
+                  ", role=" + role +
+                  '}';
+        }
 }
