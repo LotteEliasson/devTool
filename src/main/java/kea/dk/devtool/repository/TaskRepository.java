@@ -82,8 +82,7 @@ public class TaskRepository {
 
    //Update Tasks
    public void updateTask(Task task) {
-        final String UPDATE_task = "UPDATE projectdb.task SET task_name=?, effort=?, expected_startdate=?," +
-                " min_allocation=?, task_status=?, assignedID=?, tasksequencenumber=? WHERE taskID=?";
+        final String UPDATE_task = "UPDATE projectdb.task SET task_name=?, effort=?, expected_startdate=?, min_allocation=?, task_status=?, assignedID=?, tasksequencenumber=? WHERE taskID=?";
 
         try {
            Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);
@@ -108,7 +107,7 @@ public class TaskRepository {
             preparedStatement.executeUpdate();
 
        } catch (SQLException e) {
-           System.out.println("Could not create new Task");
+           System.out.println("Could not update Task");
            e.printStackTrace();
        }
    }
