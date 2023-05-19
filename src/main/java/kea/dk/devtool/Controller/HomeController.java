@@ -91,7 +91,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	public String deleteProject(@PathVariable("id") int projectID, HttpSession session){
 		int pmID=(int) session.getAttribute("PmID") ;
 		String check;
-		check=projectRepository.checkProject(pmID);
+		check=projectRepository.checkProject(projectID);
 		if (check.contains("task")) {
 			projectRepository.deleteTasksByProjecID(projectID);
 		}
@@ -147,19 +147,20 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		return "redirect:/processes/"+ projectid;
 	}
 	@GetMapping("/processes/delete/{processid}")
-	public String deleteProcess(@PathVariable("processid") int deleteProcess, HttpSession session){
+	public String deleteProcess(@PathVariable("processid") int deleteProcess, HttpSession session, Model processModel){
 		int projectid=(int)session.getAttribute("currentProject");
-		processRepository.findProcessById(deleteProcess);
+		//processRepository.findProcessById(deleteProcess);
 		String check;
 		check=processRepository.checkProcess(deleteProcess);
 		if (check.contains("task")) {
 			processRepository.deleteProcessTasksById(deleteProcess);
 		}
-		else {
-			processRepository.deleteProcessById(deleteProcess);
-		}
 
-		return "redirect:/processes/"+ projectid;
+			processRepository.deleteProcessById(deleteProcess);
+
+
+		processModel.addAttribute("processes", processRepository.getProcessByProjectId(projectid) );
+		return "redirect:/processes/"+projectid;
 	}
 
 	// Tasks:
