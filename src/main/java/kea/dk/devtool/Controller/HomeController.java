@@ -286,7 +286,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 			session.setAttribute("loginstatus",loginstatus);
 			return "/login";
 		}
-		else if (user.getRole()== hasRole.valueOf(access)) {
+		else if (user.getRole()== HasRole.valueOf(access)) {
 			session.setAttribute("access", access);
 			session.setAttribute("userId", user.getUserId());
 			loginstatus = "succes";
@@ -306,5 +306,18 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	public String showPost(){
 	return "post_test";
 	}
-
+	// create user
+	@GetMapping("create_user")
+	public String showCreateUser(){
+	return "create_user";
+	}
+	@PostMapping("create_user")
+	public String createUser(@RequestParam("user_name") String userName, @RequestParam("password") String password){
+	String encodedPassword=userRepository.passwordCrypt(password);
+	User newUser= new User();
+	newUser.setUserName(userName);
+	newUser.setUserPassword(encodedPassword);
+	userRepository.createUser(newUser);
+	return "redirect:/login";
+	}
 }

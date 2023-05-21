@@ -1,6 +1,6 @@
 package kea.dk.devtool.model;
 
-public enum hasRole
+public enum HasRole
 	{
 		CUSTOMER,
 		ADMIN,

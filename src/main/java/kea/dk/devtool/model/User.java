@@ -6,12 +6,12 @@ public class User
 
     private String userName;
     private String userPassword;
-    private hasRole role=hasRole.UNASSIGNED; // default indtil user er logget ind med en rolle
+    private HasRole role= HasRole.UNASSIGNED; // default indtil user er logget ind med en rolle
 
     public User(){
     }
 
-    public User(int userId, String userName, String userPassword, hasRole role) {
+    public User(int userId, String userName, String userPassword, HasRole role) {
         this.userId = userId;
         this.userName = userName;
         this.userPassword = userPassword;
@@ -42,12 +42,12 @@ public class User
         this.userPassword = userPassword;
     }
 
-    public hasRole getRole()
+    public HasRole getRole()
         {
             return role;
         }
 
-    public void setRole(hasRole role)
+    public void setRole(HasRole role)
         {
             this.role = role;
         }
