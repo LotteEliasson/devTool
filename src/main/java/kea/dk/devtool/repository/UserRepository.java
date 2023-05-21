@@ -79,7 +79,7 @@ public class UserRepository {
         return cryptPasswordEncoder.encode(password);
     }
     public User login(String username, String password){
-        User user=new User;
+        User user=new User();
         final String LOGIN="SELECT * FROM projectdb.users WHERE user_name=?";
         BCryptPasswordEncoder check=new BCryptPasswordEncoder(10);
         try {
@@ -120,7 +120,7 @@ public class UserRepository {
             PreparedStatement preparedStatement=connection.prepareStatement(USER_CREATE);
             preparedStatement.setString(1,newUser.getUserName());
             preparedStatement.setString(2,newUser.getUserPassword());
-            preparedStatement.executeUpdate()
+            preparedStatement.executeUpdate();
 
         }catch (SQLException e){
             System.out.println("Error creating new User");
