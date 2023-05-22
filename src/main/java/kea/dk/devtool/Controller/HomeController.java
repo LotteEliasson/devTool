@@ -29,23 +29,14 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 // controller of pages
 
 	// projects:
-	@GetMapping("projects")
-	public String showProject(Model projektModel,HttpSession session){
-	// tjek for project manager status - nedenstående er kun indtil modellen er udbygget og implementeret:
-	if(session.getAttribute("PmID") ==null){
-		int projectManagerID=1;
-		session.setAttribute("PmID",projectManagerID);
-	}
-	// skal fx erstattes af nedenstående og kædes sammen så flere brugertyper kan se projekter
+	@GetMapping("project_manager/{id}")
+	public String showProject(@PathVariable("id")int userid,Model projektModel,HttpSession session){
+	User user=userRepository.getUserById(userid);
+	session.setAttribute("User",user);
+	session.setAttribute("PmID",userid);
 
-		/* if(session.getAttribute("Role").equals("ProjectManager"){
-			int projectManagerID= user.getUserId();
-			}
-		*/
-	int projectManagerID= (int) session.getAttribute("PmID"); // skal erstattes af ovenstående når modellen er klar
-
-	projektModel.addAttribute("projects",projectRepository.getMyProjects(projectManagerID));
-	return "projects";
+	projektModel.addAttribute("projects",projectRepository.getMyProjects(userid));
+	return "project_manager";
 	}
 	@PostMapping("create_projects")
 	public String createProject(@RequestParam("projectName") String projectName, @RequestParam("startDate")Date startDate,
@@ -61,7 +52,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		newproject.setExpectedEndDate(dueDate.toLocalDate()); // når projektet er nyoprettet er expected og duedate ens
 		newproject.setProjectManagerID(pmID); // her skal bygges noget andet til en admin!
 		projectRepository.addProject(newproject);
-		return "redirect:projects";
+		return "redirect:project_manager/"+pmID;
 
 	}
 	@GetMapping("updateproject/{id}")
@@ -76,7 +67,9 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	@PostMapping("updateproject")
 	public String showUpdateprojects(@RequestParam("projectID") int projectID, @RequestParam("projectName") String projectName, @RequestParam("startDate")Date startDate,
 												@RequestParam("dueDate") Date dueDate, @RequestParam("projectManager") String projectManager,
-												@RequestParam("customerName") String customerName, @RequestParam("expectedEnddate") Date expectedEnddate){
+												@RequestParam("customerName") String customerName, @RequestParam("expectedEnddate") Date expectedEnddate,
+												HttpSession session){
+		int pmID=(int) session.getAttribute("PmID");
 	Project updateproject= new Project();
 	updateproject.setProjectId(projectID);
 	updateproject.setProjectName(projectName);
@@ -86,7 +79,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	updateproject.setCustomerName(customerName);
 	updateproject.setExpectedEndDate(expectedEnddate.toLocalDate());
 	projectRepository.updateProject(updateproject);
-	return "redirect:projects";
+	return "redirect:project_manager/"+pmID;
 	}
 	@GetMapping("/project/delete/{id}")
 	public String deleteProject(@PathVariable("id") int projectID, HttpSession session){
@@ -103,7 +96,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 			projectRepository.deleteProjectByID(projectID);
 		}
 
-		return "redirect:/projects";
+		return "redirect:/project_manager/"+pmID;
 	}
 
 	// processes:
@@ -291,12 +284,15 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 			session.setAttribute("userId", user.getUserId());
 			loginstatus = "succes";
 			session.setAttribute("loginstatus", loginstatus);
+			String userpage=String.valueOf(user.getRole()).toLowerCase();
+			return  userpage+'/'+user.getUserId();
 		}
 		else {
 			loginstatus="limited";
 			session.setAttribute("loginstatus", loginstatus);
-		}
 
+		}
+		session.setAttribute("access",user.getRole());
 
 
 
@@ -319,5 +315,66 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	newUser.setUserPassword(encodedPassword);
 	userRepository.createUser(newUser);
 	return "redirect:/login";
+	}
+
+	@GetMapping("admin/{id}")
+	public String showAdminPage(@PathVariable("id")int userid,Model userModel,HttpSession session){
+	String role;
+	User user=userRepository.getUserById(userid);
+	if(session.getAttribute("Role")==null){
+		role=String.valueOf(user.getRole());
+		session.setAttribute("Role",role);
+	}
+	role=(String) session.getAttribute("Role");
+
+
+	userModel.addAttribute("Users",userRepository.getAllUsersByRole(role));
+	return "admin";
+	}
+	@PostMapping("/admin")
+	public String selectUsertype(@RequestParam("usertype") String usertype, Model userModel,HttpSession session){
+	session.setAttribute("Role",usertype);
+	userModel.addAttribute("Users",userRepository.getAllUsersByRole(usertype));
+	return "redirect:admin";
+	}
+	@GetMapping("edit_role/{id}")
+	public String showupdateUser(@PathVariable("id") int userId, Model userModel){
+	User user=userRepository.getUserById(userId);
+	userModel.addAttribute(user);
+	return "edit_role";
+	}
+	@PostMapping("/edit_role")
+	public String updateUser(@RequestParam("updateid") int updateid,
+									 @RequestParam("updatename") String updatename,
+									 @RequestParam("updaterole") String updaterole,
+									 Model userModel){
+		String standard="UNASSIGNED";
+		User user=userRepository.getUserById(updateid);
+		user.setUserName(updatename);
+		user.setRole(HasRole.valueOf(updaterole));
+		userRepository.editUser(user);
+		userModel.addAttribute("Users",userRepository.getAllUsersByRole(standard));
+		return "redirect:/admin";
+	}
+	@GetMapping("edit_password/{id}")
+	public String showEditPassword(@PathVariable("id") int userid,Model userModel){
+	User user=userRepository.getUserById(userid);
+	userModel.addAttribute(user);
+	return "edit_password";
+	}
+	@PostMapping("/edit_password")
+	public String editPassword(@RequestParam("editid") int userid,@RequestParam("updatepassword") String newPassword,
+										Model userModel,HttpSession session){
+	User user=userRepository.getUserById(userid);
+	// encode new password
+		String encodedPassword=userRepository.passwordCrypt(newPassword);
+		user.setUserPassword(encodedPassword);
+		userRepository.updatePassword(user);
+		if (session.getAttribute("Role").equals("ADMIN")){
+			String standard="UNASSIGNED";
+			userModel.addAttribute("Users",userRepository.getAllUsersByRole(standard));
+			return "redirect:/admin";
+		}
+		return "redirect:login";
 	}
 }

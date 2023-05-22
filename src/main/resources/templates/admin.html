@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+<div>
+    <form action="/admin" method="post">
+        <label for="usertypeselect"> </label>
+        <select id="usertypeselect" name="usertype" required >
+
+            <option value=""> Select User type</option>
+            <!--                <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>-->
+            <option value="PROJECT_MANAGER">PROJECT_MANAGER</option>
+            <option value="ADMIN">ADMIN</option>
+            <option value="DEVELOPER">DEVELOPER</option>
+            <option value="CUSTOMER">CUSTOMER</option>
+            <option value="UNASSIGNED">UNASSIGNED</option>
+        </select>
+        <input type="submit" value="List selected usertype">
+    </form>
+    <div class="user_list">
+        <table>
+            <thead>
+            <tr>
+            <th>User ID </th>
+            <th>User Name </th>
+            <th>User Role </th>
+            <th>Edit User Role </th>
+            <th>Edit Password </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user:${Users}">
+                <td th:text="${user.getUserId()}"></td>
+                <td th:text="${user.getUserName()}"></td>
+                <td th:text="${user.getRole()}"></td>
+                <td>
+                    <a th:href="@{'/edit_role/'+${user.getUserId()}}" href="edit_role.html">Edit</a>
+                </td>
+                <td>
+                    <a th:href="@{'/edit_password/'+${user.getUserId()}}" href="edit_password.html"> Edit Password</a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+</body>
+</html>

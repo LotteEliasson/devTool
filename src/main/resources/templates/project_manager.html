@@ -12,10 +12,10 @@
         <li>
             <div class="proj">
                 <span th:text="${'Project Name: '+project.getProjectName()}"> </span>
-                <span th:text="${project.getProjectManager()}"> Project Manager </span>
-                <span th:text="${project.getCustomerName()}"> Customer </span>
-                <span th:text="${project.getStartDate()}"> Start Date </span>
-                <span th:text="${project.getDueDate()}"> Delivery Date </span>
+                <span th:text="${'Project Manager: '+project.getProjectManager()}"> Project Manager </span>
+                <span th:text="${'Customer: '+project.getCustomerName()}"> Customer </span>
+                <span th:text="${'Start Date: '+project.getStartDate()}"> Start Date </span>
+                <span th:text="${'Delivery Date ' +project.getDueDate()}"> Delivery Date </span>
 
                 <a class="update-button" th:text="Update"  th:href="@{'/updateproject/'+${project.getProjectId()}}"></a>
 

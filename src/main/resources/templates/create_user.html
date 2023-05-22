@@ -6,12 +6,13 @@
 </head>
 <body>
 <div>
-  <form action="create_user">
+  <form action="create_user" method="post">
       <h1> Create UserProfile</h1>
-    <label for="user_name"></label>
-    <input id="user_name" type="text" required >
-      <label for="password"></label>
-      <input id="password" type="password" required>
+    <label for="user_name">User Name</label>
+    <input id="user_name" type="text" name="user_name" required >
+      <label for="password">Password</label>
+      <input id="password" type="password" name="password"required>
+       <input type="submit" value="Create User">
   </form>
 </div>
 </body>
