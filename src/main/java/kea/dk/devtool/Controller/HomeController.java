@@ -269,7 +269,8 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	}
 	@PostMapping("/login")
 	public String testlogin(@RequestParam ("usertype") String access,@RequestParam("username") String username,
-									@RequestParam("pwd") String pwd,HttpSession session){
+									@RequestParam("pwd") String pwd,
+									HttpSession session,Model userModel){
 
 		User user;
 		String loginstatus="";
@@ -285,7 +286,8 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 			loginstatus = "succes";
 			session.setAttribute("loginstatus", loginstatus);
 			String userpage=String.valueOf(user.getRole()).toLowerCase();
-			return  userpage+'/'+user.getUserId();
+			userModel.addAttribute("projects",projectRepository.getMyProjects(user.getUserId()));
+			return  "redirect:/"+userpage+'/'+user.getUserId();
 		}
 		else {
 			loginstatus="limited";
@@ -320,13 +322,14 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	@GetMapping("admin/{id}")
 	public String showAdminPage(@PathVariable("id")int userid,Model userModel,HttpSession session){
 	String role;
+	session.setAttribute("userid",userid);
 	User user=userRepository.getUserById(userid);
 	if(session.getAttribute("Role")==null){
-		role=String.valueOf(user.getRole());
+		role="";// String.valueOf(user.getRole());
 		session.setAttribute("Role",role);
 	}
 	role=(String) session.getAttribute("Role");
-
+	session.setAttribute("userid",userid);
 
 	userModel.addAttribute("Users",userRepository.getAllUsersByRole(role));
 	return "admin";
@@ -334,8 +337,9 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	@PostMapping("/admin")
 	public String selectUsertype(@RequestParam("usertype") String usertype, Model userModel,HttpSession session){
 	session.setAttribute("Role",usertype);
+	int id=(int) session.getAttribute("userid");
 	userModel.addAttribute("Users",userRepository.getAllUsersByRole(usertype));
-	return "redirect:admin";
+	return "redirect:admin/"+id;
 	}
 	@GetMapping("edit_role/{id}")
 	public String showupdateUser(@PathVariable("id") int userId, Model userModel){
@@ -347,14 +351,15 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	public String updateUser(@RequestParam("updateid") int updateid,
 									 @RequestParam("updatename") String updatename,
 									 @RequestParam("updaterole") String updaterole,
-									 Model userModel){
+									 Model userModel,HttpSession session){
+	int id=(int) session.getAttribute("userid");
 		String standard="UNASSIGNED";
 		User user=userRepository.getUserById(updateid);
 		user.setUserName(updatename);
 		user.setRole(HasRole.valueOf(updaterole));
 		userRepository.editUser(user);
 		userModel.addAttribute("Users",userRepository.getAllUsersByRole(standard));
-		return "redirect:/admin";
+		return "redirect:/admin/"+id;
 	}
 	@GetMapping("edit_password/{id}")
 	public String showEditPassword(@PathVariable("id") int userid,Model userModel){
