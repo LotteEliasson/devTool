@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Login</title>
 <!--    <link rel="stylesheet" th:href="@{../css/style.css}" href="../static/css/style.css">-->
-    <link rel="stylesheet" th:href="@{../css/logintest.css}" href="../static/css/logintest.css">
+<!--    <link rel="stylesheet" th:href="@{../css/logintest.css}" href="../static/css/logintest.css">-->
 </head>
 <body>
 <div class="login-box">
@@ -22,7 +22,7 @@
                 <option value="PROJECT_MANAGER">Project Manager</option>
                 <option value="ADMIN">Project Admin</option>
                 <option value="DEVELOPER">Developer</option>
-                <option value="CUSTOMER">CUSTOMER</option>
+                <option value="CUSTOMER">Customer</option>
             </select>
         </div>
         <div class="user-box">
@@ -41,7 +41,9 @@
             <span></span>
             <input type="submit" value="Login">
         </a>
+        <div class="link">
         <a th:href="@{/create_user}">New User?</a>
+        </div>
     </form>
 
 </div>
