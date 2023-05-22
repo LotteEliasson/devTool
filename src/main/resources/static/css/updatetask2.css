@@ -42,7 +42,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background-image: radial-gradient(circle at 0% 0%, #373b52, #252736 51%, #1d1e26);
+    background-image: radial-gradient(circle at 0% 0%, #d5d9f8, #c6ccf6 51%, #9ba3ef);
 }
 
 h1.demo {
@@ -127,7 +127,7 @@ a.demo {
     vertical-align: middle;
 }
 .style-input input::-webkit-input-placeholder {
-    color: #7881A1;
+    color: #ebeef8;
 }
 
 .style-input button {
