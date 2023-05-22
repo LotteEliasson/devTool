@@ -1,0 +1,31 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 20% 79.2%;
+    grid-template-rows: auto auto;
+    grid-gap: 10px;
+    background-color: #111111;
+    padding: 10px;
+}
+.grid-container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    /*text-align: left;*/
+    padding: 20px 0;
+    /*font-size: 16px;*/
+}
+.item1 {
+    grid-column: 1 / span 2;
+}
+
+.view {
+    height:250px;
+    width:200px;
+    border:1px solid #a4a3a3;
+    border-radius:0px;
+    box-shadow: 1px 0px 1px grey;
+    float:left;
+    margin:0% 0 0 0%;
+    position: relative;
+    text-align: left;
+    overflow: hidden;
+    background-color: #edeffd;
+}
