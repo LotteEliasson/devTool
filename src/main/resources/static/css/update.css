@@ -1,3 +1,24 @@
+body {
+    background-color: #d5d9f8;
+}
+
+.grid-container {
+    margin: 4px;
+    display: grid;
+    /*grid-template-columns: 20% 80%;*/
+    grid-template-rows: auto auto;
+    grid-gap: 10px;
+    padding: 0px;
+    /*background-color: #7881A1;*/
+
+}
+.grid-container > div {
+    /*background-color: rgba(255, 255, 255, 0.8);*/
+    /*text-align: left;*/
+    padding: 20px 0;
+    /*font-size: 16px;*/
+}
+
 
 html {
     box-sizing: border-box;
