@@ -168,6 +168,8 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	@GetMapping("/taskview/{processId}")
 	public String taskview(@PathVariable("processId") int processId, Model modelTask, HttpSession session){
 		int projectID = (int) session.getAttribute("currentProject");
+		modelTask.addAttribute("showProjectName", projectRepository.findProjectByID(projectID).getProjectName());
+		modelTask.addAttribute("showProjectManager", projectRepository.findProjectByID(projectID).getProjectManager());
 		modelTask.addAttribute("taskView", taskRepository.getTaskById(processId));
 		session.setAttribute("currentProcess", processId);
 		return "taskview";

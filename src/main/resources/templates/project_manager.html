@@ -3,32 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-  <link rel="stylesheet" th:href="@{../css/style.csss}">
+    <link rel="stylesheet" th:href="@{../css/view.css}" href="../static/css/view.css">
     <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">
 </head>
 <body>
+<div class="grid-container">
+    <div class="item1">
+        <h1>Project Tasks</h1>
+        <button onclick="history.back()">Go Back</button>
+    </div>
 
-<div class="projectslist">
-    <ul class="list" th:each="project:${projects}">
-        <li>
-            <div class="proj">
-                <span th:text="${'Project Name: '+project.getProjectName()}"> </span>
-                <span th:text="${'Project Manager: '+project.getProjectManager()}"> Project Manager </span>
-                <span th:text="${'Customer: '+project.getCustomerName()}"> Customer </span>
-                <span th:text="${'Start Date: '+project.getStartDate()}"> Start Date </span>
-                <span th:text="${'Delivery Date ' +project.getDueDate()}"> Delivery Date </span>
+    <div class="item2">
 
-                <a class="update-button" th:text="Update"  th:href="@{'/updateproject/'+${project.getProjectId()}}"></a>
+    </div>
+
+    <div class="item3">
+        <div class="view" th:each="project:${projects}">
+
+            <div>
+                <span th:text="${'Project Name: '+project.getProjectName()}"> </span><br>
+                <span th:text="${'Project Manager: '+project.getProjectManager()}"> Project Manager </span><br>
+                <span th:text="${'Customer: '+project.getCustomerName()}"> Customer </span><br>
+                <span th:text="${'Start Date: '+project.getStartDate()}"> Start Date </span><br>
+                <span th:text="${'Delivery Date ' +project.getDueDate()}"> Delivery Date </span><br>
+
+                <a class="update-button" th:text="Update"  th:href="@{'/updateproject/'+${project.getProjectId()}}"></a><br>
 
 
-            <a th:href="@{'/processes/'+${project.getProjectId()}}"> Show processes</a>
-                <a th:href="@{'project/delete/'+${project.getProjectId()}}">Delete project</a>
+            <a th:href="@{'/processes/'+${project.getProjectId()}}"> Show processes</a><br>
+                <a th:href="@{'project/delete/'+${project.getProjectId()}}">Delete project</a><br>
             </div>
-        </li>
-    </ul>
 
-</div>
-<div>
+        </div>
+    </div>
 <script>
     function openForm() {
 

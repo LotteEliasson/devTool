@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Task view</title>
   <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">
-  <link rel="stylesheet" th:href="@{../css/taskview.css}" href="../static/css/taskview.css">
+  <link rel="stylesheet" th:href="@{../css/container.css}" href="../static/css/container.css">
+  <link rel="stylesheet" th:href="@{../css/view.css}" href="../static/css/view.css">
 </head>
 <body >
 
@@ -12,6 +13,7 @@
 <div class="grid-container">
   <div class="item1">
     <h1>Project Tasks</h1>
+    <button onclick="history.back()">Go Back</button>
   </div>
 
   <div class="item2">
@@ -20,8 +22,8 @@
 
   <div class="item3">
     <div>
-      <h3>Current Project:</h3>
-      <h3>Project Manager:</h3>
+      <h3>Current Project: <span th:text="${showProjectName}"></span></h3>
+      <h3>Project Manager: <span th:text="${showProjectManager}"></span></h3>
 
     </div>
     <div  class="view" th:each="task : ${taskView}">

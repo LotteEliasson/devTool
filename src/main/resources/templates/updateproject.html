@@ -4,73 +4,64 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">
-    <link rel="stylesheet" th:href="@{../css/style.css}" href="../static/css/style.css">
+    <link rel="stylesheet" th:href="@{../css/update.css}" href="../static/css/update.css">
 
 </head>
 <body>
-<div class="update-form">
+<div class="grid-container">
+    <div class="item1">
+        <h1>Update Project</h1>
+        <button onclick="history.back()">Go Back</button>
+    </div>
 
-    <!-- The  Update form -->
+    <div class="item2">
+   <!-- The  update form -->
+        <div class="container">
+            <div class="demo-flex-spacer">
 
-    <form action="/updateproject" class="formupdate" method="post">
-        <h1>Update</h1>
-        <div class="two-column-summary">
-            <input id="projectID" th:value="${project.getProjectId()}" name="projectID" type="hidden">
-            <div class="row">
-                <div class="column">
-                    <div>
+                <form action="/updateproject" class="formupdate" method="post">
+
+                    <input id="projectID" th:value="${project.getProjectId()}" name="projectID" type="hidden">
+
+                    <div class="style-input">
                         <label for="updatename"><b>Project Name</b></label>
-                        <input id="updatename" type="text" placeholder="Enter Project Name"
-                               th:value="${project.getProjectName()}" name="projectName" >
+                        <input id="updatename" type="text" placeholder="Enter Project Name" th:value="${project.getProjectName()}" name="projectName" >
                     </div>
-                </div>
-                <div class="column">
-                    <div>
-                        <label for="newstartdate"><b>Startdate</b></label>
-                        <input id="newstartdate" type="date" placeholder="Enter Start Date"
-                               th:value="${project.getStartDate()}" name="startDate" >
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="column">
-                    <div>
-                        <label for="newduedate"><b>Due Date</b></label>
-                        <input id="newduedate" type="date" placeholder="Enter Due Date"
-                               th:value="${project.getDueDate()}" name="dueDate" >
-                    </div>
-                </div>
-                <div class="column">
-                    <div>
-                        <label for="newexpectedenddate"><b>Delivery Date</b></label>
-                        <input id="newexpectedenddate" type="date" placeholder="Enter expected delivery Date"
-                               th:value="${project.getExpectedEndDate()}" name="expectedEnddate" >
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="column">
-                    <div>
-                        <label for="newprojectmanager"><b>Project Manager</b></label>
-                        <input id="newprojectmanager" type="text" placeholder="Enter Project Managers Name"
-                               name="projectManager" th:value="${project.getProjectManager()}" >
-                    </div>
-                </div>
-                <div class="column">
-                    <div>
-                        <label for="newcustomername"><b>Customer Name</b></label>
-                        <input id="newcustomername" type="text" placeholder="Enter Customer Name" name="customerName"
-                               th:value="${project.getCustomerName()}" >
-                    </div>
-                </div>
-            </div>
 
-            <div class="center">
-                <input type="submit" class="btn" value="Save Changes">
+
+                    <div class="style-input">
+                        <label for="newstartdate"><b>Startdate</b></label>
+                        <input id="newstartdate" type="date" placeholder="Enter Start Date" th:value="${project.getStartDate()}" name="startDate" >
+                    </div>
+
+                    <div class="style-input">
+                        <label for="newduedate"><b>Due Date</b></label>
+                        <input id="newduedate" type="date" placeholder="Enter Due Date" th:value="${project.getDueDate()}" name="dueDate" >
+                    </div>
+
+                    <div class="style-input">
+                        <label for="newexpectedenddate"><b>Delivery Date</b></label>
+                        <input id="newexpectedenddate" type="date" placeholder="Enter expected delivery Date" th:value="${project.getExpectedEndDate()}" name="expectedEnddate" >
+                    </div>
+
+
+                    <div class="style-input">
+                        <label for="newprojectmanager"><b>Project Manager</b></label>
+                        <input id="newprojectmanager" type="text" placeholder="Enter Project Managers Name"  th:value="${project.getProjectManager()}" name="projectManager" >
+                    </div>
+
+                    <div class="style-input">
+                        <label for="newcustomername"><b>Customer Name</b></label>
+                        <input id="newcustomername" type="text" placeholder="Enter Customer Name" name="customerName" th:value="${project.getCustomerName()}" >
+                    </div>
+
+                    <div class="style-input">
+                        <input type="submit" class="btn" value="Save Changes">
+                    </div>
+
+                </form>
             </div>
         </div>
-    </form>
-
-</div>
+    </div>
 </body>
 </html>

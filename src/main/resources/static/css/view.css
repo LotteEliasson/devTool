@@ -21,7 +21,6 @@ body {
 .item1 {
     grid-column: 1 / span 2;
 }
-
 .view {
     height:250px;
     width:200px;
