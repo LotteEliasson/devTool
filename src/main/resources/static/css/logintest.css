@@ -293,5 +293,8 @@ input[type=submit]:hover{
 /*}*/
 .link{
     color: #ffffff;
-    position: absolute;
+}
+
+h1 {
+    color: #ffffff
 }

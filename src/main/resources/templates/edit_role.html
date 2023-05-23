@@ -3,24 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Update User</title>
+    <link rel="stylesheet" th:href="@{../css/logintest.css}" href="../static/css/logintest.css">
 </head>
 <body>
-<div>
+<div class="login-box">
+  <h1>Change User Role</h1><br>
   <form action="/edit_role" method="post">
-    <input id="updateid" th:value="${user.getUserId()}" type="hidden" name="updateid">
-    <label for="updatename">Change Name</label>
-    <input id="updatename" th:value="${user.getUserName()}" name="updatename">
 
-    <label for="updaterole">Change Role</label>
-    <select id="updaterole"  name="updaterole">
-      <option th:value="${user.getRole()}">Change to...</option>
-      <option value="CUSTOMER">CUSTOMER</option>
-      <option value="ADMIN">ADMIN</option>
-      <option value="PROJECT_MANAGER"> PROJECT_MANAGER</option>
-      <option value="DEVELOPER">DEVELOPER</option>
-      <option value="UNASSIGNED">UNASSIGNED</option>
-    </select>
-    <input type="submit" value="Submit changes">
+    <input id="updateid" th:value="${user.getUserId()}" type="hidden" name="updateid">
+
+    <div class="user-box">
+      <label for="updatename">Change Name</label>
+      <input id="updatename" th:value="${user.getUserName()}" name="updatename">
+    </div>
+
+    <div class="user-box">
+      <label for="updaterole"></label>
+      <select id="updaterole"  name="updaterole">
+        <option th:value="${user.getRole()}">Change to...</option>
+        <option value="CUSTOMER">CUSTOMER</option>
+        <option value="ADMIN">ADMIN</option>
+        <option value="PROJECT_MANAGER"> PROJECT_MANAGER</option>
+        <option value="DEVELOPER">DEVELOPER</option>
+        <option value="UNASSIGNED">UNASSIGNED</option>
+      </select>
+    </div>
+
+    <div>
+      <a>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+          <input type="submit" value="Submit changes">
+      </a>
+    </div>
   </form>
 </div>
 </body>
