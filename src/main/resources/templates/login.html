@@ -33,6 +33,7 @@
             <input id="password" type="password" name="pwd" required="">
             <label for="password">Adgangskode</label>
         </div>
+        <div>
         <a>
 
             <span></span>
@@ -41,11 +42,12 @@
             <span></span>
             <input type="submit" value="Login">
         </a>
-        <div class="link">
-        <a th:href="@{/create_user}">New User?</a>
         </div>
     </form>
 
+    <div >
+        <a class="link" th:href="@{/create_user}">New User?</a>
+    </div>
 </div>
 
 </body>

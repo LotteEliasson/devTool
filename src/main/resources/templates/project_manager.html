@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{../css/jacobtest.css}" href="../static/css/jacobtest.css">
     <link rel="stylesheet" th:href="@{../css/view.css}" href="../static/css/view.css">
     <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">
 <!--  <link rel="stylesheet" th:href="@{../css/style.css}">-->
-    <link rel="stylesheet" th:href="@{../css/jacobtest.css}" href="../static/css/jacobtest.css">
+
 </head>
 <body>
 <div class="grid-container">
@@ -14,6 +15,30 @@
         <h1>Projects</h1>
         <button onclick="history.back()">Go Back</button>
         <button class="btn btn-open">Create Project</button>
+        <section class="modal hidden">
+            <div class="flex">
+                <button class="btn-close">⨉</button>
+            </div>
+            <form action="/create_projects" class="form-container" method="post">
+                <label for="projectname"><b>Project Name</b></label>
+                <input id="projectname" type="text"  placeholder="Enter Project Name" name="projectName">
+                <br>
+                <label for="startdate"><b>Startdate</b></label>
+                <input id="startdate" type="date" placeholder="Enter Start Date" name="startDate" required>
+                <br>
+                <label for="duedate"><b>Due Date</b></label>
+                <input id="duedate" type="date" placeholder="Enter Due Date" name="dueDate" required>
+                <br>
+                <label for="projectmanager"><b>Project Manager</b></label>
+                <input id="projectmanager" type="text"  placeholder="Enter Project Managers Name" name="projectManager" required>
+                <br>
+                <label for="customername"><b>Customer Name</b></label>
+                <input id="customername" type="text"  placeholder="Enter Customer Name" name="customerName" required>
+
+                <button type="submit" class="btn">Create Project</button>
+            </form>
+        </section>
+        <div class="overlay hidden"></div>
 
     </div>
 
