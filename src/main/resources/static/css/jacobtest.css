@@ -1,69 +1,100 @@
-{box-sizing: border-box;}
-
-/* Button used to open the contact form - fixed at the bottom of the page */
-.open-button {
-    background-color: #555;
-    color: white;
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    opacity: 0.8;
-    position: fixed;
-    bottom: 23px;
-    right: 28px;
-    width: 280px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
 }
 
-/* The popup form - hidden by default */
-.form-popup {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    right: 15px;
-    border: 3px solid #f1f1f1;
-    z-index: 9;
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #222;
+    position: relative;
+    min-height: 100vh;
+    background-color: #b3e6f4;
 }
 
-/* Add styles to the form container */
-.form-container {
-    max-width: 350px;
-    padding: 10px;
+.modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 450px;
+    padding: 1.3rem;
+    min-height: 250px;
+    position: absolute;
+    z-index: 2;
+    top: 20%;
     background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 15px;
 }
 
-/* Full-width input fields */
-.form-container input[type=text], .form-container input[type=password], .form-container input[type=date] {
-    width: 90%;
-    padding: 15px;
-    margin: 5px 0 22px 0;
-    border: none;
-    background: #f1f1f1;
+.modal .flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-/* When the inputs get focus, do something */
-.form-container input[type=text]:focus, .form-container input[type=password]:focus {
-    background-color: #ddd;
-    outline: none;
+.modal input {
+    padding: 0.7rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.9em;
 }
 
-/* Set a style for the submit/login button */
-.form-container .btn {
-    background-color: #04AA6D;
-    color: white;
-    padding: 16px 20px;
-    border: none;
+.modal p {
+    font-size: 0.9rem;
+    color: #777;
+    margin: 0.4rem 0 0.2rem;
+}
+
+button {
     cursor: pointer;
+    border: none;
+    font-weight: 600;
+}
+
+.btn {
+    display: inline-block;
+    padding: 1rem 1.4rem;
+    font-weight: 700;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1em;
+}
+.modal button {
+    margin-top: 20px;
+}
+.btn-open {
+    position: absolute;
+    top: 150px;
+}
+
+.btn-close {
+    transform: translate(10px, -20px);
+    padding: 0.5rem 0.7rem;
+    background: #eee;
+    border-radius: 50%;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     width: 100%;
-    margin-bottom:10px;
-    opacity: 0.8;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    z-index: 1;
 }
 
-/* Add a red background color to the cancel button */
-.form-container .cancel {
-    background-color: red;
-}
-
-/* Add some hover effects to buttons */
-.form-container .btn:hover, .open-button:hover {
-    opacity: 1;
+.hidden {
+    display: none;
 }
