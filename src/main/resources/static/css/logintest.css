@@ -10,7 +10,7 @@ html {
     width: 400px;
     padding: 40px;
     transform: translate(-50%, -50%);
-    background: #5caafc;
+    background: #7881A1; /*#5caafc;*/
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
     border-radius: 20px;
@@ -69,10 +69,11 @@ input[type=submit]{
     position: relative;
     left: 80px;
     margin: 50px;
-    background: #5caafc;
+    background: #7881A1; /*#5caafc;*/
     font-size: 16px;
     color: #fff;
 }
+
 /*.login-box .user-box select{*/
 /*    position: absolute;*/
 /*    top: 0;*/
@@ -91,13 +92,13 @@ input[type=submit]{
     padding: 10px 0;
     font-size: 16px;
     color: #fff;
-    background: #5caafc;
+    background:#C6CCFCFF; /*#5caafc;*/
     pointer-events: none;
     transition: .5s;
     /*background: transparent;*/
 }
 select>option{
-    background: #5caafc;
+    background: #C6CCFCFF; /*#5caafc;*/
     /*background: transparent;*/
     font-size: 16px;
     color: #fff;
@@ -118,7 +119,7 @@ select>option:hover{
     position: relative;
     display: inline-block;
     /*padding: 10px 20px;*/
-    color: #5caafc;
+    color: #C6CCFCFF; /*#5caafc;*/
     font-size: 16px;
     text-decoration: none;
     text-transform: uppercase;
