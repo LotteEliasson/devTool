@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update User</title>
+</head>
+<body>
+<div>
+  <form action="/edit_role" method="post">
+    <input id="updateid" th:value="${user.getUserId()}" type="hidden" name="updateid">
+    <label for="updatename">Change Name</label>
+    <input id="updatename" th:value="${user.getUserName()}" name="updatename">
+
+    <label for="updaterole">Change Role</label>
+    <select id="updaterole"  name="updaterole">
+      <option th:value="${user.getRole()}">Change to...</option>
+      <option value="CUSTOMER">CUSTOMER</option>
+      <option value="ADMIN">ADMIN</option>
+      <option value="PROJECT_MANAGER"> PROJECT_MANAGER</option>
+      <option value="DEVELOPER">DEVELOPER</option>
+      <option value="UNASSIGNED">UNASSIGNED</option>
+    </select>
+    <input type="submit" value="Submit changes">
+  </form>
+</div>
+</body>
+</html>

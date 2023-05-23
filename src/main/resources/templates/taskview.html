@@ -4,33 +4,46 @@
     <meta charset="UTF-8">
     <title>Task view</title>
   <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">
+  <link rel="stylesheet" th:href="@{../css/taskview.css}" href="../static/css/taskview.css">
 </head>
-<body>
-<div>
-  <h1>Project Tasks</h1>
-  <br>
-</div>
+<body >
 
 
-  <div th:each="task : ${taskView}">
-    <div>
-      <span th:text="${task.taskId}">hej</span>
-      <span th:text="${task.processId}">jeg</span>
-      <span th:text="${task.taskName}">hedder</span>
-      <span th:text="${task.effort}">lotte</span>
-      <span th:text="${task.expectedStartDate}"></span>
-      <span th:text="${task.minAllocation}"></span>
-      <span th:text="${task.taskStatus}"></span>
-      <span th:text="${task.assignedId}"></span>
-      <span th:text="${task.taskSequenceNumber}"></span>
-
-
-      <a th:href="@{'/updatetask/' + ${task.taskId}}" href="/updatetask.html">Update Task</a>
-      <a th:href="@{'/deletetask/' + ${task.taskId}}" href="/deletetask.html">Delete Task</a>
-
-    </div>
+<div class="grid-container">
+  <div class="item1">
+    <h1>Project Tasks</h1>
   </div>
 
+  <div class="item2">
+
+  </div>
+
+  <div class="item3">
+    <div>
+      <h3>Current Project:</h3>
+      <h3>Project Manager:</h3>
+
+    </div>
+    <div  class="view" th:each="task : ${taskView}">
+      <div>
+
+        <span class="text1">Task id: </span><span th:text="${task.taskId}"></span><br>
+        <span class="text1">Process id: </span><span th:text="${task.processId}"></span><br>
+        <span class="text1">Task name: </span><span th:text="${task.taskName}"></span><br>
+        <span class="text1">Effort: </span><span th:text="${task.effort}"></span><br>
+        <span class="text1">Exp start date: </span><span th:text="${task.expectedStartDate}"></span><br>
+        <span class="text1">Allocation: </span><span th:text="${task.minAllocation}"></span><br>
+        <span class="text1">Status: </span><span th:text="${task.taskStatus}"></span><br>
+        <span class="text1">Assigned to: </span><span th:text="${task.assignedId}"></span><br>
+        <span class="text1">Task no.: </span><span th:text="${task.taskSequenceNumber}"></span><br>
+
+        <a th:href="@{'/updatetask/' + ${task.taskId}}" href="/updatetask.html">Update Task</a><br>
+        <a th:href="@{'/deletetask/' + ${task.taskId}}" href="/deletetask.html">Delete Task</a>
+
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- A button to open the popup form -->
 <button class="open-button" onclick="openForm()">Create New Task</button>

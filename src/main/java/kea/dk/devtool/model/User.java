@@ -1,18 +1,21 @@
 package kea.dk.devtool.model;
 
-public class Users {
+public class User
+    {
     private int userId;
 
     private String userName;
     private String userPassword;
+    private HasRole role= HasRole.UNASSIGNED; // default indtil user er logget ind med en rolle
 
-    public Users(){
+    public User(){
     }
 
-    public Users(int userId, String userName, String userPassword) {
+    public User(int userId, String userName, String userPassword, HasRole role) {
         this.userId = userId;
         this.userName = userName;
         this.userPassword = userPassword;
+        this.role=role;
     }
 
     public int getUserId() {
@@ -39,12 +42,24 @@ public class Users {
         this.userPassword = userPassword;
     }
 
+    public HasRole getRole()
+        {
+            return role;
+        }
+
+    public void setRole(HasRole role)
+        {
+            this.role = role;
+        }
+
     @Override
-    public String toString() {
-        return "Users{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                '}';
-    }
+    public String toString()
+        {
+            return "User{" +
+                  "userId=" + userId +
+                  ", userName='" + userName + '\'' +
+                  ", userPassword='" + userPassword + '\'' +
+                  ", role=" + role +
+                  '}';
+        }
 }
