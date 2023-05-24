@@ -26,7 +26,7 @@
         <div class="view" th:each="project:${projects}">
 
             <div>
-                <span th:text="${'Project Name: '+project.getProjectName()}"> </span><br>
+                <span th:text="${'Project Name: '+project.getProjectName()}"></span><br>
                 <span th:text="${'Project Manager: '+project.getProjectManager()}"> Project Manager </span><br>
                 <span th:text="${'Customer: '+project.getCustomerName()}"> Customer </span><br>
                 <span th:text="${'Start Date: '+project.getStartDate()}"> Start Date </span><br>
