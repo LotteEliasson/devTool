@@ -2,6 +2,7 @@ package kea.dk.devtool.model;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Project {
     private int projectId;
@@ -12,6 +13,7 @@ public class Project {
     private String projectManager;
     private String customerName;
     private int projectManagerID;
+    private List<Processes> processes;
 
     public Project() {
     }
@@ -82,6 +84,16 @@ public class Project {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
+
+    public List<Processes> getProcesses()
+        {
+            return processes;
+        }
+
+    public void setProcesses(List<Processes> processes)
+        {
+            this.processes = processes;
+        }
 
     @Override
     public String toString() {

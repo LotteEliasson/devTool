@@ -2,6 +2,7 @@ package kea.dk.devtool.model;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Processes {
     private int processId;
@@ -9,7 +10,8 @@ public class Processes {
     private String processName;
     private LocalDate expectedStartDate;
     private LocalDate expectedFinish;
-    private int startAfterTask;
+    private int startAfterTask; // taskid must be in project
+    private List<Task> taskList;
 
     public Processes() {
     }
@@ -70,6 +72,17 @@ public class Processes {
     public void setStartAfterTask(int startAfterTask) {
         this.startAfterTask = startAfterTask;
     }
+
+
+    public List<Task> getTaskList()
+        {
+            return taskList;
+        }
+
+    public void setTaskList(List<Task> taskList)
+        {
+            this.taskList = taskList;
+        }
 
     @Override
     public String toString() {
