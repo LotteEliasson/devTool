@@ -28,16 +28,16 @@
             <div>
                 <h3>Process Info</h3><br>
                 <span class="text1">Process Name: </span><span th:text="${proces.getProcessName()}"></span><br>
-                <span class="text1">Exp Start Date: </span><span th:href="${proces.getExpectedStartDate()}"></span><br>
-                <span class="text1">Exp Finish: </span><span th:href="${proces.getExpectedFinish()}"></span><br><br>
+                <span class="text1">Exp Start Date: </span><span th:text="${proces.getExpectedStartDate()}"></span><br>
+                <span class="text1">Exp Finish: </span><span th:text="${proces.getExpectedFinish()}"></span><br><br>
+                <span class="text1">Total days: </span><span th:text="${proces.getProcessDays()}"></span><br><br>
+                <span class="text1">Workdays: </span><span th:text="${proces.getProcessWorkdays()}"></span><br><br>
 
                 <a th:href="@{'/taskview/'+${proces.getProcessId()}}"><h4>Show tasks</h4></a>
                 <a th:href="@{'/processes/delete/'+${proces.getProcessId()}}"><h4>Delete process</h4></a>
-                <a th:href="@{'/processes/updateprocess/'+${proces.getProcessId()}}"><h4>Update process</h4></a>
+                <a th:href="@{'/processes/updateprocess/'+${proces.getProcessId()}}"><h4>Update proces</h4></a>
             </div>
-        </div>
-    </div>
-</div>
+
 
 <button  class="open-button" onclick="openForm()">Create new process</button>
 

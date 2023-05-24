@@ -1,5 +1,7 @@
 package kea.dk.devtool.model;
 
+import kea.dk.devtool.utility.TimeAndEffort;
+
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -94,5 +96,11 @@ public class Processes {
                 ", expectedFinish=" + expectedFinish +
                 ", startAfterTask=" + startAfterTask +
                 '}';
+    }
+    public int getProcessDays(){
+        return TimeAndEffort.daysBetween(this.expectedStartDate,this.expectedFinish);
+    }
+    public int getProcessWorkdays(){
+        return TimeAndEffort.workingDaysBetween(this.expectedStartDate,this.expectedFinish);
     }
 }
