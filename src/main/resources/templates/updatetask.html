@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title>Update Task</title>
 
-    <link rel="stylesheet" href="../static/css/update.css" th:href="@{../css/update.css}">
+    <link rel="stylesheet" href="../static/css/testupdate.css" th:href="@{../css/testupdate.css}">
+
+    <link rel="stylesheet" th:href="@{../css/jacobtest.css}" href="../static/css/jacobtest.css">
+
 </head>
 <body>
 
@@ -15,6 +18,8 @@
     </div>
     <div class="item2">
 
+
+    </div>
 <!-- The  update form -->
         <div class="container">
                 <div class="demo-flex-spacer">
@@ -23,37 +28,37 @@
                         <div class="style-input">
                             <label for="taskName-update"><b>Task Name</b></label>
                             <input id="taskName-update" type="text" placeholder="Enter Task Name" name="TaskName" th:value="${taskUpdate.taskName}"><br>
-                        </div><br>
+                        </div>
 
                         <div class="style-input">
                         <label for="effort-update"><b>Effort</b></label>
                         <input id="effort-update" type="text" placeholder="Enter effort" name="Effort" th:value="${taskUpdate.effort}"><br>
-                        </div><br>
+                        </div>
 
                         <div class="style-input">
                         <label for="expectedStartDate-update"><b>Exp Start Date</b></label>
                         <input id="expectedStartDate-update" type="text" placeholder="Enter Expected Start Date" name="ExpectedStartDate" th:value="${taskUpdate.expectedStartDate}"><br>
-                        </div><br>
+                        </div>
 
                         <div class="style-input">
                         <label for="minAllocation-update"><b>Allocation</b></label>
                         <input id="minAllocation-update" type="text" placeholder="Enter Minimum Allocation" name="MinAllocation" th:value="${taskUpdate.minAllocation}"><br>
-                        </div><br>
+                        </div>
 
                         <div class="style-input">
                         <label for="taskStatus-update"><b>Task Status</b></label>
                         <input id="taskStatus-update" type="text" placeholder="Enter Task Status" name="TaskStatus" th:value="${taskUpdate.taskStatus}"><br>
-                        </div><br>
+                        </div>
 
                         <div class="style-input">
                         <label for="assignedId-update"><b>Assigned id</b></label>
                         <input id="assignedId-update" type="text" placeholder="Enter Assignment ID" name="AssignedId" th:value="${taskUpdate.assignedId}"><br>
-                        </div><br>
+                        </div>
 
                         <div class="style-input">
                         <label for="taskSequenceNumber-update"><b>Task Number</b></label>
                         <input id="taskSequenceNumber-update" type="text" placeholder="Enter Task Sequence Number" name="TaskSequenceNumber" th:value="${taskUpdate.taskSequenceNumber}"><br>
-                        </div><br>
+                        </div>
 
                         <div class="style-input">
                         <input type="submit" value="Update Task">
