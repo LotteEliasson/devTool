@@ -25,9 +25,11 @@
             <div class="navside-header">
                 <h3 class="headline">Projects</h3>
             </div>
-            <ul class="list-group">
-                <li th:each="project : ${projects}" th:text="${project.getName()}">
-                    <a th:href="@{'/processes/'+${project.getProjectId()}}" href="processes.html">Project Test</a>
+            <ul class="list-group" >
+                <li th:each="project : ${projects}">
+                    <a th:href="@{'/processes/'+${project.getProjectId()}}" href="processes.html">
+                        <span th:text="${project.getProjectName()}"></span>
+                    </a>
                 </li>
             </ul>
         </div>
