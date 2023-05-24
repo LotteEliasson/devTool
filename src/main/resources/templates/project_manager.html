@@ -55,6 +55,8 @@
                 <span th:text="${'Customer: '+project.getCustomerName()}"> Customer </span><br>
                 <span th:text="${'Start Date: '+project.getStartDate()}"> Start Date </span><br>
                 <span th:text="${'Delivery Date ' +project.getDueDate()}"> Delivery Date </span><br>
+                <span th:text="${'Total days ' +project.getProjectDays()}"> Total days </span><br>
+                <span th:text="${'Workdays ' +project.getProjectWorkdays()}"> Total days </span><br>
 
                 <a class="update-button" th:text="Update"  th:href="@{'/updateproject/'+${project.getProjectId()}}"></a><br>
 
