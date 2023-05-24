@@ -6,12 +6,15 @@ import kea.dk.devtool.repository.ProcessRepository;
 import kea.dk.devtool.repository.ProjectRepository;
 import kea.dk.devtool.repository.TaskRepository;
 import kea.dk.devtool.repository.UserRepository;
+import kea.dk.devtool.utility.TimeAndEffort;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @Controller
 public class HomeController {
@@ -30,12 +33,19 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 
 	// projects:
 	@GetMapping("project_manager/{id}")
-	public String showProject(@PathVariable("id")int userid,Model projektModel,HttpSession session){
+	public String showProject(@PathVariable("id")int userid,Model projectModel,HttpSession session){
 	User user=userRepository.getUserById(userid);
 	session.setAttribute("User",user);
 	session.setAttribute("PmID",userid);
+		ArrayList<Project> myProjects= (ArrayList<Project>) projectRepository.getMyProjects(userid);
 
-	projektModel.addAttribute("projects",projectRepository.getMyProjects(userid));
+		for (Project p:myProjects) {
+
+			p.setProcesses(processRepository.getProcessByProjectId(p.getProjectId()));
+
+		}
+
+	projectModel.addAttribute("projects",myProjects);
 	return "project_manager";
 	}
 	@PostMapping("create_projects")
@@ -102,7 +112,8 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	// processes:
 	@GetMapping("/processes/{projektid}")
 	public String showProcesses(@PathVariable("projektid") int id, Model processes, HttpSession session){
-
+		processes.addAttribute("showProjectName", projectRepository.findProjectByID(id).getProjectName());
+		processes.addAttribute("showProjectManager", projectRepository.findProjectByID(id).getProjectManager());
 		processes.addAttribute("processes", processRepository.getProcessByProjectId(id) );
 
 		session.setAttribute("currentProject", id);

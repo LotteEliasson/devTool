@@ -70,3 +70,7 @@ a:hover{
 a:visited{
     color: #000000;
 }
+
+a:hover:visited{
+    color: #ffffff;
+}

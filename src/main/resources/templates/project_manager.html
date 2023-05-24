@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{../css/jacobtest.css}" href="../static/css/jacobtest.css">
     <link rel="stylesheet" th:href="@{../css/view.css}" href="../static/css/view.css">
-    <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">
+<!--    <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">-->
 <!--  <link rel="stylesheet" th:href="@{../css/style.css}">-->
 
 </head>
@@ -36,23 +36,24 @@
         <div class="view" th:each="project:${projects}">
 
             <div>
-                <h4>Project Info</h4><br>
-                <span class="text1">Project Name: </span><span th:text="${project.getProjectName()}"> </span><br>
-                <span class="text1">Project Manager: </span><span th:text="${project.getProjectManager()}"> Project Manager </span><br>
-                <span class="text1">Customer: </span><span th:text="${project.getCustomerName()}"> Customer </span><br>
-                <span class="text1">Start Date: </span><span th:text="${project.getStartDate()}"> Start Date </span><br>
-                <span class="text1">Delivery Date: </span><span th:text="${project.getDueDate()}"> Delivery Date </span><br><br>
+                <span th:text="${'Project Name: '+project.getProjectName()}"> </span><br>
+                <span th:text="${'Project Manager: '+project.getProjectManager()}"> Project Manager </span><br>
+                <span th:text="${'Customer: '+project.getCustomerName()}"> Customer </span><br>
+                <span th:text="${'Start Date: '+project.getStartDate()}"> Start Date </span><br>
+                <span th:text="${'Delivery Date ' +project.getDueDate()}"> Delivery Date </span><br>
+                <span th:text="${'Total days ' +project.getProjectDays()}"> Total days </span><br>
+                <span th:text="${'Workdays ' +project.getProjectWorkdays()}"> Total days </span><br>
 
-                <a th:href="@{'/updateproject/'+${project.getProjectId()}}"><h4>Update Project</h4></a><br>
-
-                <a th:href="@{'/processes/'+${project.getProjectId()}}"><h4>Show processes</h4></a><br>
-                <a th:href="@{'project/delete/'+${project.getProjectId()}}"><h4>Delete project</h4></a><br>
+                <a th:href="@{'/updateproject/'+${project.getProjectId()}}"><h4>Update Project</h4></a>
+                <a th:href="@{'/processes/'+${project.getProjectId()}}"><h4>Show processes</h4></a>
+                <a th:href="@{'project/delete/'+${project.getProjectId()}}"><h4>Delete project</h4></a>
             </div>
         </div>
     </div>
     <div class="footer">
 
     </div>
+
 
 </div>
 

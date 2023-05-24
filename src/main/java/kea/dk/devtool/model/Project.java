@@ -1,5 +1,7 @@
 package kea.dk.devtool.model;
 
+import kea.dk.devtool.utility.TimeAndEffort;
+
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -117,4 +119,10 @@ public class Project {
         {
             this.projectManagerID = projectManagerID;
         }
+    public int getProjectDays(){
+     return   TimeAndEffort.daysBetween(this.startDate,this.dueDate);
+    }
+    public int getProjectWorkdays(){
+        return TimeAndEffort.workingDaysBetween(this.startDate,this.dueDate);
+    }
 }
