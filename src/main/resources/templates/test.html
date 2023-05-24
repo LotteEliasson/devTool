@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+  <script src="https://kit.fontawesome.com/7c3c034aee.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{../css/view.css}" href="../static/css/view.css">
+  <link rel="stylesheet" th:href="@{../css/test.css}" href="../static/css/test.css">
+</head>
+<body>
+<div class="grid-container">
+  <div class="item1">
+    <h1>Project Tasks</h1>
+    <button onclick="history.back()">Go Back</button>
+  </div>
+
+  <div class="item2">
+    <nav id="sidebar">
+      <div style=" height: 100%">
+        <div class="sidebar-header">
+          <h3 class="headline">Projects</h3>
+          <button class="btn btn-open">Open Modal</button>
+            <i class="fa-solid fa-square-plus fa-bounce fa-lg" style="color: #12f346;"></i>
+          </button>
+        </div>
+
+        <ul class="list-unstyled components">
+          <li th:each="project : ${projects}" th:text="${project.getName()}">
+            <a th:href="@{'/processes/'+${project.getProjectId()}}" href="processes.html">Project Test</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="item3">
+    <div class="view" th:each="project:${projects}">
+
+      <div>
+        <span th:text="${'Project Name: '+project.getProjectName()}"> </span><br>
+        <span th:text="${'Project Manager: '+project.getProjectManager()}"> Project Manager </span><br>
+        <span th:text="${'Customer: '+project.getCustomerName()}"> Customer </span><br>
+        <span th:text="${'Start Date: '+project.getStartDate()}"> Start Date </span><br>
+        <span th:text="${'Delivery Date ' +project.getDueDate()}"> Delivery Date </span><br>
+
+        <a class="update-button" th:text="Update"  th:href="@{'/updateproject/'+${project.getProjectId()}}"></a><br>
+
+
+        <a th:href="@{'/processes/'+${project.getProjectId()}}"> Show processes</a><br>
+        <a th:href="@{'project/delete/'+${project.getProjectId()}}">Delete project</a><br>
+      </div>
+
+    </div>
+  </div>
+</div>
+<section class="modal hidden">
+  <div class="flex">
+    <button class="btn-close">⨉</button>
+  </div>
+  <form action="/create_projects" class="form-container" method="post">
+    <label for="projectname"><b>Project Name</b></label>
+    <input id="projectname" type="text"  placeholder="Enter Project Name" name="projectName">
+    <br>
+    <label for="startdate"><b>Startdate</b></label>
+    <input id="startdate" type="date" placeholder="Enter Start Date" name="startDate" required>
+    <br>
+    <label for="duedate"><b>Due Date</b></label>
+    <input id="duedate" type="date" placeholder="Enter Due Date" name="dueDate" required>
+    <br>
+    <label for="projectmanager"><b>Project Manager</b></label>
+    <input id="projectmanager" type="text"  placeholder="Enter Project Managers Name" name="projectManager" required>
+    <br>
+    <label for="customername"><b>Customer Name</b></label>
+    <input id="customername" type="text"  placeholder="Enter Customer Name" name="customerName" required>
+
+    <button type="submit" class="btn">Create Project</button>
+  </form>
+</section>
+<div class="overlay hidden"></div>
+
+<script>
+  const modal = document.querySelector(".modal");
+  const overlay = document.querySelector(".overlay");
+  const openModalBtn = document.querySelector(".btn-open");
+  const closeModalBtn = document.querySelector(".btn-close");
+
+  // close modal function
+  const closeModal = function () {
+    modal.classList.add("hidden");
+    overlay.classList.add("hidden");
+  };
+
+  // close the modal when the close button and overlay is clicked
+  closeModalBtn.addEventListener("click", closeModal);
+  overlay.addEventListener("click", closeModal);
+
+  // close modal when the Esc key is pressed
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+      closeModal();
+    }
+  });
+
+  // open modal function
+  const openModal = function () {
+    modal.classList.remove("hidden");
+    overlay.classList.remove("hidden");
+  };
+  // open modal event
+  openModalBtn.addEventListener("click", openModal);
+</script>
+</body>
+</html>
