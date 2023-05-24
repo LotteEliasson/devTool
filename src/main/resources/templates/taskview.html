@@ -28,16 +28,16 @@
     <div  class="view" th:each="task : ${taskView}">
       <div>
         <h4>Task info</h4>
-        <span class="text1">Task id: </span><span th:text="${task.taskId}"></span><br>
-        <span class="text1">Process id: </span><span th:text="${task.processId}"></span><br>
-        <span class="text1">Task name: </span><span th:text="${task.taskName}"></span><br>
-        <span class="text1">Effort: </span><span th:text="${task.effort}"></span><br>
-        <span class="text1">Exp start date: </span><span th:text="${task.expectedStartDate}"></span><br>
-        <span class="text1">Allocation: </span><span th:text="${task.minAllocation}"></span><br>
-        <span class="text1">Workdays needed: </span><span th:text="${task.taskDaysNeeded()}"></span><br>
-        <span class="text1">Status: </span><span th:text="${task.taskStatus}"></span><br>
-        <span class="text1">Assigned to: </span><span th:text="${task.assignedId}"></span><br>
-        <span class="text1">Task no.: </span><span th:text="${task.taskSequenceNumber}"></span><br><br>
+        <span class="text1">Task id:&ensp;</span><span th:text="${task.taskId}"></span><br>
+        <span class="text1">Process id:&ensp;</span><span th:text="${task.processId}"></span><br>
+        <span class="text1">Task name:&ensp;</span><span th:text="${task.taskName}"></span><br>
+        <span class="text1">Effort:&ensp;</span><span th:text="${task.effort}"></span><br>
+        <span class="text1">Exp start date:&ensp;</span><span th:text="${task.expectedStartDate}"></span><br>
+        <span class="text1">Allocation:&ensp;</span><span th:text="${task.minAllocation}"></span><br>
+        <span class="text1">Workdays needed:&ensp;</span><span th:text="${task.taskDaysNeeded()}"></span><br>
+        <span class="text1">Status:&ensp;</span><span th:text="${task.taskStatus}"></span><br>
+        <span class="text1">Assigned to:&ensp;</span><span th:text="${task.assignedId}"></span><br>
+        <span class="text1">Task no.:&ensp;</span><span th:text="${task.taskSequenceNumber}"></span><br><br>
 
         <a th:href="@{'/updatetask/' + ${task.taskId}}" href="/updatetask.html"><h4>Update Task</h4></a>
         <a th:href="@{'/deletetask/' + ${task.taskId}}" href="/deletetask.html"><h4>Delete Task</h4></a>

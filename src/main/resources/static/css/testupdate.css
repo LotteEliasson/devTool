@@ -10,15 +10,14 @@ body {
     grid-gap: 10px;
     padding: 0px;
     /*background-color: #7881A1;*/
-
 }
+
 .grid-container > div {
     /*background-color: rgba(255, 255, 255, 0.8);*/
     /*text-align: left;*/
     padding: 20px 0;
     /*font-size: 16px;*/
 }
-
 
 html {
     box-sizing: border-box;
@@ -112,6 +111,7 @@ a.demo {
         background-position: 100% 0;
     }
 }
+
 .style-input {
     position: relative;
     display: flex;
@@ -123,7 +123,23 @@ a.demo {
     padding: 1.4rem 2rem 1.6rem;
     background: rgba(57, 63, 84, 0.8);
     text-align: center;
+
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: center;*/
+    /*gap: 0.4rem;*/
+    /*width: 450px;*/
+    /*padding: 1.3rem;*/
+    /*min-height: 250px;*/
+    /*position: absolute;*/
+    /*z-index: 2;*/
+    /*top: 20%;*/
+    /*background-color: white;*/
+    /*border: 1px solid #ddd;*/
+    /*border-radius: 15px;*/
+    /*margin-left: 500px;*/
 }
+
 .style-input:after {
     content: "";
     position: absolute;
@@ -147,9 +163,9 @@ a.demo {
     font-size: 1.8rem;
     line-height: 2.4rem;
     vertical-align: middle;
-    text-align: right;
-
+    /*text-align: right;*/
 }
+
 .style-input input::-webkit-input-placeholder {
     color: #ebeef8;
 }
@@ -160,8 +176,8 @@ a.demo {
     line-height: 2.4rem;
     vertical-align: middle;
     transition: color 0.25s;
-
 }
+
 .style-input button:hover {
     color: #BFD2FF;
 }
