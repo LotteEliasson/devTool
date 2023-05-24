@@ -122,6 +122,7 @@ a.demo {
     border-radius: 2px;
     padding: 1.4rem 2rem 1.6rem;
     background: rgba(57, 63, 84, 0.8);
+    text-align: center;
 }
 .style-input:after {
     content: "";
@@ -146,6 +147,8 @@ a.demo {
     font-size: 1.8rem;
     line-height: 2.4rem;
     vertical-align: middle;
+    text-align: right;
+
 }
 .style-input input::-webkit-input-placeholder {
     color: #ebeef8;
@@ -157,6 +160,7 @@ a.demo {
     line-height: 2.4rem;
     vertical-align: middle;
     transition: color 0.25s;
+
 }
 .style-input button:hover {
     color: #BFD2FF;

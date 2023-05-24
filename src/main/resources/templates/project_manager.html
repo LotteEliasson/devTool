@@ -38,14 +38,14 @@
         <div class="view" th:each="project:${projects}">
 
             <div>
-                <h4>Task info</h4><br>
-                <span class="text1">Project Name:</span><span th:text="${project.getProjectName()}"></span><br>
-                <span class="text1">Project Manager:  </span><span th:text="${project.getProjectManager()}"> Project Manager </span><br>
-                <span class="text1">Costumer:  </span><span th:text="${project.getCustomerName()}"> Customer </span><br>
-                <span class="text1">Start Date:  </span><span th:text="${project.getStartDate()}"> Start Date </span><br>
-                <span class="text1">Delivery Date:  </span><span th:text="${project.getDueDate()}"> Delivery Date </span><br>
-                <span class="text1">Project Days:  </span><span th:text="${project.getProjectDays()}"> Total days </span><br>
-                <span class="text1">Work Days:  </span><span th:text="${project.getProjectWorkdays()}"> Total days </span><br><br>
+                <h4>Project info</h4><br>
+                <span class="text1">Project Name:&ensp;</span><span th:text="${project.getProjectName()}"></span><br>
+                <span class="text1">Project Manager:&ensp;</span><span th:text="${project.getProjectManager()}"> Project Manager </span><br>
+                <span class="text1">Costumer:&ensp;</span><span th:text="${project.getCustomerName()}"> Customer </span><br>
+                <span class="text1">Start Date:&ensp;</span><span th:text="${project.getStartDate()}"> Start Date </span><br>
+                <span class="text1">Delivery Date:&ensp;</span><span th:text="${project.getDueDate()}"> Delivery Date </span><br>
+                <span class="text1">Project Days:&ensp;</span><span th:text="${project.getProjectDays()}"> Total days </span><br>
+                <span class="text1">Work Days:&ensp;</span><span th:text="${project.getProjectWorkdays()}"> Total days </span><br><br>
 
                 <a th:href="@{'/updateproject/'+${project.getProjectId()}}"><h4>Update Project</h4></a>
                 <a th:href="@{'/processes/'+${project.getProjectId()}}"><h4>Show processes</h4></a>
