@@ -1,5 +1,7 @@
 package kea.dk.devtool.model;
 
+import kea.dk.devtool.utility.TimeAndEffort;
+
 import java.time.LocalDate;
 
 public class Task {
@@ -125,6 +127,9 @@ public class Task {
                 ", taskSequenceNumber=" + taskSequenceNumber +
                 ", projectId=" + projectId +
                 '}';
+    }
+    public int taskDaysNeeded(){
+        return TimeAndEffort.normalWorkdaysNeeded(this.effort,this.minAllocation);
     }
 }
 

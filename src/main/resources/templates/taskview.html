@@ -34,6 +34,7 @@
         <span class="text1">Effort: </span><span th:text="${task.effort}"></span><br>
         <span class="text1">Exp start date: </span><span th:text="${task.expectedStartDate}"></span><br>
         <span class="text1">Allocation: </span><span th:text="${task.minAllocation}"></span><br>
+        <span class="text1">Workdays needed: </span><span th:text="${task.taskDaysNeeded()}"></span><br>
         <span class="text1">Status: </span><span th:text="${task.taskStatus}"></span><br>
         <span class="text1">Assigned to: </span><span th:text="${task.assignedId}"></span><br>
         <span class="text1">Task no.: </span><span th:text="${task.taskSequenceNumber}"></span><br><br>
