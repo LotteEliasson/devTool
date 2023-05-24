@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{../css/jacobtest.css}" href="../static/css/jacobtest.css">
     <link rel="stylesheet" th:href="@{../css/view.css}" href="../static/css/view.css">
     <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">
 <!--  <link rel="stylesheet" th:href="@{../css/style.css}">-->
-    <link rel="stylesheet" th:href="@{../css/jacobtest.css}" href="../static/css/jacobtest.css">
+
 </head>
 <body>
 <div class="grid-container">
     <div class="item1">
-        <h1>Project Tasks</h1>
+        <h1>Projects</h1>
         <button onclick="history.back()">Go Back</button>
-        <button class="btn btn-open">Create Project</button>
 
     </div>
 
@@ -25,23 +25,22 @@
         <div class="view" th:each="project:${projects}">
 
             <div>
-                <span th:text="${'Project Name: '+project.getProjectName()}"> </span><br>
-                <span th:text="${'Project Manager: '+project.getProjectManager()}"> Project Manager </span><br>
-                <span th:text="${'Customer: '+project.getCustomerName()}"> Customer </span><br>
-                <span th:text="${'Start Date: '+project.getStartDate()}"> Start Date </span><br>
-                <span th:text="${'Delivery Date ' +project.getDueDate()}"> Delivery Date </span><br>
+                <h4>Project Info</h4><br>
+                <span class="text1">Project Name: </span><span th:text="${project.getProjectName()}"> </span><br>
+                <span class="text1">Project Manager: </span><span th:text="${project.getProjectManager()}"> Project Manager </span><br>
+                <span class="text1">Customer: </span><span th:text="${project.getCustomerName()}"> Customer </span><br>
+                <span class="text1">Start Date: </span><span th:text="${project.getStartDate()}"> Start Date </span><br>
+                <span class="text1">Delivery Date: </span><span th:text="${project.getDueDate()}"> Delivery Date </span><br><br>
 
-                <a class="update-button" th:text="Update"  th:href="@{'/updateproject/'+${project.getProjectId()}}"></a><br>
+                <a th:href="@{'/updateproject/'+${project.getProjectId()}}"><h4>Update Project</h4></a><br>
 
-
-            <a th:href="@{'/processes/'+${project.getProjectId()}}"> Show processes</a><br>
-                <a th:href="@{'project/delete/'+${project.getProjectId()}}">Delete project</a><br>
+                <a th:href="@{'/processes/'+${project.getProjectId()}}"><h4>Show processes</h4></a><br>
+                <a th:href="@{'project/delete/'+${project.getProjectId()}}"><h4>Delete project</h4></a><br>
             </div>
         </div>
     </div>
 
-
-
+    <button class="btn btn-open">Open Modal</button>
 </div>
 
 <section class="modal hidden">
