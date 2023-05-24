@@ -4,23 +4,41 @@
     <meta charset="UTF-8">
     <title>ProjectView</title>
     <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">
+    <link rel="stylesheet" th:href="@{../css/view.css}" href="../static/css/view.css">
 
 </head>
 <body>
-<button onclick="history.back()">Go Back</button>
-<div class="processview">
-    <div class="processes" th:each="proces:${processes}">
-        <div class="proces">
-            <span th:text="${proces.getProcessName()}"></span>
-            <span th:href="${' starts: '+ proces.getExpectedStartDate()}"></span>
-            <span th:href="${'finishes: '+ proces.getExpectedFinish()}"></span>
-            <a th:href="@{'/taskview/'+${proces.getProcessId()}}"> Show tasks</a>
-            <a th:href="@{'/processes/delete/'+${proces.getProcessId()}}"> Delete process</a>
-            <a th:href="@{'/processes/updateprocess/'+${proces.getProcessId()}}"> Update proces</a>
-        </div>
+<div class="grid-container">
+    <div class="item1">
+        <h1>processes</h1>
+        <button onclick="history.back()">Go Back</button>
+    </div>
+
+    <div class="item2">
 
     </div>
+
+    <div class="item3">
+        <div>
+            <h3>Current Project: <span th:text="${showProjectName}"></span></h3>
+            <h3>Project Manager: <span th:text="${showProjectManager}"></span></h3>
+        </div>
+
+        <div class="view" th:each="proces:${processes}">
+            <div>
+                <h3>Process Info</h3><br>
+                <span class="text1">Process Name: </span><span th:text="${proces.getProcessName()}"></span><br>
+                <span class="text1">Exp Start Date: </span><span th:href="${' starts: '+ proces.getExpectedStartDate()}"></span><br>
+                <span class="text1">Exp Finish: </span><span th:href="${'finishes: '+ proces.getExpectedFinish()}"></span><br><br>
+
+                <a th:href="@{'/taskview/'+${proces.getProcessId()}}"><h4>Show tasks</h4></a>
+                <a th:href="@{'/processes/delete/'+${proces.getProcessId()}}"><h4>Delete process</h4></a>
+                <a th:href="@{'/processes/updateprocess/'+${proces.getProcessId()}}"><h4>Update proces</h4></a>
+            </div>
+        </div>
+    </div>
 </div>
+
 <button  class="open-button" onclick="openForm()">Create new process</button>
 
 <!-- The  Create form -->

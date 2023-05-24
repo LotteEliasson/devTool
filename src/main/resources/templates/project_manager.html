@@ -5,7 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" th:href="@{../css/jacobtest.css}" href="../static/css/jacobtest.css">
     <link rel="stylesheet" th:href="@{../css/view.css}" href="../static/css/view.css">
-    <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">
+<!--    <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">-->
 <!--  <link rel="stylesheet" th:href="@{../css/style.css}">-->
 
 </head>
@@ -33,10 +33,9 @@
                 <span class="text1">Start Date: </span><span th:text="${project.getStartDate()}"> Start Date </span><br>
                 <span class="text1">Delivery Date: </span><span th:text="${project.getDueDate()}"> Delivery Date </span><br><br>
 
-                <a th:href="@{'/updateproject/'+${project.getProjectId()}}"><h4>Update Project</h4></a><br>
-
-                <a th:href="@{'/processes/'+${project.getProjectId()}}"><h4>Show processes</h4></a><br>
-                <a th:href="@{'project/delete/'+${project.getProjectId()}}"><h4>Delete project</h4></a><br>
+                <a th:href="@{'/updateproject/'+${project.getProjectId()}}"><h4>Update Project</h4></a>
+                <a th:href="@{'/processes/'+${project.getProjectId()}}"><h4>Show processes</h4></a>
+                <a th:href="@{'project/delete/'+${project.getProjectId()}}"><h4>Delete project</h4></a>
             </div>
         </div>
     </div>

@@ -102,7 +102,8 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	// processes:
 	@GetMapping("/processes/{projektid}")
 	public String showProcesses(@PathVariable("projektid") int id, Model processes, HttpSession session){
-
+		processes.addAttribute("showProjectName", projectRepository.findProjectByID(id).getProjectName());
+		processes.addAttribute("showProjectManager", projectRepository.findProjectByID(id).getProjectManager());
 		processes.addAttribute("processes", processRepository.getProcessByProjectId(id) );
 
 		session.setAttribute("currentProject", id);
