@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
     font-family: "Inter", sans-serif;
 }
 
@@ -30,6 +30,10 @@
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 15px;
+    margin-left: 500px;
+
+
+
 }
 
 .modal .flex {
@@ -71,8 +75,11 @@ button {
     margin-top: 20px;
 }
 .btn-open {
-    position: absolute;
-    top: 150px;
+    /*position: ;*/
+   float: right;
+    margin-right: 100px;
+
+
 }
 
 .btn-close {
