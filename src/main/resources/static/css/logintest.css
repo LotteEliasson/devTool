@@ -10,7 +10,7 @@ html {
     width: 400px;
     padding: 40px;
     transform: translate(-50%, -50%);
-    background: #5caafc;
+    background: #7881A1; /*#5caafc;*/
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
     border-radius: 20px;
@@ -69,10 +69,11 @@ input[type=submit]{
     position: relative;
     left: 80px;
     margin: 50px;
-    background: #5caafc;
+    background: #7881A1; /*#5caafc;*/
     font-size: 16px;
     color: #fff;
 }
+
 /*.login-box .user-box select{*/
 /*    position: absolute;*/
 /*    top: 0;*/
@@ -91,26 +92,26 @@ input[type=submit]{
     padding: 10px 0;
     font-size: 16px;
     color: #fff;
-    background: #5caafc;
+    background:#C6CCFCFF; /*#5caafc;*/
     pointer-events: none;
     transition: .5s;
     /*background: transparent;*/
 }
 select>option{
-    background: #5caafc;
+    background: #C6CCFCFF; /*#5caafc;*/
     /*background: transparent;*/
     font-size: 16px;
     color: #fff;
 }
 select>option:hover{
-    color: #fddb3a;
+    color: #ffffff;
 }
 
 .login-box .user-box input:focus ~ label,
 .login-box .user-box input:valid ~ label {
     top: -20px;
     left: 0;
-    color: #fddb3a;
+    color: #ffffff;
     font-size: 12px;
 }
 
@@ -118,7 +119,7 @@ select>option:hover{
     position: relative;
     display: inline-block;
     /*padding: 10px 20px;*/
-    color: #5caafc;
+    color: #C6CCFCFF; /*#5caafc;*/
     font-size: 16px;
     text-decoration: none;
     text-transform: uppercase;
@@ -128,7 +129,7 @@ select>option:hover{
     letter-spacing: 4px
 }
 input[type=submit]:hover{
-    color: #fddb3a;
+    color: #ffffff;
 }
 .login-box a:hover {
     background: #03e9f4;
@@ -226,72 +227,75 @@ input[type=submit]:hover{
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-html, body {
-    background: #ffffff;
-    font-family: "Montserrat", sans-serif;
+/*html, body {*/
+/*    background: #ffffff;*/
+/*    font-family: "Montserrat", sans-serif;*/
 
-    background-size: cover;
-}
+/*    background-size: cover;*/
+/*}*/
 
-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.1rem 5rem;
-    background: linear-gradient(180deg, #5caafc 0%, #ffffff 100%);
-}
-header img{
-    width: 225px;
-    height: 200px;
-}
+/*header {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: space-between;*/
+/*    padding: 1.1rem 5rem;*/
+/*    background: linear-gradient(180deg, #5caafc 0%, #ffffff 100%);*/
+/*}*/
+/*header img{*/
+/*    width: 225px;*/
+/*    height: 200px;*/
+/*}*/
 
-.top-nav {
+/*.top-nav {*/
 
-}
-.top-nav a {
-    text-decoration: none;
-    font-size: 1.2em;
-    text-transform: uppercase;
-    font-weight: 600;
-    -webkit-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
-}
+/*}*/
+/*.top-nav a {*/
+/*    text-decoration: none;*/
+/*    font-size: 1.2em;*/
+/*    text-transform: uppercase;*/
+/*    font-weight: 600;*/
+/*    -webkit-transition: all 0.2s ease-in-out;*/
+/*    transition: all 0.2s ease-in-out;*/
+/*}*/
 
-.top-nav a:hover {
-    color: #fddb3a;
-}
-ul {
-    display:flex;
-    flex-direction: row;
-}
-li {
-    list-style-type: none;
-    margin-left: 3rem;
-}
-li a {
-    text-decoration: none;
+/*.top-nav a:hover {*/
+/*    color: #fddb3a;*/
+/*}*/
+/*ul {*/
+/*    display:flex;*/
+/*    flex-direction: row;*/
+/*}*/
+/*li {*/
+/*    list-style-type: none;*/
+/*    margin-left: 3rem;*/
+/*}*/
+/*li a {*/
+/*    text-decoration: none;*/
+/*    color: #ffffff;*/
+/*    font-weight: 500;*/
+/*}*/
+/*li::after {*/
+/*    content: '';*/
+/*    width: 0;*/
+/*    height: 0.15rem;*/
+/*    background-color: #ffffff;*/
+/*    display:block;*/
+/*    border-radius: 0.2rem;*/
+/*    margin: 0.2rem auto 0 auto;*/
+/*    transition: all 0.3s ease-in-out;*/
+/*}*/
+/*li:hover::after{*/
+/*    width: 2rem;*/
+
+/*}*/
+/*.trustpilot img {*/
+/*    width: 150px;*/
+/*    height: 100px;*/
+/*}*/
+.link{
     color: #ffffff;
-    font-weight: 500;
 }
-li::after {
-    content: '';
-    width: 0;
-    height: 0.15rem;
-    background-color: #ffffff;
-    display:block;
-    border-radius: 0.2rem;
-    margin: 0.2rem auto 0 auto;
-    transition: all 0.3s ease-in-out;
-}
-li:hover::after{
-    width: 2rem;
 
-}
-.trustpilot img {
-    width: 150px;
-    height: 100px;
-}
-.link a{
-    color: black;
-
+h1 {
+    color: #ffffff
 }

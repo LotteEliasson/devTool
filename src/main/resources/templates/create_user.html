@@ -3,17 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>New User</title>
+    <link rel="stylesheet" th:href="@{../css/logintest.css}" href="../static/css/logintest.css">
 </head>
 <body>
-<div>
-  <form action="create_user" method="post">
-      <h1> Create UserProfile</h1>
-    <label for="user_name">User Name</label>
-    <input id="user_name" type="text" name="user_name" required >
-      <label for="password">Password</label>
-      <input id="password" type="password" name="password"required>
-       <input type="submit" value="Create User">
-  </form>
+<div class="login-box">
+    <form action="create_user" method="post">
+
+        <h1>Create UserProfile</h1>
+<br>
+
+        <div class="user-box">
+            <input id="user_name" type="text" name="user_name" required >
+            <label for="user_name">User Name</label>
+        </div>
+
+        <div class="user-box">
+          <input id="password" type="password" name="password" required>
+          <label for="password">Password</label>
+        </div>
+
+        <div>
+        <a>
+            <span></span>
+            <span></span>
+            <span></span>
+            <input type="submit" value="Create User">
+        </a>
+        </div>
+
+    </form>
 </div>
 </body>
 </html>
