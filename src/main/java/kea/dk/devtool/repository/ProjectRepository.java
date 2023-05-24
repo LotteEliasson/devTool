@@ -1,6 +1,7 @@
 package kea.dk.devtool.repository;
 
 import kea.dk.devtool.model.Project;
+import kea.dk.devtool.model.ProjectStatus;
 import kea.dk.devtool.utility.ConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -99,7 +100,7 @@ public class ProjectRepository
 			//UPDATE wishlist.wish_list SET wish_list_name = ?, occation = ? WHERE wish_list_id = ?";
 			//project_name, startdate, expected_enddate, due_date,project_manager,customer_name
 			final String SQL_UPDATEPROJECT="UPDATE projectdb.project SET project_name=?, startdate=?," +
-					" expected_enddate=?, due_date=?, project_manager=?, customer_name=? WHERE projectID=?";
+					" expected_enddate=?, due_date=?, project_manager=?, customer_name=?, status=? WHERE projectID=?";
 			try{
 				Connection connection=ConnectionManager.getConnection(DB_URL,UID,PWD);
 				PreparedStatement preparedStatement=connection.prepareStatement(SQL_UPDATEPROJECT);
@@ -110,13 +111,15 @@ public class ProjectRepository
 				String project_manager=project.getProjectManager();
 				String customer_name=project.getCustomerName();
 				int id=project.getProjectId();
+				ProjectStatus status=project.getStatus();
 				preparedStatement.setString(1,project_name);
 				preparedStatement.setDate(2,Date.valueOf(startdate));
 				preparedStatement.setDate(3,Date.valueOf(expected_enddate));
 				preparedStatement.setDate(4,Date.valueOf(due_date));
 				preparedStatement.setString(5,project_manager);
 				preparedStatement.setString(6,customer_name);
-				preparedStatement.setInt(7,id);
+				preparedStatement.setString(7, String.valueOf(status));
+				preparedStatement.setInt(8,id);
 				preparedStatement.executeUpdate();
 
 			}catch(SQLException e){
