@@ -25,9 +25,11 @@
             <div class="navside-header">
                 <h3 class="headline">Projects</h3>
             </div>
-            <ul class="list-group">
-                <li th:each="project : ${projects}" th:text="${project.getName()}">
-                    <a th:href="@{'/processes/'+${project.getProjectId()}}" href="processes.html">Project Test</a>
+            <ul class="list-group" >
+                <li th:each="project : ${projects}">
+                    <a th:href="@{'/processes/'+${project.getProjectId()}}" href="processes.html">
+                        <span th:text="${project.getProjectName()}"></span>
+                    </a>
                 </li>
             </ul>
         </div>
@@ -36,13 +38,14 @@
         <div class="view" th:each="project:${projects}">
 
             <div>
-                <span th:text="${'Project Name: '+project.getProjectName()}"> </span><br>
-                <span th:text="${'Project Manager: '+project.getProjectManager()}"> Project Manager </span><br>
-                <span th:text="${'Customer: '+project.getCustomerName()}"> Customer </span><br>
-                <span th:text="${'Start Date: '+project.getStartDate()}"> Start Date </span><br>
-                <span th:text="${'Delivery Date ' +project.getDueDate()}"> Delivery Date </span><br>
-                <span th:text="${'Total days ' +project.getProjectDays()}"> Total days </span><br>
-                <span th:text="${'Workdays ' +project.getProjectWorkdays()}"> Total days </span><br>
+                <h4>Task info</h4><br>
+                <span class="text1">Project Name:</span><span th:text="${project.getProjectName()}"></span><br>
+                <span class="text1">Project Manager:  </span><span th:text="${project.getProjectManager()}"> Project Manager </span><br>
+                <span class="text1">Costumer:  </span><span th:text="${project.getCustomerName()}"> Customer </span><br>
+                <span class="text1">Start Date:  </span><span th:text="${project.getStartDate()}"> Start Date </span><br>
+                <span class="text1">Delivery Date:  </span><span th:text="${project.getDueDate()}"> Delivery Date </span><br>
+                <span class="text1">Project Days:  </span><span th:text="${project.getProjectDays()}"> Total days </span><br>
+                <span class="text1">Work Days:  </span><span th:text="${project.getProjectWorkdays()}"> Total days </span><br><br>
 
                 <a th:href="@{'/updateproject/'+${project.getProjectId()}}"><h4>Update Project</h4></a>
                 <a th:href="@{'/processes/'+${project.getProjectId()}}"><h4>Show processes</h4></a>
