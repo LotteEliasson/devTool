@@ -14,31 +14,6 @@
     <div class="item1">
         <h1>Projects</h1>
         <button onclick="history.back()">Go Back</button>
-        <button class="btn btn-open">Create Project</button>
-        <section class="modal hidden">
-            <div class="flex">
-                <button class="btn-close">⨉</button>
-            </div>
-            <form action="/create_projects" class="form-container" method="post">
-                <label for="projectname"><b>Project Name</b></label>
-                <input id="projectname" type="text"  placeholder="Enter Project Name" name="projectName">
-                <br>
-                <label for="startdate"><b>Startdate</b></label>
-                <input id="startdate" type="date" placeholder="Enter Start Date" name="startDate" required>
-                <br>
-                <label for="duedate"><b>Due Date</b></label>
-                <input id="duedate" type="date" placeholder="Enter Due Date" name="dueDate" required>
-                <br>
-                <label for="projectmanager"><b>Project Manager</b></label>
-                <input id="projectmanager" type="text"  placeholder="Enter Project Managers Name" name="projectManager" required>
-                <br>
-                <label for="customername"><b>Customer Name</b></label>
-                <input id="customername" type="text"  placeholder="Enter Customer Name" name="customerName" required>
-
-                <button type="submit" class="btn">Create Project</button>
-            </form>
-        </section>
-        <div class="overlay hidden"></div>
 
     </div>
 
@@ -50,23 +25,22 @@
         <div class="view" th:each="project:${projects}">
 
             <div>
-                <span th:text="${'Project Name: '+project.getProjectName()}"> </span><br>
-                <span th:text="${'Project Manager: '+project.getProjectManager()}"> Project Manager </span><br>
-                <span th:text="${'Customer: '+project.getCustomerName()}"> Customer </span><br>
-                <span th:text="${'Start Date: '+project.getStartDate()}"> Start Date </span><br>
-                <span th:text="${'Delivery Date ' +project.getDueDate()}"> Delivery Date </span><br>
+                <h4>Project Info</h4><br>
+                <span class="text1">Project Name: </span><span th:text="${project.getProjectName()}"> </span><br>
+                <span class="text1">Project Manager: </span><span th:text="${project.getProjectManager()}"> Project Manager </span><br>
+                <span class="text1">Customer: </span><span th:text="${project.getCustomerName()}"> Customer </span><br>
+                <span class="text1">Start Date: </span><span th:text="${project.getStartDate()}"> Start Date </span><br>
+                <span class="text1">Delivery Date: </span><span th:text="${project.getDueDate()}"> Delivery Date </span><br><br>
 
-                <a class="update-button" th:text="Update"  th:href="@{'/updateproject/'+${project.getProjectId()}}"></a><br>
+                <a th:href="@{'/updateproject/'+${project.getProjectId()}}"><h4>Update Project</h4></a><br>
 
-
-            <a th:href="@{'/processes/'+${project.getProjectId()}}"> Show processes</a><br>
-                <a th:href="@{'project/delete/'+${project.getProjectId()}}">Delete project</a><br>
+                <a th:href="@{'/processes/'+${project.getProjectId()}}"><h4>Show processes</h4></a><br>
+                <a th:href="@{'project/delete/'+${project.getProjectId()}}"><h4>Delete project</h4></a><br>
             </div>
         </div>
     </div>
 
-
-
+    <button class="btn btn-open">Open Modal</button>
 </div>
 
 <section class="modal hidden">
