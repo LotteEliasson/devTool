@@ -12,8 +12,10 @@
     <div class="processes" th:each="proces:${processes}">
         <div class="proces">
             <span th:text="${proces.getProcessName()}"></span>
-            <span th:href="${' starts: '+ proces.getExpectedStartDate()}"></span>
-            <span th:href="${'finishes: '+ proces.getExpectedFinish()}"></span>
+            <span th:text="${'Starts: '+ proces.getExpectedStartDate()}"></span>
+            <span th:text="${'Finishes: '+ proces.getExpectedFinish()}"></span>
+            <span th:text="${'Total days: '+ proces.getProcessDays()}"></span>
+            <span th:text="${'Working days: '+ proces.getProcessWorkdays()}"></span>
             <a th:href="@{'/taskview/'+${proces.getProcessId()}}"> Show tasks</a>
             <a th:href="@{'/processes/delete/'+${proces.getProcessId()}}"> Delete process</a>
             <a th:href="@{'/processes/updateprocess/'+${proces.getProcessId()}}"> Update proces</a>
