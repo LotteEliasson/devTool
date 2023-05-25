@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Task view</title>
-  <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">
+  <link rel="stylesheet" th:href="@{../css/.css}" href="../static/css/popup.css">
   <link rel="stylesheet" th:href="@{../css/view.css}" href="../static/css/view.css">
 </head>
 <body >
@@ -16,8 +16,20 @@
   </div>
 
   <div class="item2">
-
+    <div class="navside">
+      <div class="navside-header">
+        <a th:href="@{'/project_manager/'+ ${session.PmID}}"><h3 class="headline">Projects</h3></a>
+      </div>
+      <ul class="list-group" >
+        <li th:each="project : ${projectsByPmId}">
+          <a th:href="@{'/processes/'+${project.getProjectId()}}" href="processes.html">
+            <span th:text="${project.getProjectName()}"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
+
 
   <div class="item3">
     <div>
