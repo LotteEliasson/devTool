@@ -47,7 +47,9 @@
 
                         <div class="style-input">
                         <label for="taskStatus-update"><b>Task Status</b></label>
-                        <input id="taskStatus-update" type="text" placeholder="Enter Task Status" name="TaskStatus" th:value="${taskUpdate.taskStatus}"><br>
+                            <select id="taskStatus-update" type="text" name="TaskStatus" >
+                                <option th:each=" state :${TaskStates}"> <span th:text="${state}"></span></option>
+                            </select>
                         </div>
 
                         <div class="style-input">
