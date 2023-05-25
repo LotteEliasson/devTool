@@ -3,43 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <title>Test</title>
-  <script src="https://kit.fontawesome.com/7c3c034aee.js" crossorigin="anonymous"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <<script src="https://kit.fontawesome.com/7c3c034aee.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" th:href="@{../css/test2.css}" href="../static/css/test2.css">
 </head>
 <body>
 <div class="grid-container">
-    <div class="div1">
-      <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-        officia deserunt mollit anim id est laborum.</p>
+    <div class="item1">
+        <h1>Update Project</h1>
     </div>
-    <div class="div2">
-      <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-        officia deserunt mollit anim id est laborum.</p>
+    <div class="item2">
+        <div class="navside">
+            <div class="navside-header">
+                <h3 class="headline">Update Project</h3>
+            </div>
+            <ul class="list-group" >
+                <li th:each="project : ${projects}">
+                    <a th:href="@{'/processes/'+${project.getProjectId()}}" href="processes.html">
+                        <span th:text="${project.getProjectName()}"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="div3">
-      <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-        officia deserunt mollit anim id est laborum.</p>
+    <section class="modal">
+        <form action="/updateproject" class="formupdate" method="post">
+
+            <input id="projectID" th:value="${project.getProjectId()}" name="projectID" type="hidden">
+
+            <div class="style-input">
+                <label for="updatename"><b>Project Name</b></label>
+                <input id="updatename" type="text" placeholder="Enter Project Name" th:value="${project.getProjectName()}" name="projectName" >
+            </div>
+
+
+            <div class="style-input">
+                <label for="newstartdate"><b>Startdate</b></label>
+                <input id="newstartdate" type="date" placeholder="Enter Start Date" th:value="${project.getStartDate()}" name="startDate" >
+            </div>
+
+            <div class="style-input">
+                <label for="newduedate"><b>Due Date</b></label>
+                <input id="newduedate" type="date" placeholder="Enter Due Date" th:value="${project.getDueDate()}" name="dueDate" >
+            </div>
+
+            <div class="style-input">
+                <label for="newexpectedenddate"><b>Delivery Date</b></label>
+                <input id="newexpectedenddate" type="date" placeholder="Enter expected delivery Date" th:value="${project.getExpectedEndDate()}" name="expectedEnddate" >
+            </div>
+
+
+            <div class="style-input">
+                <label for="newprojectmanager"><b>Project Manager</b></label>
+                <input id="newprojectmanager" type="text" placeholder="Enter Project Managers Name"  th:value="${project.getProjectManager()}" name="projectManager" >
+            </div>
+
+            <div class="style-input">
+                <label for="newcustomername"><b>Customer Name</b></label>
+                <input id="newcustomername" type="text" placeholder="Enter Customer Name" name="customerName" th:value="${project.getCustomerName()}" >
+            </div>
+            <div class="style-input">
+                <label for="newstate"><b>Project Status</b></label>
+                <Select id="newstate" type="text" name="newstate">
+                    <option th:each="state :${States}"> <span th:text="${state}"></span> </option>
+                </Select>
+            </div>
+
+            <div class="style-input">
+                <input type="submit" class="btn" value="Save Changes">
+            </div>
+
+        </form>
+    </section>
     </div>
-    <div class="div4">
-      <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-        officia deserunt mollit anim id est laborum.</p>
+    <div class="footer">
+
     </div>
+
+
 </div>
+
 <script>
 </script>
 </body>
