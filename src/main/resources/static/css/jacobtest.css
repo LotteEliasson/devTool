@@ -4,6 +4,20 @@
     /*box-sizing: border-box;*/
     font-family: Roboto, sans-serif;
 }
+.item1 span {
+    display: table;
+    align-content: center;
+    align-self: center;
+    place-items: center;
+    margin: 0 auto;
+    font-weight: bold;
+    text-align: center;
+    font-size: clamp(2rem, 2rem,2rem);
+}
+.brand-name:hover {
+    background-color: black;
+    color: #d5d9f8;
+}
 
 /*body {*/
 /*    display: flex;*/
@@ -24,12 +38,14 @@
     padding: 1.3rem;
     min-height: 250px;
     position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
     z-index: 2;
-    top: 20%;
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 15px;
-    margin-left: 500px;
+
 }
 
 .modal .flex {
@@ -39,10 +55,12 @@
 }
 
 .modal input {
+    display: flex;
     padding: 0.7rem 1rem;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 0.9em;
+    width:80%;
 }
 
 .modal p {
@@ -74,10 +92,27 @@ button {
     /*position: ;*/
     float: right;
     margin-right: 100px;
-
-
+}
+.btn-submit {
+    background-color: limegreen;
+    color: black;
+    float: right;
 }
 
+/*.form-container label {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    */
+/*    text-align: right;*/
+/*    line-height: 26px;*/
+/*    margin-bottom: 2px;*/
+/*}*/
+/*.form-container input {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content:space-evenly;*/
+/*    text-align: right;*/
+/*}*/
 .btn-close {
     transform: translate(10px, -20px);
     padding: 0.5rem 0.7rem;
