@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @Controller
 public class HomeController {
@@ -65,10 +66,13 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		return "redirect:project_manager/"+pmID;
 
 	}
-	@GetMapping("updateproject/{id}")
+	@GetMapping("/updateproject/{id}")
 	public String updateProject(@PathVariable("id") int projectID, Model projektModel){
 	Project project;
 	project=projectRepository.findProjectByID(projectID);
+
+	//ProjectStatus.values();
+	projektModel.addAttribute("States",ProjectStatus.values());
 	projektModel.addAttribute(project);
 
 
@@ -194,7 +198,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 							 @RequestParam("Effort") int newEffort,
 							 @RequestParam("ExpectedStartDate") Date newExpectedStartDate,
 							 @RequestParam("MinAllocation") int newMinAllocation,
-							 @RequestParam("TaskStatus") String newTaskStatus,
+							 @RequestParam("TaskStatus") TaskStatus newTaskStatus,
 							 @RequestParam("AssignedId") String newAssignedId,
 							 @RequestParam("TaskSequenceNumber") int newTaskSequenceNumber,
 							 HttpSession session) {
@@ -228,6 +232,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	public String updateTask(@PathVariable("taskId") int updateTask, Model taskModel) {
 
 	Task updateTasks = taskRepository.findTaskById(updateTask);
+		taskModel.addAttribute("TaskStates",TaskStatus.values());
 	taskModel.addAttribute("taskUpdate", updateTasks);
 		return "updatetask";
 	}
@@ -240,7 +245,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 							 @RequestParam("Effort") int updateEffort,
 							 @RequestParam("ExpectedStartDate") Date updateExpectedStartDate,
 							 @RequestParam("MinAllocation") int updateMinAllocation,
-							 @RequestParam("TaskStatus") String updateTaskStatus,
+							 @RequestParam("TaskStatus") TaskStatus updateTaskStatus,
 							 @RequestParam("AssignedId") String updateAssignedId,
 							 @RequestParam("TaskSequenceNumber") int updateTaskSequenceNumber,
 							 @RequestParam("ProjectId") int updateProjectId,

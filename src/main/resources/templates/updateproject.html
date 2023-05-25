@@ -54,6 +54,12 @@
                         <label for="newcustomername"><b>Customer Name</b></label>
                         <input id="newcustomername" type="text" placeholder="Enter Customer Name" name="customerName" th:value="${project.getCustomerName()}" >
                     </div>
+                    <div class="style-input">
+                        <label for="newstate"><b>Project Status</b></label>
+                        <Select id="newstate" type="text" name="newstate">
+                            <option th:each="state :${States}"> <span th:text="${state}"></span> </option>
+                        </Select>
+                    </div>
 
                     <div class="style-input">
                         <input type="submit" class="btn" value="Save Changes">
@@ -63,5 +69,6 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

@@ -37,7 +37,7 @@ public class TaskRepository {
                 int effort = resultSet.getInt(4);
                 LocalDate expectedStartDate = resultSet.getDate(5).toLocalDate();
                 int minAllocation = resultSet.getInt(6);
-                String taskStatus = resultSet.getString(7);
+                TaskStatus taskStatus = TaskStatus.valueOf(resultSet.getString(7));
                 String assignedId = resultSet.getString(8);
                 int taskSequenceNumber = resultSet.getInt(9);
                 int projectId = resultSet.getInt(10);
@@ -67,7 +67,7 @@ public class TaskRepository {
             preparedStatement.setInt(3, task.getEffort());
             preparedStatement.setDate(4, Date.valueOf(task.getExpectedStartDate()));
             preparedStatement.setInt(5, task.getMinAllocation());
-            preparedStatement.setString(6, task.getTaskStatus());
+            preparedStatement.setString(6, String.valueOf(task.getTaskStatus()));
             preparedStatement.setString(7, task.getAssignedId());
             preparedStatement.setInt(8, task.getTaskSequenceNumber());
             preparedStatement.setInt(9, task.getProjectId());
@@ -92,7 +92,7 @@ public class TaskRepository {
             int effort = task.getEffort();
             LocalDate expectedStartDate = task.getExpectedStartDate();
             int minAllocation = task.getMinAllocation();
-            String taskStatus = task.getTaskStatus();
+            TaskStatus taskStatus = task.getTaskStatus();
             String assignedId = task.getAssignedId();
             int taskSequenceNumber = task.getTaskSequenceNumber();
 
@@ -100,7 +100,7 @@ public class TaskRepository {
             preparedStatement.setInt(2, effort);
             preparedStatement.setDate(3, Date.valueOf(expectedStartDate));
             preparedStatement.setInt(4, minAllocation);
-            preparedStatement.setString(5, taskStatus);
+            preparedStatement.setString(5, String.valueOf(taskStatus));
             preparedStatement.setString(6, assignedId);
             preparedStatement.setInt(7, taskSequenceNumber);
             preparedStatement.setInt(8,task.getTaskId());
@@ -130,7 +130,7 @@ public class TaskRepository {
             int effort = resultSet.getInt(4);
             LocalDate expectedStartDate = resultSet.getDate(5).toLocalDate();
             int minAllocation = resultSet.getInt(6);
-            String taskStatus = resultSet.getString(7);
+            TaskStatus taskStatus = TaskStatus.valueOf(resultSet.getString(7)) ;
             String assignedId = resultSet.getString(8);
             int taskSequenceNumber = resultSet.getInt(9);
 

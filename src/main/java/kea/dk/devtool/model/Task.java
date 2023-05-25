@@ -12,7 +12,7 @@ public class Task {
     private int effort; // man-hours needed to complete task
     private LocalDate expectedStartDate;
     private int minAllocation; // assigned man-hours per day
-    private String taskStatus;
+    private TaskStatus taskStatus;
     private String assignedId;
     private int taskSequenceNumber;
     private int projectId;
@@ -20,7 +20,7 @@ public class Task {
     public Task() {
     }
 
-    public Task(int taskId, int processId, String taskName, int effort, LocalDate expectedStartDate, int minAllocation, String taskStatus, String assignedId, int taskSequenceNumber, int projectId) {
+    public Task(int taskId, int processId, String taskName, int effort, LocalDate expectedStartDate, int minAllocation, TaskStatus taskStatus, String assignedId, int taskSequenceNumber, int projectId) {
         this.taskId = taskId;
         this.processId = processId;
         this.taskName = taskName;
@@ -81,11 +81,11 @@ public class Task {
         this.minAllocation = minAllocation;
     }
 
-    public String getTaskStatus() {
+    public TaskStatus getTaskStatus() {
         return taskStatus;
     }
 
-    public void setTaskStatus(String taskStatus) {
+    public void setTaskStatus(TaskStatus taskStatus) {
         this.taskStatus = taskStatus;
     }
 

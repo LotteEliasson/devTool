@@ -15,6 +15,7 @@ public class Project {
     private String projectManager;
     private String customerName;
     private int projectManagerID;
+    private ProjectStatus status;
     private List<Processes> processes;
 
     public Project() {
@@ -119,6 +120,17 @@ public class Project {
         {
             this.projectManagerID = projectManagerID;
         }
+
+    public ProjectStatus getStatus()
+        {
+            return status;
+        }
+
+    public void setStatus(ProjectStatus status)
+        {
+            this.status = status;
+        }
+
     public int getProjectDays(){
      return   TimeAndEffort.daysBetween(this.startDate,this.dueDate);
     }

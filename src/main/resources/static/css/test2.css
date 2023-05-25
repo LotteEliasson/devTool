@@ -1,26 +1,140 @@
-.parent {
+* {
+    margin: 0;
+    padding: 0;
+    /*box-sizing: border-box;*/
+    font-family: Roboto, sans-serif;
+}
+.modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 450px;
+    padding: 1.3rem;
+    min-height: 250px;
+    position: absolute;
+    z-index: 2;
+    top: 20%;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    margin-left: 500px;
+}
+
+.modal .flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal input {
+    padding: 0.7rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.modal p {
+    font-size: 0.9rem;
+    color: #777;
+    margin: 0.4rem 0 0.2rem;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    font-weight: 600;
+}
+
+.btn {
+    display: inline-block;
+    padding: 1rem 1.4rem;
+    font-weight: 700;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1em;
+    float: right;
+}
+.modal button {
+    margin-top: 20px;
+}
+.grid-container {
+    margin: 4px;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-}
-
-.div1 { grid-area: 1 / 2 / 5 / 5; }
-.div2 { grid-area: 1 / 1 / 5 / 2; }
-.div3 { grid-area: 5 / 1 / 6 / 6; }
-.div4 { grid-area: 1 / 5 / 5 / 6; }
-
-.div1 {
-    background-color: limegreen;
-}
-.div2 {
-    background-color: blue;
+    /*grid-template-columns: 20% 80%;*/
+    grid-template-rows: auto auto;
+    grid-gap: 10px;
+    padding: 0px;
+    /*background-color: #7881A1;*/
 
 }
-.div3 {
-    background-color: red;
+.grid-container > div {
+    /*background-color: rgba(255, 255, 255, 0.8);*/
+    /*text-align: left;*/
+    padding: 20px 0;
+    /*font-size: 16px;*/
 }
-.div4 {
-    background-color: yellow;
+
+
+html {
+    box-sizing: border-box;
+    font-size: 10px;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+input {
+    border-style: none;
+    background: transparent;
+    outline: none;
+}
+
+.text1 {
+    text-align: left;
+    padding: 0px 0px 20px 2px;
+    font-style: italic;
+}
+
+h4 {
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+a {
+    text-decoration: none;
+    color: #000000;
+}
+
+a:hover{
+    color: #ffffff;
+}
+
+a:visited{
+    color: #000000;
+}
+
+a:hover:visited{
+    color: #ffffff;
 }
