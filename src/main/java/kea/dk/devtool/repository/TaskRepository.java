@@ -38,11 +38,11 @@ public class TaskRepository {
                 LocalDate expectedStartDate = resultSet.getDate(5).toLocalDate();
                 int minAllocation = resultSet.getInt(6);
                 TaskStatus taskStatus = TaskStatus.valueOf(resultSet.getString(7));
-                String assignedId = resultSet.getString(8);
+                String assignedname = resultSet.getString(8);
                 int taskSequenceNumber = resultSet.getInt(9);
                 int projectId = resultSet.getInt(10);
 
-                Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedId,taskSequenceNumber, projectId);
+                Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedname,taskSequenceNumber, projectId);
                 tasks.add(newTask);
             }
 
@@ -59,7 +59,7 @@ public class TaskRepository {
         try {
             Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);
             final String SQL_addTask = "INSERT INTO projectdb.task(processID, task_name, effort, expected_startdate, " +
-                    "min_allocation, task_status, assignedID, tasksequencenumber, projectID) VALUES(?,?,?,?,?,?,?,?,?)";
+                    "min_allocation, task_status, assignedname, tasksequencenumber, projectID) VALUES(?,?,?,?,?,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_addTask);
 
             preparedStatement.setInt(1, processId);
@@ -82,7 +82,7 @@ public class TaskRepository {
 
    //Update Tasks
    public void updateTask(Task task) {
-        final String UPDATE_task = "UPDATE projectdb.task SET task_name=?, effort=?, expected_startdate=?, min_allocation=?, task_status=?, assignedID=?, tasksequencenumber=? WHERE taskID=?";
+        final String UPDATE_task = "UPDATE projectdb.task SET task_name=?, effort=?, expected_startdate=?, min_allocation=?, task_status=?, assignedname=?, tasksequencenumber=? WHERE taskID=?";
 
         try {
            Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);
@@ -167,6 +167,11 @@ public class TaskRepository {
             e.printStackTrace();
         }
     }
+    // Developers task:
+//    public List<Task> getMyTasks(int userid){
+//       ArrayList<Task> myTasks=new ArrayList<>();
+//       final String TASKLIST="SELECT * FROM projectdb.task WHERE assignedID=?"
+//    }
 
 }
 

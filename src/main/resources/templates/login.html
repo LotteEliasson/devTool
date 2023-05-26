@@ -17,18 +17,16 @@
             <label for="access"></label>
             <select id="access" name="usertype" required >
 
-                <option value="0"> Log in as...</option>
+                <option value=" "> Log in as...</option>
 
-                <option value="PROJECT_MANAGER">Project Manager</option>
-                <option value="ADMIN">Project Admin</option>
-                <option value="DEVELOPER">Developer</option>
-                <option value="CUSTOMER">Customer</option>
+                <option th:each="role:${Roles}"> <span th:text="${role}"></span> </option>
+
             </select>
         </div>
 
         <div class="user-box">
             <input id="user-id" type="text" name="username" required="">
-            <label for="user-id">Email</label>
+            <label for="user-id">Username</label>
         </div>
 
         <div class="user-box">
