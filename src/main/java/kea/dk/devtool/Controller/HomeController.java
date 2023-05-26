@@ -6,7 +6,6 @@ import kea.dk.devtool.repository.ProcessRepository;
 import kea.dk.devtool.repository.ProjectRepository;
 import kea.dk.devtool.repository.TaskRepository;
 import kea.dk.devtool.repository.UserRepository;
-import kea.dk.devtool.utility.TimeAndEffort;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 @Controller
 public class HomeController {
@@ -39,8 +37,14 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	session.setAttribute("User",user);
 	session.setAttribute("PmID",userid);
 		ArrayList<Project> myProjects= (ArrayList<Project>) projectRepository.getMyProjects(userid);
+
 		for (Project p:myProjects) {
 			p.setProcesses(processRepository.getProcessByProjectId(p.getProjectId()));
+			ArrayList<Processes> myprocesses= (ArrayList<Processes>) p.getProcesses();
+			for( Processes proc:myprocesses){
+				proc.setTaskList(taskRepository.getTaskById(proc.getProcessId()));
+
+			}
 		}
 
 	projectModel.addAttribute("projects",myProjects);
@@ -214,8 +218,8 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		newTask.setExpectedStartDate(newExpectedStartDate.toLocalDate());
 		newTask.setMinAllocation(newMinAllocation);
 		newTask.setTaskStatus(newTaskStatus);
-		newTask.setAssignedId(newAssignedId);
-		newTask.setTaskSequenceNumber(newTaskSequenceNumber);
+		newTask.setAssignedname(newAssignedId);
+		newTask.setTaskDependencyNumber(newTaskSequenceNumber);
 		newTask.setProjectId(newProjectId);
 
 		//Gem ny Task
@@ -241,15 +245,16 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 							 @RequestParam("ProcessId") int updateProcessId,
 							 @RequestParam("TaskName") String updateTaskName,
 							 @RequestParam("Effort") int updateEffort,
-							 @RequestParam("ExpectedStartDate") Date updateExpectedStartDate,
+							 @RequestParam("ExpectedStartDate") LocalDate updateExpectedStartDate,
 							 @RequestParam("MinAllocation") int updateMinAllocation,
 							 @RequestParam("TaskStatus") TaskStatus updateTaskStatus,
 							 @RequestParam("AssignedId") String updateAssignedId,
 							 @RequestParam("TaskSequenceNumber") int updateTaskSequenceNumber,
 							 @RequestParam("ProjectId") int updateProjectId,
+							 @RequestParam("developerId") int developerId,
 							 Model modelUpdateTask,
 							 HttpSession session) {
-		Task updateTasks = new Task(updateTaskId, updateProcessId, updateTaskName, updateEffort, updateExpectedStartDate.toLocalDate(), updateMinAllocation, updateTaskStatus,updateAssignedId,updateTaskSequenceNumber,updateProjectId);
+		Task updateTasks = new Task(updateTaskId, updateProcessId, updateTaskName, updateEffort, updateExpectedStartDate, updateMinAllocation, updateTaskStatus,updateAssignedId,updateTaskSequenceNumber,updateProjectId,developerId);
 
 		taskRepository.updateTask(updateTasks);
 		int processID = (int) session.getAttribute("currentProcess");
@@ -410,5 +415,9 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 			return "redirect:/admin";
 		}
 		return "redirect:/login";
+	}
+	@GetMapping("/")
+	public String showindex(){
+	return "redirect:/login";
 	}
 }

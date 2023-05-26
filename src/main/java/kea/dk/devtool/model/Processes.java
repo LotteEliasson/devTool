@@ -12,19 +12,20 @@ public class Processes {
     private String processName;
     private LocalDate expectedStartDate;
     private LocalDate expectedFinish;
-    private int startAfterTask; // taskid must be in project
-    private List<Task> taskList;
+    private int startAfterTask; // taskid must be in project - will determine the expected startdate. if =-1 then starts with project
+    private List<Task> taskList;//will determine the expected enddate
 
     public Processes() {
     }
 
-    public Processes(int processId, int projectId, String processName, LocalDate expectedStartDate, LocalDate expectedFinish, int startAfterTask) {
+    public Processes(int processId, int projectId, String processName, LocalDate expectedStartDate, LocalDate expectedFinish, int startAfterTask,List<Task> taskList) {
         this.processId = processId;
         this.projectId = projectId;
         this.processName = processName;
         this.expectedStartDate = expectedStartDate;
         this.expectedFinish = expectedFinish;
         this.startAfterTask = startAfterTask;
+        this.taskList=taskList;
     }
 
     public int getProcessId() {
@@ -95,12 +96,16 @@ public class Processes {
                 ", expectedStartDate=" + expectedStartDate +
                 ", expectedFinish=" + expectedFinish +
                 ", startAfterTask=" + startAfterTask +
-                '}';
+                "taskList: "+taskList+ '}';
     }
     public int getProcessDays(){
         return TimeAndEffort.daysBetween(this.expectedStartDate,this.expectedFinish);
     }
     public int getProcessWorkdays(){
         return TimeAndEffort.workingDaysBetween(this.expectedStartDate,this.expectedFinish);
+
+    }
+    public LocalDate getProcessEndDate(){
+        return TimeAndEffort.procesEnddate(this);
     }
 }

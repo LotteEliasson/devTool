@@ -49,8 +49,8 @@
         <span class="text1">Allocation:&ensp;</span><span th:text="${task.minAllocation}"></span><br>
         <span class="text1">Workdays needed:&ensp;</span><span th:text="${task.taskDaysNeeded()}"></span><br>
         <span class="text1">Status:&ensp;</span><span th:text="${task.taskStatus}"></span><br>
-        <span class="text1">Assigned to:&ensp;</span><span th:text="${task.assignedId}"></span><br>
-        <span class="text1">Task no.:&ensp;</span><span th:text="${task.taskSequenceNumber}"></span><br><br>
+        <span class="text1">Assigned to:&ensp;</span><span th:text="${task.assignedname}"></span><br>
+        <span class="text1">Task no.:&ensp;</span><span th:text="${task.taskDependencyNumber}"></span><br><br>
 
         <a th:href="@{'/updatetask/' + ${task.taskId}}" href="/updatetask.html"><h4>Update Task</h4></a>
         <a th:href="@{'/deletetask/' + ${task.taskId}}" href="/deletetask.html"><h4>Delete Task</h4></a>
@@ -85,8 +85,8 @@
     <label for="assignedId-create"><b>Assigned ID</b></label>
     <input id="assignedId-create" type="text" placeholder="Enter Assignment ID" name="AssignedId" required>
 
-    <label for="taskSequenceNumber-create"><b>Task Sequence Number</b></label>
-    <input id="taskSequenceNumber-create" type="text" placeholder="Enter Task Sequence Number" name="TaskSequenceNumber" required>
+    <label for="taskDependencyNumber-create"><b>Task Sequence Number</b></label>
+    <input id="taskDependencyNumber-create" type="text" placeholder="Enter Task Sequence Number" name="TaskSequenceNumber" required>
 
     <button type="submit" class="btn">Create Task</button>
     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>

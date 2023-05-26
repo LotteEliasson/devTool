@@ -53,13 +53,18 @@
                         </div>
 
                         <div class="style-input">
-                        <label for="assignedId-update"><b>Assigned id</b></label>
-                        <input id="assignedId-update" type="text" placeholder="Enter Assignment ID" name="AssignedId" th:value="${taskUpdate.assignedId}"><br>
+                        <label for="assignedId-update"><b>Assigned to</b></label>
+                        <input id="assignedId-update" type="text" placeholder="Enter Assignment ID" name="AssignedId" th:value="${taskUpdate.assignedname}"><br>
                         </div>
 
                         <div class="style-input">
-                        <label for="taskSequenceNumber-update"><b>Task Number</b></label>
-                        <input id="taskSequenceNumber-update" type="text" placeholder="Enter Task Sequence Number" name="TaskSequenceNumber" th:value="${taskUpdate.taskSequenceNumber}"><br>
+                            <label for="developerId-update"><b>Developer ID</b></label>
+                            <input id="developerId-update" type="text" placeholder="Enter Assignment ID" name="developerId" th:value="${taskUpdate.developerId}"><br>
+                        </div>
+
+                        <div class="style-input">
+                        <label for="taskDependencyNumber-update"><b>Task Number</b></label>
+                        <input id="taskDependencyNumber-update" type="text" placeholder="Enter Task Sequence Number" name="TaskSequenceNumber" th:value="${taskUpdate.taskDependencyNumber}"><br>
                         </div>
 
                         <div class="style-input">

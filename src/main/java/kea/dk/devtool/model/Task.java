@@ -13,14 +13,18 @@ public class Task {
     private LocalDate expectedStartDate;
     private int minAllocation; // assigned man-hours per day
     private TaskStatus taskStatus;
-    private String assignedId;
-    private int taskSequenceNumber;
+    private String assignedname; // developer name
+
+    // the taskId of the predecessor - 0 if it is supposed to start with proces. this task starts when the dependent task finishes
+    private int taskDependencyNumber;
     private int projectId;
+    private int developerId;
+    private LocalDate expectedFinish;
 
     public Task() {
     }
 
-    public Task(int taskId, int processId, String taskName, int effort, LocalDate expectedStartDate, int minAllocation, TaskStatus taskStatus, String assignedId, int taskSequenceNumber, int projectId) {
+    public Task(int taskId, int processId, String taskName, int effort, LocalDate expectedStartDate, int minAllocation, TaskStatus taskStatus, String assignedname, int taskDependencyNumber, int projectId, int developerId) {
         this.taskId = taskId;
         this.processId = processId;
         this.taskName = taskName;
@@ -28,9 +32,11 @@ public class Task {
         this.expectedStartDate = expectedStartDate;
         this.minAllocation = minAllocation;
         this.taskStatus = taskStatus;
-        this.assignedId = assignedId;
-        this.taskSequenceNumber = taskSequenceNumber;
+        this.assignedname = assignedname;
+        this.taskDependencyNumber = taskDependencyNumber;
         this.projectId = projectId;
+        this.developerId = developerId;
+        this.expectedFinish=TimeAndEffort.calculateDate(this.expectedStartDate,TimeAndEffort.normalWorkdaysNeeded(this.effort,this.minAllocation));
     }
 
     public int getTaskId() {
@@ -89,20 +95,20 @@ public class Task {
         this.taskStatus = taskStatus;
     }
 
-    public String getAssignedId() {
-        return assignedId;
+    public String getAssignedname() {
+        return assignedname;
     }
 
-    public void setAssignedId(String assignedId) {
-        this.assignedId = assignedId;
+    public void setAssignedname(String assignedname) {
+        this.assignedname = assignedname;
     }
 
-    public int getTaskSequenceNumber() {
-        return taskSequenceNumber;
+    public int getTaskDependencyNumber() {
+        return taskDependencyNumber;
     }
 
-    public void setTaskSequenceNumber(int taskSequenceNumber) {
-        this.taskSequenceNumber = taskSequenceNumber;
+    public void setTaskDependencyNumber(int taskDependencyNumber) {
+        this.taskDependencyNumber = taskDependencyNumber;
     }
 
     public int getProjectId() {
@@ -112,6 +118,26 @@ public class Task {
     public void setProjectId(int projectId) {
         this.projectId = projectId;
     }
+
+    public int getDeveloperId()
+        {
+            return developerId;
+        }
+
+    public void setDeveloperId(int developerId)
+        {
+            this.developerId = developerId;
+        }
+
+    public LocalDate getExpectedFinish()
+        {
+            return expectedFinish;
+        }
+
+    public void setExpectedFinish(LocalDate expectedFinish)
+        {
+            this.expectedFinish = expectedFinish;
+        }
 
     @Override
     public String toString() {
@@ -123,13 +149,15 @@ public class Task {
                 ", expectedStartDate=" + expectedStartDate +
                 ", minAllocation=" + minAllocation +
                 ", taskStatus='" + taskStatus + '\'' +
-                ", assignedId='" + assignedId + '\'' +
-                ", taskSequenceNumber=" + taskSequenceNumber +
+                ", assignedname='" + assignedname + '\'' +
+                ", taskDependencyNumber=" + taskDependencyNumber +
                 ", projectId=" + projectId +
-                '}';
+                ", developerId="+ developerId +
+              ", expected finish=" + expectedFinish+"}";
     }
     public int taskDaysNeeded(){
         return TimeAndEffort.normalWorkdaysNeeded(this.effort,this.minAllocation);
     }
+
 }
 

@@ -41,8 +41,8 @@ public class TaskRepository {
                 String assignedname = resultSet.getString(8);
                 int taskSequenceNumber = resultSet.getInt(9);
                 int projectId = resultSet.getInt(10);
-
-                Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedname,taskSequenceNumber, projectId);
+                int developerId=resultSet.getInt(11);
+                Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedname,taskSequenceNumber, projectId,developerId);
                 tasks.add(newTask);
             }
 
@@ -68,8 +68,8 @@ public class TaskRepository {
             preparedStatement.setDate(4, Date.valueOf(task.getExpectedStartDate()));
             preparedStatement.setInt(5, task.getMinAllocation());
             preparedStatement.setString(6, String.valueOf(task.getTaskStatus()));
-            preparedStatement.setString(7, task.getAssignedId());
-            preparedStatement.setInt(8, task.getTaskSequenceNumber());
+            preparedStatement.setString(7, task.getAssignedname());
+            preparedStatement.setInt(8, task.getTaskDependencyNumber());
             preparedStatement.setInt(9, task.getProjectId());
 
             preparedStatement.executeUpdate();
@@ -93,8 +93,8 @@ public class TaskRepository {
             LocalDate expectedStartDate = task.getExpectedStartDate();
             int minAllocation = task.getMinAllocation();
             TaskStatus taskStatus = task.getTaskStatus();
-            String assignedId = task.getAssignedId();
-            int taskSequenceNumber = task.getTaskSequenceNumber();
+            String assignedId = task.getAssignedname();
+            int taskSequenceNumber = task.getTaskDependencyNumber();
 
             preparedStatement.setString(1, taskName);
             preparedStatement.setInt(2, effort);
@@ -139,8 +139,8 @@ public class TaskRepository {
             task.setExpectedStartDate(expectedStartDate);
             task.setMinAllocation(minAllocation);
             task.setTaskStatus(taskStatus);
-            task.setAssignedId(assignedId);
-            task.setTaskSequenceNumber(taskSequenceNumber);
+            task.setAssignedname(assignedId);
+            task.setTaskDependencyNumber(taskSequenceNumber);
 
         } catch (SQLException e) {
             System.out.println("Could not find Task");
