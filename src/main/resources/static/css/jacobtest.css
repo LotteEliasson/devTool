@@ -5,6 +5,9 @@
     font-family: Roboto, sans-serif;
 }
 .item1 span {
+
+}
+.brand-name {
     display: table;
     align-content: center;
     align-self: center;
@@ -13,9 +16,6 @@
     font-weight: bold;
     text-align: center;
     font-size: clamp(2rem, 2rem,2rem);
-}
-.brand-name {
-
 }
 .brand-name:hover {
     background-color: black;
