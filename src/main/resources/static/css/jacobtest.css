@@ -9,26 +9,23 @@
     align-content: center;
     align-self: center;
     place-items: center;
-    margin: 0 auto;
+    margin: 0 auto ;
     font-weight: bold;
     text-align: center;
     font-size: clamp(2rem, 2rem,2rem);
+}
+.brand-name {
+
 }
 .brand-name:hover {
     background-color: black;
     color: #d5d9f8;
 }
-
-/*body {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    align-items: center;*/
-/*    justify-content: center;*/
-/*    color: #222;*/
-/*    position: relative;*/
-/*    min-height: 100vh;*/
-/*    background-color: #b3e6f4;*/
-/*}*/
+.github {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .modal {
     display: flex;
     flex-direction: column;
