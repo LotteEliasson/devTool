@@ -7,8 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{../css/jacobtest.css}" href="../static/css/jacobtest.css">
+    <link rel="stylesheet" th:href="@{../css/modal.css}" href="../static/css/modal.css">
     <link rel="stylesheet" th:href="@{../css/view.css}" href="../static/css/view.css">
+    <link rel="stylesheet" th:href="@{../css/grid.css}" href="../static/css/grid.css">
 <!--    <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">-->
 <!--  <link rel="stylesheet" th:href="@{../css/style.css}">-->
 
@@ -26,7 +27,7 @@
             <div class="navside-header">
                 <h3 class="headline">Projects</h3>
             </div>
-            <ul class="list-group" >
+            <ul class="list-group">
                 <li th:each="project : ${projects}">
                     <a th:href="@{'/processes/'+${project.getProjectId()}}" href="processes.html">
                         <span th:text="${project.getProjectName()}"></span>

@@ -1,31 +1,8 @@
-* {
-    margin: 0;
-    padding: 0;
-    /*box-sizing: border-box;*/
-    font-family: Roboto, sans-serif;
-}
+
 .item1 span {
 
 }
-.brand-name {
-    display: table;
-    align-content: center;
-    align-self: center;
-    place-items: center;
-    margin: 0 auto ;
-    font-weight: bold;
-    text-align: center;
-    font-size: clamp(2rem, 2rem,2rem);
-}
-.brand-name:hover {
-    background-color: black;
-    color: #d5d9f8;
-}
-.github {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+
 .modal {
     display: flex;
     flex-direction: column;
