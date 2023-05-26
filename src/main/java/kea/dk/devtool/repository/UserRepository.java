@@ -21,7 +21,6 @@ public class UserRepository {
     private String PWD;
 
 
-    //Mangler at definere at det er en Project Manager!!!!!!!!!
     public User getUserById(int userId){
         User user = new User();
         final String SQL_USER="SELECT * FROM projectdb.users WHERE user_id=?";
@@ -91,13 +90,7 @@ public class UserRepository {
             preparedStatement.setString(1,username);
 
             ResultSet resultSet= preparedStatement.executeQuery();
-//            resultSet.last();
-//                  int rowcount=resultSet.getRow();
-//            if (rowcount>1){
 //
-//            }
-
-            //userId, String userName, String userPassword, HasRole role
             while (resultSet.next()) {
                 String storedPWD=resultSet.getString(3);
                 if(check.matches(password,storedPWD)) {
@@ -136,7 +129,6 @@ public class UserRepository {
         }
 
     }
-
 
     // delete user
     public void deleteUserByID(int userID){

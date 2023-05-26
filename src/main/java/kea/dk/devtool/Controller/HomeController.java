@@ -39,16 +39,14 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	session.setAttribute("User",user);
 	session.setAttribute("PmID",userid);
 		ArrayList<Project> myProjects= (ArrayList<Project>) projectRepository.getMyProjects(userid);
-
 		for (Project p:myProjects) {
-
 			p.setProcesses(processRepository.getProcessByProjectId(p.getProjectId()));
-
 		}
 
 	projectModel.addAttribute("projects",myProjects);
 	return "project_manager";
 	}
+
 	@PostMapping("create_projects")
 	public String createProject(@RequestParam("projectName") String projectName, @RequestParam("startDate")Date startDate,
 										 @RequestParam("dueDate") Date dueDate, @RequestParam("projectManager") String projectManager,
@@ -275,14 +273,14 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 //	return "login";
 //	}
 	@GetMapping("login")
-	public String showLogin(HttpSession session){
+	public String showLogin(HttpSession session,Model model){
 		String loginStatus="";
 		int userID=0;
 		if(session.isNew()){
 			session.setAttribute("loginStatus",loginStatus);
 			session.setAttribute("UserID",userID);
 		}
-
+		model.addAttribute("Roles",HasRole.values());
 	return "login";
 	}
 	@PostMapping("/login")
@@ -339,17 +337,27 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 
 	@GetMapping("admin/{id}")
 	public String showAdminPage(@PathVariable("id")int userid,Model userModel,HttpSession session){
-	String role;
-	session.setAttribute("userid",userid);
 	User user=userRepository.getUserById(userid);
-	if(session.getAttribute("Role")==null){
-		role="";// String.valueOf(user.getRole());
-		session.setAttribute("Role",role);
+	if(session.getAttribute("userid")==null || user.getRole()!=HasRole.ADMIN){
+	//	session.invalidate();
+		return "redirect:/login";
 	}
-	role=(String) session.getAttribute("Role");
+		HasRole role;
+		String searchRole;
 	session.setAttribute("userid",userid);
 
-	userModel.addAttribute("Users",userRepository.getAllUsersByRole(role));
+	if(session.getAttribute("Role")==null){
+		 role=HasRole.UNASSIGNED;
+		session.setAttribute("Role",role);
+		searchRole="";
+	}else {
+		role = (HasRole) session.getAttribute("Role");
+
+		searchRole = String.valueOf(role);
+	}
+//	session.setAttribute("userid",userid);
+
+	userModel.addAttribute("Users",userRepository.getAllUsersByRole(searchRole));
 	return "admin";
 	}
 	@PostMapping("/admin")
