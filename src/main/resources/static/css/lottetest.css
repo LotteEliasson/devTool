@@ -129,7 +129,7 @@ a:visited{
 }
 
 a:hover:visited{
-    color: #ffffff;
+    color: #83edff;
 }
 .github {
     display: flex;
@@ -200,6 +200,10 @@ button {
 }
 .modal button {
     margin-top: 20px;
+}
+
+button:hover{
+    color: #83edff;
 }
 .btn-open {
     /*position: ;*/
