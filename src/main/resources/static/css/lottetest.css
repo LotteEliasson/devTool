@@ -84,7 +84,7 @@ body {
 }
 .brand-name:hover {
     /*background-color: black;*/
-    color: #d5d9f8;
+    color: #83edff;
 }
 .view {
     height:300px;
@@ -98,8 +98,9 @@ body {
     /*text-align: left;*/
     overflow: hidden;
     /*background-color: #cccccc;*/
-    background-image: url("../pictures/gray.jpg");
-            /*radial-gradient(circle at 0% 0%,#fffffe, #d5d9f8, #d0d6fa 51%, #c6ccfc, #dcd2f8,#cdbdfa,#ffffff,#000000 ) !*url("../pictures/white.jpg");!*radial-gradient(circle at 0% 0%, #d5d9f8, #d0d6fa 51%, #c6ccfc);*!*/
+    background-image: url("../pictures/white.jpg");
+
+    /*radial-gradient(circle at 0% 0%,#fffffe, #d5d9f8, #d0d6fa 51%, #c6ccfc, #dcd2f8,#cdbdfa,#ffffff,#000000 ) !*url("../pictures/white.jpg");!*radial-gradient(circle at 0% 0%, #d5d9f8, #d0d6fa 51%, #c6ccfc);*!*/
 }
 
 .text1 {
@@ -120,7 +121,7 @@ a {
 }
 
 a:hover{
-    color: #ffffff;
+    color: #83edff;
 }
 
 a:visited{
