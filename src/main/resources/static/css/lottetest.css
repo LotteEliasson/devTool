@@ -1,0 +1,115 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    /*box-sizing: border-box;*/
+    font-family: Roboto, sans-serif;
+}
+
+body {
+    background-color: #c6ccfc;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 15% 5% 80% ;
+    grid-template-rows: 10%  auto auto 20%;
+    grid-gap: 10px;
+    padding:0px;
+    margin: 0px;
+    width: 100vw;
+    height:100vh;
+    /*background-color: #7881A1;*/
+
+}
+.grid-container > div {
+    /*background-color: rgba(255, 255, 255, 0.8);*/
+    /*text-align: left;*/
+    padding: 0px 0;
+    /*font-size: 16px;*/
+}
+.item1 {
+    grid-column: 1 / span 3;
+    grid-row: 1 / span 2;
+    /*background-image: url("../pictures/banner2.PNG");*/
+    /*background-size: 100%;*/
+    /*background-repeat: no-repeat;*/
+
+}
+.item2{
+    grid-column: 1/ span 1;
+    grid-row: 3 / span 8;
+}
+
+.item3 {
+    grid-column:  2 / span 2;
+    grid-row: 3/ span 8 ;
+}
+.footer{
+    grid-column: 1 / span 3;
+    grid-row: 11 / span 4;
+}
+
+.brand-name {
+    display: table;
+    align-content: center;
+    align-self: center;
+    place-items: center;
+    margin: 0 auto ;
+    font-weight: bold;
+    text-align: center;
+    font-size: clamp(2rem, 2rem,2rem);
+}
+.brand-name:hover {
+    background-color: black;
+    color: #d5d9f8;
+}
+.github {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.view {
+    height:300px;
+    width:230px;
+    border:1px solid #cbcbcb;
+    border-radius:5px;
+    box-shadow: 1px 0px 1px #cccccc;
+    float:left;
+    margin: 10px 10px 10px 10px;
+    position: relative;
+    /*text-align: left;*/
+    overflow: hidden;
+    /*background-color: #cccccc;*/
+    background-image: radial-gradient(circle at 0% 0%,#fffffe, #d5d9f8, #d0d6fa 51%, #c6ccfc, #dcd2f8,#cdbdfa,#ffffff,#000000 ) /*url("../pictures/white.jpg");/*radial-gradient(circle at 0% 0%, #d5d9f8, #d0d6fa 51%, #c6ccfc);*/
+}
+.text1 {
+    text-align: left;
+    padding: 0px 0px 20px 2px;
+    font-style: italic;
+}
+
+h4 {
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+a {
+    text-decoration: none;
+    color: #000000;
+}
+
+a:hover{
+    color: #ffffff;
+}
+
+a:visited{
+    color: #000000;
+}
+
+a:hover:visited{
+    color: #ffffff;
+}
