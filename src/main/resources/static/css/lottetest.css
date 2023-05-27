@@ -35,7 +35,7 @@ body {
     /*background-size: 100%;*/
     /*background-repeat: no-repeat;*/
     background-color: #000000;
-    border-bottom: 3px solid #83edff;
+    border-bottom: 4px solid #83edff;
 }
 /*.gradiant {*/
 /*    grid-column: 1/ span 3;*/
@@ -60,6 +60,7 @@ body {
     grid-column: 1/ span 1;
     grid-row: 3 / span 8;
     border-right: 1px dotted #e1e1e1;
+    margin-left: 10px;
 }
 
 .item3 {
@@ -254,4 +255,35 @@ button:hover{
     display: none;
 }
 
+.hovertext {
+    display: inline-block;
+    align-content: center;
+    position: relative;
+    /*border-bottom: 1px dotted black;*/
+    margin-left: 55px;
+    margin-top: 20px;
+}
 
+.hovertext:before {
+    content: attr(data-hover);
+    visibility: hidden;
+    opacity: 0;
+    width: 100px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 0;
+    transition: opacity 1s ease-in-out;
+    font-size: 12px;
+
+    position: absolute;
+    z-index: 1;
+    top: 110%;
+    right: -190%;
+}
+
+.hovertext:hover:before {
+    opacity: 1;
+    visibility: visible;
+}
