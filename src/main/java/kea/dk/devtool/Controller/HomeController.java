@@ -61,7 +61,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		newproject.setExpectedEndDate(dueDate.toLocalDate()); // når projektet er nyoprettet er expected og duedate ens
 		newproject.setProjectManagerID(pmID); // her skal bygges noget andet til en admin!
 		projectRepository.addProject(newproject);
-		return "redirect:project_manager/"+pmID;
+		return "redirect:/project_manager/"+pmID;
 
 	}
 	@GetMapping("/updateproject/{id}")
@@ -297,7 +297,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		if(user.getUserName()==null){
 			loginstatus="fail";
 			session.setAttribute("loginstatus",loginstatus);
-			return "/login";
+			return "login";
 		}
 		else if (user.getRole()== HasRole.valueOf(access)) {
 			session.setAttribute("access", access);
@@ -317,7 +317,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 
 
 
-	return "redirect:post_test";
+	return "redirect:/post_test";
 	}
 	@GetMapping("post_test")
 	public String showPost(){
@@ -368,7 +368,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	session.setAttribute("Role",usertype);
 	int id=(int) session.getAttribute("userid");
 	userModel.addAttribute("Users",userRepository.getAllUsersByRole(usertype));
-	return "redirect:admin/"+id;
+	return "redirect:/admin/"+id;
 	}
 	@GetMapping("edit_role/{id}")
 	public String showupdateUser(@PathVariable("id") int userId, Model userModel){
@@ -409,6 +409,6 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 			userModel.addAttribute("Users",userRepository.getAllUsersByRole(standard));
 			return "redirect:/admin";
 		}
-		return "redirect:login";
+		return "redirect:/login";
 	}
 }
