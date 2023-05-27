@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Task view</title>
-  <link rel="stylesheet" th:href="@{../css/grid.css}" href="../static/css/grid.css">
-  <link rel="stylesheet" th:href="@{../css/view.css}" href="../static/css/view.css">
-  <link rel="stylesheet" th:href="@{../css/modal.css}" href="../static/css/modal.css">
+<!--  <link rel="stylesheet" th:href="@{../css/grid.css}" href="../static/css/grid.css">-->
+<!--  <link rel="stylesheet" th:href="@{../css/view.css}" href="../static/css/view.css">-->
+<!--  <link rel="stylesheet" th:href="@{../css/modal.css}" href="../static/css/modal.css">-->
+  <link rel="stylesheet" th:href="@{../css/lottetest.css}" href="../static/css/lottetest.css">
 </head>
 <body >
 
@@ -13,9 +14,17 @@
 <div class="grid-container">
   <div class="item1">
     <h1>Project Tasks</h1>
-    <button onclick="history.back()">Go Back</button>
+    <span class="brand-name" data-value="PROJECTBREAKDOWN">PROJECTBREAKDOWN</span>
+    <br>
+    <button class="btn btn-back" onclick="history.back()">Go Back</button>
+    <!-- A button to open the popup form -->
+    <button class="btn btn-open">Create Task</button>
   </div>
 
+  <div class="gradiant">
+
+
+  </div>
   <div class="item2">
     <div class="navside">
       <div class="navside-header">
@@ -60,11 +69,13 @@
   </div>
 </div>
 
-<!-- A button to open the popup form -->
-<button class="open-button" onclick="openForm()">Create New Task</button>
 
+
+<section class="modal hidden">
+  <div class="flex">
+    <button class="btn-close">⨉</button>
+  </div>
 <!-- The  Create form -->
-<div class="form-popup" id="myFormCreate">
   <form action="/createTasks" class="form-container" method="post">
 
     <label for="taskName-create"><b>Task Name</b></label>
@@ -88,20 +99,75 @@
     <label for="taskSequenceNumber-create"><b>Task Sequence Number</b></label>
     <input id="taskSequenceNumber-create" type="text" placeholder="Enter Task Sequence Number" name="TaskSequenceNumber" required>
 
-    <button type="submit" class="btn">Create Task</button>
-    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    <button type="submit" class="btn btn-submit">Create Task</button>
+
   </form>
-</div>
+</section>
+  </div>
+
 
 <script>
-  function openForm() {
-    document.getElementById("myFormCreate").style.display = "block";
-  }
+  const modal = document.querySelector(".modal");
+  const overlay = document.querySelector(".overlay");
+  const openModalBtn = document.querySelector(".btn-open");
+  const closeModalBtn = document.querySelector(".btn-close");
 
-  function closeForm() {
-    document.getElementById("myFormCreate").style.display = "none";
+  // close modal function
+  const closeModal = function () {
+    modal.classList.add("hidden");
+    overlay.classList.add("hidden");
+  };
+
+  // close the modal when the close button and overlay is clicked
+  closeModalBtn.addEventListener("click", closeModal);
+  overlay.addEventListener("click", closeModal);
+
+  // close modal when the Esc key is pressed
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+      closeModal();
+    }
+  });
+
+  // open modal function
+  const openModal = function () {
+    modal.classList.remove("hidden");
+    overlay.classList.remove("hidden");
+  };
+  // open modal event
+  openModalBtn.addEventListener("click", openModal);
+
+  //titel-hacking'ish
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  let interval = null;
+
+  document.querySelector("span").onmouseover = event => {
+    let iteration = 0;
+
+    clearInterval(interval);
+
+    interval = setInterval(() => {
+      event.target.innerText = event.target.innerText
+              .split("")
+              .map((letter, index) => {
+                if(index < iteration) {
+                  return event.target.dataset.value[index];
+                }
+
+                return letters[Math.floor(Math.random() * 26)]
+              })
+              .join("");
+
+      if(iteration >= event.target.dataset.value.length){
+        clearInterval(interval);
+      }
+
+      iteration += 1 / 3;
+    }, 30);
   }
 </script>
+
 </body>
 </html>
 
