@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>Update Task</title>
 
-    <link rel="stylesheet" href="../static/css/testupdate.css" th:href="@{../css/testupdate.css}">
 
-    <link rel="stylesheet" th:href="@{../css/jacobtest.css}" href="../static/css/modal.css">
+
+    <link rel="stylesheet" th:href="@{../css/grid.css}" href="../static/css/grid.css">
+    <link rel="stylesheet" th:href="@{../css/update.css}" href="../static/css/update.css">
 
 </head>
 <body>
@@ -20,64 +21,54 @@
 
 
     </div>
+
+    <div class="item3">
 <!-- The  update form -->
-        <div class="container">
-                <div class="demo-flex-spacer">
-                  <form action="/updateTask" method="post">
+        <section class="modal">
+            <div>
+                <button class="btn-close">⨉</button>
+            </div>
+
+            <form action="/updateTask" method="post">
                     <div>
-                        <div class="style-input">
-                            <label for="taskName-update"><b>Task Name</b></label>
-                            <input id="taskName-update" type="text" placeholder="Enter Task Name" name="TaskName" th:value="${taskUpdate.taskName}"><br>
-                        </div>
 
-                        <div class="style-input">
+                        <label for="taskName-update"><b>Task Name</b></label>
+                        <input class="inputfields" id="taskName-update" type="text" placeholder="Enter Task Name" name="TaskName" th:value="${taskUpdate.taskName}"><br>
+
                         <label for="effort-update"><b>Effort</b></label>
-                        <input id="effort-update" type="text" placeholder="Enter effort" name="Effort" th:value="${taskUpdate.effort}"><br>
-                        </div>
+                        <input class="inputfields" id="effort-update" type="text" placeholder="Enter effort" name="Effort" th:value="${taskUpdate.effort}"><br>
 
-                        <div class="style-input">
                         <label for="expectedStartDate-update"><b>Exp Start Date</b></label>
-                        <input id="expectedStartDate-update" type="text" placeholder="Enter Expected Start Date" name="ExpectedStartDate" th:value="${taskUpdate.expectedStartDate}"><br>
-                        </div>
+                        <input class="inputfields" id="expectedStartDate-update" type="text" placeholder="Enter Expected Start Date" name="ExpectedStartDate" th:value="${taskUpdate.expectedStartDate}"><br>
 
-                        <div class="style-input">
                         <label for="minAllocation-update"><b>Allocation</b></label>
-                        <input id="minAllocation-update" type="text" placeholder="Enter Minimum Allocation" name="MinAllocation" th:value="${taskUpdate.minAllocation}"><br>
-                        </div>
+                        <input class="inputfields" id="minAllocation-update" type="text" placeholder="Enter Minimum Allocation" name="MinAllocation" th:value="${taskUpdate.minAllocation}"><br>
 
-                        <div class="style-input">
                         <label for="taskStatus-update"><b>Task Status</b></label>
                             <select id="taskStatus-update" type="text" name="TaskStatus" >
                                 <option th:each=" state :${TaskStates}"> <span th:text="${state}"></span></option>
-                            </select>
-                        </div>
+                            </select><br>
 
-                        <div class="style-input">
-                        <label for="assignedId-update"><b>Assigned to</b></label>
-                        <input id="assignedId-update" type="text" placeholder="Enter Assignment ID" name="AssignedId" th:value="${taskUpdate.assignedname}"><br>
-                        </div>
+                        <label for="assignedId-update"><b>Assigned id</b></label>
+                        <input class="inputfields" id="assignedId-update" type="text" placeholder="Enter Assignment ID" name="AssignedId" th:value="${taskUpdate.assignedname}"><br>
 
-                        <div class="style-input">
-                            <label for="developerId-update"><b>Developer ID</b></label>
-                            <input id="developerId-update" type="text" placeholder="Enter Assignment ID" name="developerId" th:value="${taskUpdate.developerId}"><br>
-                        </div>
+                        <label for="developerId-update"><b>Developer ID</b></label>
+                        <input class="inputfields" id="developerId-update" type="text" placeholder="Enter Assignment ID" name="developerId" th:value="${taskUpdate.developerId}"><br>
 
-                        <div class="style-input">
-                        <label for="taskDependencyNumber-update"><b>Task Number</b></label>
-                        <input id="taskDependencyNumber-update" type="text" placeholder="Enter Task Sequence Number" name="TaskSequenceNumber" th:value="${taskUpdate.taskDependencyNumber}"><br>
-                        </div>
+                        <label for="taskSequenceNumber-update"><b>Task Number</b></label>
+                        <input class="inputfields" id="taskSequenceNumber-update" type="text" placeholder="Enter Task Sequence Number" name="TaskSequenceNumber" th:value="${taskUpdate.taskSequenceNumber}"><br>
 
-                        <div class="style-input">
-                        <input type="submit" value="Update Task">
-                        </div>
+                        <input type="submit" class="btn btn-submit" value="Update Task">
+
 
                         <input id="taskId-update" type="hidden" name="TaskId" th:value="${taskUpdate.taskId}">
                         <input id="processId-update" type="hidden" name="ProcessId" th:value="${taskUpdate.processId}">
                         <input id="projectId-update" type="hidden" name="ProjectId" th:value="${taskUpdate.projectId}">
                     </div>
-                  </form>
-                </div>
-        </div>
+            </form>
+        </section>
+    </div>
+
 </div>
 
 

@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>ProjectView</title>
-    <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">
+    <link rel="stylesheet" th:href="@{../css/grid.css}" href="../static/css/grid.css">
     <link rel="stylesheet" th:href="@{../css/view.css}" href="../static/css/view.css">
+    <link rel="stylesheet" th:href="@{../css/modal.css}" href="../static/css/modal.css">
 
 </head>
 <body>
@@ -37,6 +38,9 @@
                 <a th:href="@{'/processes/delete/'+${proces.getProcessId()}}"><h4>Delete process</h4></a>
                 <a th:href="@{'/processes/updateprocess/'+${proces.getProcessId()}}"><h4>Update proces</h4></a>
             </div>
+        </div>
+    </div>
+</div>
 
 
 <!--<button  class="open-button" onclick="openForm()">Create new process</button>-->

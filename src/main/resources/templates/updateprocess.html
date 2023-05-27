@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Update Process</title>
+  <link rel="stylesheet" th:href="@{../css/grid.css}" href="../static/css/grid.css">
   <link rel="stylesheet" th:href="@{../css/update.css}" href="../static/css/update.css">
 
 
@@ -18,44 +19,40 @@
 
 
   </div>
-  <!-- The  update form -->
-  <div class="container">
-    <div class="demo-flex-spacer">
+
+  <div class="item3">
+    <!-- The  update form -->
+    <section class="modal">
+      <div>
+        <button class="btn-close">⨉</button>
+      </div>
 
       <form action="/updateprocess" method="post">
-        <div>
-          <div class="style-input">
+       <div>
             <label for="updatename"><b>Process Name</b></label>
-            <input id="updatename" type="text" placeholder="Enter Process Name" th:value="${processUpdate.getProcessName()}" name="processName" >
-          </div>
+            <input class="inputfields" id="updatename" type="text" placeholder="Enter Process Name" th:value="${processUpdate.getProcessName()}" name="processName" >
 
-          <div class="style-input">
             <label for="expectedStartDate"><b>Start Date</b></label>
-            <input id="expectedStartDate" type="date" placeholder="Enter Start Date" th:value="${processUpdate.getExpectedStartDate()}" name="expectedStartDate" >
-          </div>
+            <input class="inputfields" id="expectedStartDate" type="date" placeholder="Enter Start Date" th:value="${processUpdate.getExpectedStartDate()}" name="expectedStartDate" >
 
-          <div class="style-input">
             <label for="expectedFinish"><b>Finish Date</b></label>
-            <input id="expectedFinish" type="date" placeholder="Enter Finish Date" th:value="${processUpdate.getExpectedFinish()}" name="expectedFinish" >
-          </div>
+            <input class="inputfields" id="expectedFinish" type="date" placeholder="Enter Finish Date" th:value="${processUpdate.getExpectedFinish()}" name="expectedFinish" >
 
-          <div class="style-input">
             <label for="startAfterTask"><b>Start After Task</b></label>
-            <input id="startAfterTask" type="text" placeholder="Enter Start After Task" th:value="${processUpdate.getStartAfterTask()}" name="startAfterTask" >
-          </div>
+            <input class="inputfields" id="startAfterTask" type="text" placeholder="Enter Start After Task" th:value="${processUpdate.getStartAfterTask()}" name="startAfterTask" ><br>
 
-          <div class="style-input">
-            <input type="submit" class="btn" value="Save Changes">
-          </div>
+            <input type="submit" class="btn btn-submit" value="Save Changes">
+
 
 
             <input id="processID" th:value="${processUpdate.getProcessId()}" name="processId" type="hidden">
             <input id="projectID" th:value="${processUpdate.getProjectId()}" name="projectId" type="hidden">
             <input id="projectId-update" type="hidden" name="ProjectId" th:value="${taskUpdate.projectId}">
-        </div>
+       </div>
       </form>
+  </section>
     </div>
-  </div>
+
 </div>
 </body>
 </html>

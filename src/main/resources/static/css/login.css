@@ -69,7 +69,7 @@ input[type=submit]{
     position: relative;
     left: 80px;
     margin: 50px;
-    background: #7881A1; /*#5caafc;*/
+    background: #c6ccfc; /*#5caafc;*/
     font-size: 16px;
     color: #fff;
 }

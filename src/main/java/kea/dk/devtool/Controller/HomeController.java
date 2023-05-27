@@ -234,7 +234,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	public String updateTask(@PathVariable("taskId") int updateTask, Model taskModel) {
 
 	Task updateTasks = taskRepository.findTaskById(updateTask);
-		taskModel.addAttribute("TaskStates",TaskStatus.values());
+	taskModel.addAttribute("TaskStates",TaskStatus.values());
 	taskModel.addAttribute("taskUpdate", updateTasks);
 		return "updatetask";
 	}
