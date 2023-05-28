@@ -236,3 +236,11 @@ input[type=submit]:hover{
 h1 {
     color: #ffffff
 }
+
+h2 {
+    color: #ffffff;
+}
+
+img {
+    margin-left: 15%;
+}
