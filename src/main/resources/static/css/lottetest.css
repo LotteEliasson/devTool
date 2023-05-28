@@ -188,6 +188,7 @@ button {
     cursor: pointer;
     border: none;
     font-weight: 600;
+    float: right
 }
 
 .btn {
@@ -199,13 +200,14 @@ button {
     border-radius: 5px;
     text-align: center;
     font-size: 1em;
+    float: right;
 }
 .modal button {
     margin-top: 20px;
 }
 
 button:hover{
-    color: #83edff;
+    color: #ff839a;
 }
 .btn-open {
     /*position: ;*/
@@ -290,10 +292,12 @@ button:hover{
 }
 
 .logo {
+    list-style: none;
     display:inline-flex;
-    align-items: baseline;
-    align-content: baseline;
-    position: absolute;
+    align-items: center;
+    margin-top: 70px;
+    /*align-content: center;*/
+    /*position: absolute;*/
     margin-left: 25%;
 }
 
