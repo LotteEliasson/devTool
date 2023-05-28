@@ -290,12 +290,13 @@ button:hover{
 }
 
 .logo {
-    display:flex;
+    display:inline;
     align-items: baseline;
     align-content: baseline;
     position: absolute;
     margin-left: 25%;
 }
+
 .headline {
     font-size: 1.3rem;
     font-weight: bold;
