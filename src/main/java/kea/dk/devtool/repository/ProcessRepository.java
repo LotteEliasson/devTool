@@ -130,6 +130,29 @@ public class ProcessRepository {
             e.printStackTrace();
         }
     }
+   public void updateProcessEndDate(Processes processes) {
+
+      final String SQL_UPDATE_QUERY = "UPDATE projectdb.processes SET expected_finish = ? WHERE processID = ? ";
+      try{
+         Connection connection = ConnectionManager.getConnection(DB_URL,UID,PWD);
+
+         PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_QUERY);
+
+         int id=processes.getProcessId();
+         LocalDate expected_finish = processes.getExpectedFinish();
+
+
+
+         preparedStatement.setDate(1,Date.valueOf(expected_finish));
+         preparedStatement.setInt(2, id);
+
+         preparedStatement.executeUpdate();
+      }
+      catch(SQLException e) {
+         System.out.println("can't update process");
+         e.printStackTrace();
+      }
+   }
     //Find process på ID
      public Processes findProcessById(int id){
         final String FIND_QUERY = "SELECT * FROM projectdb.processes WHERE processID = ?";

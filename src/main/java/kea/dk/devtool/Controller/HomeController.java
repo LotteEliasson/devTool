@@ -7,6 +7,7 @@ import kea.dk.devtool.repository.ProjectRepository;
 import kea.dk.devtool.repository.TaskRepository;
 import kea.dk.devtool.repository.UserRepository;
 
+import kea.dk.devtool.utility.TimeAndEffort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 
 @Controller
 public class HomeController {
@@ -86,14 +88,22 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 												@RequestParam("customerName") String customerName, @RequestParam("expectedEnddate") Date expectedEnddate,
 												HttpSession session){
 		int pmID=(int) session.getAttribute("PmID");
-	Project updateproject= new Project();
-	updateproject.setProjectId(projectID);
+	Project updateproject= projectRepository.findProjectByID(projectID);
+		updateproject.setProcesses(processRepository.getProcessByProjectId(updateproject.getProjectId()));
+		ArrayList<Processes> myprocesses= (ArrayList<Processes>) updateproject.getProcesses();
+		ArrayList<LocalDate> processEndDates=new ArrayList<>();
+		for (Processes p:myprocesses){
+			processEndDates.add(p.getProcessEndDate());
+		}
+		Collections.sort(processEndDates);
+		updateproject.setExpectedEndDate(processEndDates.get(processEndDates.size()-1));
+
 	updateproject.setProjectName(projectName);
 	updateproject.setStartDate(startDate.toLocalDate());
 	updateproject.setDueDate(dueDate.toLocalDate());
 	updateproject.setProjectManager(projectManager);
 	updateproject.setCustomerName(customerName);
-	updateproject.setExpectedEndDate(expectedEnddate.toLocalDate());
+
 	projectRepository.updateProject(updateproject);
 	return "redirect:project_manager/"+pmID;
 	}
@@ -135,9 +145,18 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	int projectid =(int)session.getAttribute("currentProject");
 	Processes newProcess = new Processes();
 	newProcess.setProcessName(processName);
-	newProcess.setExpectedStartDate(expectedStartDate);
+
 	newProcess.setExpectedFinish(expectedFinish);
 	newProcess.setStartAfterTask(startAfter);
+	//hvis processen skal starte ved afslutningen af en bestemt task overskrives expectedStartDate
+	if (startAfter!=-1) {
+		Task task = taskRepository.findTaskById(startAfter);
+		expectedStartDate=task.getExpectedFinish();
+	}
+	//processen får sat expectedStartDate (som enten er opdateret af brugeren eller hentet fra task ved startAfter!=-1)
+	//overvej at lave StartAfter som dropdown selection med default =-1 i UI for at undgå at brugeren laver fejl under indtastning
+	//ved at indtaske ugyldigt taskId
+	newProcess.setExpectedStartDate(expectedStartDate);
 	processRepository.addProcess(newProcess, projectid);
 	return "redirect:/processes/" +projectid;
 	}
@@ -156,10 +175,22 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 								@RequestParam("expectedFinish") LocalDate updateexpectedFinish,
 								@RequestParam("startAfterTask")int updatestartAfter,
 								Model model, HttpSession session) {
+		Processes updateProcess = processRepository.findProcessById(updateprocessId);
 
-		Processes updatedProcess = new Processes(updateprocessId, updateprojectId, updateprocessName,
-								updateexpectedStartDate,updateexpectedFinish, updatestartAfter);
-		processRepository.updateProcess(updatedProcess);
+		updateProcess.setStartAfterTask(updatestartAfter); //vi fourdsætter at der er valgt gyldig tasknummer eller default
+		//hvis processen skal starte ved afslutningen af en bestemt task overskrives expectedStartDate
+		if (updatestartAfter!=-1) {
+			Task task = taskRepository.findTaskById(updatestartAfter);
+			updateexpectedStartDate=task.getExpectedFinish();
+		}
+		//processen får sat expectedStartDate (som enten er opdateret af brugeren eller hentet fra task ved startAfter!=-1)
+		//overvej at lave StartAfter som dropdown selection med default =-1 i UI for at undgå at brugeren laver fejl under indtastning
+		//ved at indtaske ugyldigt taskId
+		updateProcess.setExpectedStartDate(updateexpectedStartDate);
+		updateexpectedFinish=TimeAndEffort.procesEnddate(updateProcess);
+		updateProcess.setExpectedFinish(updateexpectedFinish);
+
+		processRepository.updateProcess(updateProcess);
 		int projectid=(int)session.getAttribute("currentProject");
 		model.addAttribute("updateProcess", projectid);
 		return "redirect:/processes/"+ projectid;
@@ -223,6 +254,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		newTask.setProjectId(newProjectId);
 
 		//Gem ny Task
+
 		taskRepository.addTask(newTask, newProcessId);
 
 

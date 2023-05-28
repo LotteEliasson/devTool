@@ -56,7 +56,7 @@ public class TimeAndEffort
 
 		/**
 		 *
-		 * @param taskList
+		 * @param process
 		 * @return
 		 * this method takes a process and returns a calculated date based on the duration of the critical path
 		 * of the tasks. used to calculate proces enddate and startdate.
@@ -87,4 +87,5 @@ public class TimeAndEffort
 			procesfinish=calculateDate(process.getExpectedStartDate(),totaldays);
 			return procesfinish;
 		}
+
 	}

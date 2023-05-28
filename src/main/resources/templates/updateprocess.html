@@ -36,7 +36,7 @@
             <input class="inputfields" id="expectedStartDate" type="date" placeholder="Enter Start Date" th:value="${processUpdate.getExpectedStartDate()}" name="expectedStartDate" >
 
             <label for="expectedFinish"><b>Finish Date</b></label>
-            <input class="inputfields" id="expectedFinish" type="date" placeholder="Enter Finish Date" th:value="${processUpdate.getExpectedFinish()}" name="expectedFinish" >
+            <input class="inputfields" id="expectedFinish" type="hidden" placeholder="Enter Finish Date" th:value="${processUpdate.getExpectedFinish()}" name="expectedFinish" >
 
             <label for="startAfterTask"><b>Start After Task</b></label>
             <input class="inputfields" id="startAfterTask" type="text" placeholder="Enter Start After Task" th:value="${processUpdate.getStartAfterTask()}" name="startAfterTask" ><br>

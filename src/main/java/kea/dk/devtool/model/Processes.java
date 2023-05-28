@@ -12,7 +12,7 @@ public class Processes {
     private String processName;
     private LocalDate expectedStartDate;
     private LocalDate expectedFinish;
-    private int startAfterTask; // taskid must be in project - will determine the expected startdate. if =-1 then starts with project
+    private int startAfterTask =-1; // taskid must be in project - will determine the expected startdate. if =-1 then starts with project
     private List<Task> taskList;//will determine the expected enddate
 
     public Processes() {
@@ -26,6 +26,15 @@ public class Processes {
         this.expectedFinish = expectedFinish;
         this.startAfterTask = startAfterTask;
         this.taskList=taskList;
+    }
+    public Processes(int processId, int projectId, String processName, LocalDate expectedStartDate, LocalDate expectedFinish, int startAfterTask) {
+        this.processId = processId;
+        this.projectId = projectId;
+        this.processName = processName;
+        this.expectedStartDate = expectedStartDate;
+        this.expectedFinish = expectedFinish;
+        this.startAfterTask = startAfterTask;
+
     }
 
     public int getProcessId() {
