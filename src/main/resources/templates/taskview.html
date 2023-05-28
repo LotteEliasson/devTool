@@ -62,8 +62,13 @@
         <span class="text1">Assigned to:&ensp;</span><span th:text="${task.assignedId}"></span><br>
         <span class="text1">Task no.:&ensp;</span><span th:text="${task.taskSequenceNumber}"></span><br><br>
 
-        <a class="hovertext" data-hover="Update Task" th:href="@{'/updatetask/' + ${task.taskId}}" href="/updatetask.html"><img th:src="@{../pictures/edit.png}" src="../static/pictures/edit.png" width="20px"> </a>
-        <a class="hovertext" data-hover="Delete Task" th:href="@{'/deletetask/' + ${task.taskId}}" href="/deletetask.html"><img th:src="@{../pictures/trash.png}" src="../static/pictures/trash.png" width="20px"></a>
+        <a class="hovertext" data-hover="Update Task" th:href="@{'/updatetask/' + ${task.taskId}}" href="/updatetask.html">
+          <img th:src="@{../pictures/edit.png}" src="../static/pictures/edit.png" width="20px">
+        </a>
+
+        <a class="hovertext" data-hover="Delete Task" th:href="@{'/deletetask/' + ${task.taskId}}" href="/deletetask.html">
+          <img th:src="@{../pictures/trash.png}" src="../static/pictures/trash.png" width="20px">
+        </a>
 
       </div>
     </div>
