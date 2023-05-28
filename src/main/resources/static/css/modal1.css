@@ -144,6 +144,14 @@ button:hover{
 }
 
 .logo {
-    display: inline-block;
-    align-items: center;
+    display:inline-flex;
+    align-items: baseline;
+    align-content: baseline;
+    position: absolute;
+    margin-left: 25%;
+}
+
+.headline {
+    font-size: 1.3rem;
+    font-weight: bold;
 }
