@@ -14,8 +14,10 @@
 
 <div class="grid-container">
   <div class="item1">
-    <span><img th:src="@{../pictures/logo1.jpg}" src="../static/pictures/logo1.jpg" width="300px"></span>
+    <div>
+<!--    <img th:src="@{../pictures/logo1.jpg}" src="../static/pictures/logo1.jpg" width="300px">-->
     <span class="brand-name" data-value="PROJECTBREAKDOWN">PROJECTBREAKDOWN</span>
+    </div>
     <br>
     <button class="btn btn-back" onclick="history.back()">Go Back</button>
     <!-- A button to open the popup form -->
@@ -63,11 +65,11 @@
         <span class="text1">Task no.:&ensp;</span><span th:text="${task.taskDependencyNumber}"></span><br><br>
 
         <a class="hovertext" data-hover="Update Task" th:href="@{'/updatetask/' + ${task.taskId}}" href="/updatetask.html">
-          <img th:src="@{../pictures/edit.png}" src="../static/pictures/edit.png" width="20px">
+          <img th:src="@{../pictures/editblack.png}" src="../static/pictures/editblack.png" width="20px">
         </a>
 
         <a class="hovertext" data-hover="Delete Task" th:href="@{'/deletetask/' + ${task.taskId}}" href="/deletetask.html">
-          <img th:src="@{../pictures/trash.png}" src="../static/pictures/trash.png" width="20px">
+          <img th:src="@{../pictures/trashblack.png}" src="../static/pictures/trashblack.png" width="20px">
         </a>
 
       </div>

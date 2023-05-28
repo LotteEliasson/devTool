@@ -289,3 +289,7 @@ button:hover{
     visibility: visible;
 }
 
+.logo {
+    display: inline-block;
+    align-items: center;
+}
