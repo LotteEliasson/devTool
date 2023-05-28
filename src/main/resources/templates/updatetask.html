@@ -38,8 +38,8 @@
                         <label for="effort-update"><b>Effort</b></label>
                         <input class="inputfields" id="effort-update" type="text" placeholder="Enter effort" name="Effort" th:value="${taskUpdate.effort}"><br>
 
-                        <label for="expectedStartDate-update"><b>Exp Start Date</b></label>
-                        <input class="inputfields" id="expectedStartDate-update" type="text" placeholder="Enter Expected Start Date" name="ExpectedStartDate" th:value="${taskUpdate.expectedStartDate}"><br>
+                        <label for="expectedStartDate-update" th:value="${'Exp Start Date: '+ taskUpdate.expectedStartDate}"> <b> Exp Start Date: </b></label>
+                        <input class="inputfields" id="expectedStartDate-update" type="hidden" placeholder="Enter Expected Start Date" name="ExpectedStartDate" th:value="${taskUpdate.expectedStartDate}"><br>
 
                         <label for="minAllocation-update"><b>Allocation</b></label>
                         <input class="inputfields" id="minAllocation-update" type="text" placeholder="Enter Minimum Allocation" name="MinAllocation" th:value="${taskUpdate.minAllocation}"><br>
@@ -50,13 +50,13 @@
                             </select><br>
 
                         <label for="assignedId-update"><b>Assigned id</b></label>
-                        <input class="inputfields" id="assignedId-update" type="text" placeholder="Enter Assignment ID" name="AssignedId" th:value="${taskUpdate.assignedname}"><br>
+                        <input class="inputfields" id="assignedId-update" type="text" placeholder="Enter Assignment name" name="Assignedname" th:value="${taskUpdate.assignedname}"><br>
 
                         <label for="developerId-update"><b>Developer ID</b></label>
-                        <input class="inputfields" id="developerId-update" type="text" placeholder="Enter Assignment ID" name="developerId" th:value="${taskUpdate.developerId}"><br>
+                        <input class="inputfields" id="developerId-update" type="text" placeholder="Enter Developer ID" name="developerId" th:value="${taskUpdate.developerId}"><br>
 
-                        <label for="taskSequenceNumber-update"><b>Task Number</b></label>
-                        <input class="inputfields" id="taskSequenceNumber-update" type="text" placeholder="Enter Task Sequence Number" name="TaskSequenceNumber" th:value="${taskUpdate.taskSequenceNumber}"><br>
+                        <label for="taskSequenceNumber-update"><b>Task Dependency</b></label>
+                        <input class="inputfields" id="taskSequenceNumber-update" type="text" placeholder="Enter Task Sequence Number" name="taskDependencyNumber" th:value="${taskUpdate.taskDependencyNumber}"><br>
 
                         <input type="submit" class="btn btn-submit" value="Update Task">
 
