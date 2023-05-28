@@ -293,3 +293,7 @@ button:hover{
     display: inline-block;
     align-items: center;
 }
+.headline {
+    font-size: 1.3rem;
+    font-weight: bold;
+}

@@ -14,8 +14,8 @@
 
 <div class="grid-container">
   <div class="item1">
-    <div>
-<!--    <img th:src="@{../pictures/logo1.jpg}" src="../static/pictures/logo1.jpg" width="300px">-->
+    <div class="logo">
+    <img th:src="@{../pictures/logo1.jpg}" src="../static/pictures/logo1.jpg" width="300px">
     <span class="brand-name" data-value="PROJECTBREAKDOWN">PROJECTBREAKDOWN</span>
     </div>
     <br>
@@ -24,15 +24,12 @@
     <button class="btn btn-open">Create Task</button>
   </div>
 
-  <div class="gradiant">
 
-
-  </div>
   <div class="item2">
-    <div class="navside">
-      <div class="navside-header">
-        <a th:href="@{'/project_manager/'+ ${session.PmID}}"><h3 class="headline">Projects</h3></a>
-      </div>
+<!--    <div class="navside">-->
+<!--      <div class="navside-header">-->
+        <a th:href="@{'/project_manager/'+ ${session.PmID}}"><p class="headline">Projects</p></a>
+<!--      </div>-->
       <ul class="list-group" >
         <li th:each="project : ${projectsByPmId}">
           <a th:href="@{'/processes/'+${project.getProjectId()}}" href="processes.html">
@@ -40,7 +37,7 @@
           </a>
         </li>
       </ul>
-    </div>
+<!--    </div>-->
   </div>
 
 
