@@ -1,3 +1,4 @@
+/*Stylesheet view:*/
 .view {
     height:300px;
     width:230px;
@@ -42,4 +43,28 @@ a:visited{
 
 a:hover:visited{
     color: #83edff;
+}
+
+.hovertext:before {
+    content: attr(data-hover);
+    visibility: hidden;
+    opacity: 0;
+    width: 100px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 0;
+    transition: opacity 1s ease-in-out;
+    font-size: 12px;
+
+    position: absolute;
+    z-index: 1;
+    top: 110%;
+    right: -190%;
+}
+
+.hovertext:hover:before {
+    opacity: 1;
+    visibility: visible;
 }
