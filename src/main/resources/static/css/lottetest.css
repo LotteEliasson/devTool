@@ -290,7 +290,7 @@ button:hover{
 }
 
 .logo {
-    display:inline;
+    display:inline-flex;
     align-items: baseline;
     align-content: baseline;
     position: absolute;
