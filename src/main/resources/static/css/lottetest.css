@@ -36,6 +36,7 @@ body {
     /*background-repeat: no-repeat;*/
     background-color: #000000;
     border-bottom: 4px solid #83edff;
+
 }
 /*.gradiant {*/
 /*    grid-column: 1/ span 3;*/
@@ -57,7 +58,7 @@ body {
 /*}*/
 
 .item2 {
-    grid-column: 1/ span 1;
+    grid-column: 1/ span 3;
     grid-row: 3 / span 8;
     border-right: 1px dotted #e1e1e1;
     margin-left: 10px;
@@ -287,3 +288,4 @@ button:hover{
     opacity: 1;
     visibility: visible;
 }
+
