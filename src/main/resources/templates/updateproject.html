@@ -3,31 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Update Project</title>
-    <link rel="stylesheet" th:href="@{../css/grid.css}" href="../static/css/grid.css">
+    <link rel="stylesheet" th:href="@{../css/grid1.css}" href="../static/css/grid1.css">
     <link rel="stylesheet" th:href="@{../css/update.css}" href="../static/css/update.css">
 
 </head>
 <body>
 <div class="grid-container">
     <div class="item1">
-        <h1>Update Project</h1>
-        <button onclick="history.back()">Go Back</button>
+        <ul class="logo">
+            <li><img th:src="@{../pictures/logo1.jpg}" src="../static/pictures/logo1.jpg" width="200px"></li>
+            <li><span class="brand-name" data-value="PROJECTBREAKDOWN">PROJECTBREAKDOWN</span></li>
+        </ul>
+        <li><button class="btn btn-back" onclick="history.back()">Go Back</button></li>
+
+
+
     </div>
 
     <div class="item2">
     </div>
 
     <div class="item3">
+
         <!-- The  update form -->
         <section class="modal">
-            <div>
-                <button class="btn-close">⨉</button>
-            </div>
+
 
                 <form action="/updateproject" class="formupdate" method="post">
 
-                    <input id="projectID" th:value="${project.getProjectId()}" name="projectID" type="hidden">
 
+                        <h3>Update Project form</h3>
 
                         <label for="updatename"><b>Project Name</b></label>
                         <input class="inputfields" id="updatename" type="text" placeholder="Enter Project Name" th:value="${project.getProjectName()}" name="projectName" >
@@ -53,6 +58,7 @@
                             <option th:each="state :${States}"> <span th:text="${state}"></span> </option>
                         </Select><br>
 
+                        <input id="projectID" th:value="${project.getProjectId()}" name="projectID" type="hidden">
 
                         <input type="submit" class="btn btn-submit" value="Save Changes">
 
@@ -62,5 +68,39 @@
     </div>
 
 </div>
+
+
+<script>
+    //titel-hacking'ish
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    let interval = null;
+
+    document.querySelector("span").onmouseover = event => {
+        let iteration = 0;
+
+        clearInterval(interval);
+
+        interval = setInterval(() => {
+            event.target.innerText = event.target.innerText
+                .split("")
+                .map((letter, index) => {
+                    if(index < iteration) {
+                        return event.target.dataset.value[index];
+                    }
+
+                    return letters[Math.floor(Math.random() * 26)]
+                })
+                .join("");
+
+            if(iteration >= event.target.dataset.value.length){
+                clearInterval(interval);
+            }
+
+            iteration += 1 / 3;
+        }, 30);
+    }
+</script>
+
 </body>
 </html>

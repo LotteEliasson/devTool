@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{../css/modal.css}" href="../static/css/modal.css">
-    <link rel="stylesheet" th:href="@{../css/view.css}" href="../static/css/view.css">
-    <link rel="stylesheet" th:href="@{../css/grid.css}" href="../static/css/grid.css">
+    <link rel="stylesheet" th:href="@{../css/modal1.css}" href="../static/css/modal.css">
+    <link rel="stylesheet" th:href="@{../css/view1.css}" href="../static/css/view.css">
+    <link rel="stylesheet" th:href="@{../css/grid1.css}" href="../static/css/grid.css">
 <!--    <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">-->
 <!--  <link rel="stylesheet" th:href="@{../css/style.css}">-->
 
@@ -17,15 +17,19 @@
 <body>
 <div class="grid-container">
     <div class="item1">
-        <span class="brand-name" data-value="PROJECTBREAKDOWN">PROJECTBREAKDOWN</span>
-        <br>
-        <button class="btn btn-back" onclick="history.back()">Go Back</button>
-        <button class="btn btn-open">Create Project</button>
+        <ul class="logo">
+            <li><img th:src="@{../pictures/logo1.jpg}" src="../static/pictures/logo1.jpg" width="200px"></li>
+            <li><span class="brand-name" data-value="PROJECTBREAKDOWN">PROJECTBREAKDOWN</span></li>
+            <li><button class="btn btn-back" onclick="history.back()">Go Back</button></li>
+            <!-- A button to open the popup form -->
+            <li><button class="btn btn-open">Create Project</button></li>
+        </ul>
+
     </div>
     <div class="item2">
-        <div class="navside">
-            <div class="navside-header">
-                <h3 class="headline">Projects</h3>
+<!--        <div class="navside">-->
+<!--            <div class="navside-header">-->
+        <a th:href="@{'/project_manager/'+ ${session.PmID}}"><p class="headline">Projects</p></a>
             </div>
             <ul class="list-group">
                 <li th:each="project : ${projects}">
@@ -35,7 +39,6 @@
                 </li>
             </ul>
         </div>
-    </div>
     <div class="item3">
         <div class="view" th:each="project:${projects}">
 
@@ -56,14 +59,13 @@
         </div>
     </div>
     <div class="footer">
-        <a class="github" href="https://linktr.ee/devtool"target=”_blank”>
+        <a class="github" href="https://linktr.ee/devtool" target=”_blank”>
             <img class="github" src="../static/pictures/github-mark.png"
                  th:src="@{../pictures/github-mark.png}" width="50px">
         </a>
     </div>
 
 
-</div>
 
 <section class="modal hidden">
     <div class="flex">

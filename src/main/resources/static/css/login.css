@@ -10,7 +10,7 @@ html {
     width: 400px;
     padding: 40px;
     transform: translate(-50%, -50%);
-    background: #7881A1; /*#5caafc;*/
+    background: #000000; /*#5caafc;*/
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
     border-radius: 20px;
@@ -69,7 +69,7 @@ input[type=submit]{
     position: relative;
     left: 80px;
     margin: 50px;
-    background: #c6ccfc; /*#5caafc;*/
+    background: #000000; /*#5caafc;*/
     font-size: 16px;
     color: #fff;
 }
@@ -92,13 +92,13 @@ input[type=submit]{
     padding: 10px 0;
     font-size: 16px;
     color: #fff;
-    background:#C6CCFCFF; /*#5caafc;*/
+    background:#000000; /*#5caafc;*/
     pointer-events: none;
     transition: .5s;
     /*background: transparent;*/
 }
 select>option{
-    background: #C6CCFCFF; /*#5caafc;*/
+    background: #000000; /*#5caafc;*/
     /*background: transparent;*/
     font-size: 16px;
     color: #fff;
@@ -235,4 +235,12 @@ input[type=submit]:hover{
 
 h1 {
     color: #ffffff
+}
+
+h2 {
+    color: #ffffff;
+}
+
+img {
+    margin-left: 15%;
 }

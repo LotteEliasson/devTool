@@ -8,6 +8,7 @@
 </head>
 <body>
 <div class="login-box">
+    <img th:src="@{../pictures/logologin.jpg}" src="../static/pictures/logologin.jpg" width="200px">
     <div th:switch="${session.loginStatus}">
         <h2 th:case="''">Login</h2>
         <h2 th:case="'fail'">Forkert brugernavn eller adgangskode</h2>

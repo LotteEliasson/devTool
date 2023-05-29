@@ -3,34 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Task view</title>
-<!--  <link rel="stylesheet" th:href="@{../css/grid.css}" href="../static/css/grid.css">-->
-<!--  <link rel="stylesheet" th:href="@{../css/view.css}" href="../static/css/view.css">-->
 
-  <link rel="stylesheet" th:href="@{../css/lottetest.css}" href="../static/css/lottetest.css">
-<!--  <link rel="stylesheet" th:href="@{../css/modal.css}" href="../static/css/modal.css">-->
+
+    <link rel="stylesheet" th:href="@{../css/modal1.css}" href="../static/css/modal1.css">
+  <link rel="stylesheet" th:href="@{../css/grid1.css}" href="../static/css/grid1.css">
+  <link rel="stylesheet" th:href="@{../css/view1.css}" href="../static/css/view1.css">
+<!--  <link rel="stylesheet" th:href="@{../css/lottetest.css}" href="../static/css/lottetest.css">-->
+
 </head>
 <body >
 
 
 <div class="grid-container">
   <div class="item1">
-   <img th:src="@{../pictures/logo1.jpg}" src="../static/pictures/logo1.jpg" width="300px">
-    <span class="brand-name" data-value="PROJECTBREAKDOWN">PROJECTBREAKDOWN</span>
-    <br>
-    <button class="btn btn-back" onclick="history.back()">Go Back</button>
-    <!-- A button to open the popup form -->
-    <button class="btn btn-open">Create Task</button>
+
+
+    <ul class="logo">
+      <li><img th:src="@{../pictures/logo1.jpg}" src="../static/pictures/logo1.jpg" width="200px"></li>
+      <li><span class="brand-name" data-value="PROJECTBREAKDOWN">PROJECTBREAKDOWN</span></li>
+    </ul>
+      <li><button class="btn btn-back" onclick="history.back()">Go Back</button></li>
+      <!-- A button to open the popup form -->
+      <li><button class="btn btn-open">Create Task</button></li>
+
+
   </div>
 
-  <div class="gradiant">
 
-
-  </div>
   <div class="item2">
-    <div class="navside">
-      <div class="navside-header">
-        <a th:href="@{'/project_manager/'+ ${session.PmID}}"><h3 class="headline">Projects</h3></a>
-      </div>
+<!--    <div class="navside">-->
+<!--      <div class="navside-header">-->
+        <a th:href="@{'/project_manager/'+ ${session.PmID}}"><p class="headline">Projects</p></a>
+<!--      </div>-->
       <ul class="list-group" >
         <li th:each="project : ${projectsByPmId}">
           <a th:href="@{'/processes/'+${project.getProjectId()}}" href="processes.html">
@@ -38,7 +42,7 @@
           </a>
         </li>
       </ul>
-    </div>
+<!--    </div>-->
   </div>
 
 
@@ -63,11 +67,11 @@
         <span class="text1">Task no.:&ensp;</span><span th:text="${task.taskDependencyNumber}"></span><br><br>
 
         <a class="hovertext" data-hover="Update Task" th:href="@{'/updatetask/' + ${task.taskId}}" href="/updatetask.html">
-          <img th:src="@{../pictures/edit.png}" src="../static/pictures/edit.png" width="20px">
+          <img th:src="@{../pictures/editblack.png}" src="../static/pictures/editblack.png" width="20px">
         </a>
 
         <a class="hovertext" data-hover="Delete Task" th:href="@{'/deletetask/' + ${task.taskId}}" href="/deletetask.html">
-          <img th:src="@{../pictures/trash.png}" src="../static/pictures/trash.png" width="20px">
+          <img th:src="@{../pictures/trashblack.png}" src="../static/pictures/trashblack.png" width="20px">
         </a>
 
       </div>

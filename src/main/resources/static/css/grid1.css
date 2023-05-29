@@ -1,3 +1,4 @@
+/*Grid stylesheet*/
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +7,7 @@
 }
 
 body {
-    background-color: #c6ccfc;
+    background-color: #ffffff;/*#c6ccfc;*/
 }
 
 .grid-container {
@@ -30,14 +31,16 @@ body {
 .item1 {
     grid-column: 1 / span 3;
     grid-row: 1 / span 2;
-
-    /*background-size: 100%;*/
-    /*background-repeat: no-repeat;*/
+    background-color: #000000;
+    border-bottom: 4px solid #83edff;
 
 }
-.item2{
-    grid-column: 1/ span 1;
+
+.item2 {
+    grid-column: 1/ span 3;
     grid-row: 3 / span 8;
+    border-right: 1px dotted #e1e1e1;
+    margin-left: 10px;
 }
 
 .item3 {
@@ -58,13 +61,34 @@ body {
     font-weight: bold;
     text-align: center;
     font-size: clamp(2rem, 2rem,2rem);
+    color: #ffffff;
 }
 .brand-name:hover {
-    background-color: black;
-    color: #d5d9f8;
+    /*background-color: black;*/
+    color: #83edff;
 }
+
 .github {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.logo {
+    list-style: none;
+    display:inline-flex;
+    align-items: center;
+    margin-top: 70px;
+    /*align-content: center;*/
+    /*position: absolute;*/
+    margin-left: 25%;
+}
+
+.headline {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+li {
+    list-style: none;
 }
