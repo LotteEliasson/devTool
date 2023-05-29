@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Update Task</title>
-
-    <link rel="stylesheet" th:href="@{../css/update.css}" href="../static/css/update.css">
     <link rel="stylesheet" th:href="@{../css/grid1.css}" href="../static/css/grid1.css">
+    <link rel="stylesheet" th:href="@{../css/update.css}" href="../static/css/update.css">
+
 </head>
 <body>
 
@@ -44,7 +44,7 @@
                         <label for="minAllocation-update"><b>Allocation</b></label>
                         <input class="inputfields" id="minAllocation-update" type="text" placeholder="Enter Minimum Allocation" name="MinAllocation" th:value="${taskUpdate.minAllocation}"><br>
 
-                        <label for="taskStatus-update"><b>Task Status</b></label>
+                        <label class="dropdown" for="taskStatus-update"><b>Task Status</b></label>
                             <select id="taskStatus-update" type="text" name="TaskStatus" >
                                 <option th:each=" state :${TaskStates}"> <span th:text="${state}"></span></option>
                             </select><br>

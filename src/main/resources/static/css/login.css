@@ -72,6 +72,7 @@ input[type=submit]{
     background: #000000; /*#5caafc;*/
     font-size: 16px;
     color: #fff;
+    border-radius: 3px;
 }
 
 /*.login-box .user-box select{*/
@@ -244,3 +245,4 @@ h2 {
 img {
     margin-left: 15%;
 }
+

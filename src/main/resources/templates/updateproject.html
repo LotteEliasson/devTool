@@ -53,7 +53,7 @@
                         <input class="inputfields" id="newcustomername" type="text" placeholder="Enter Customer Name" name="customerName" th:value="${project.getCustomerName()}" ><br>
 
 
-                        <label for="newstate"><b>Project Status</b></label>
+                        <label class="dropdown" for="newstate"><b>Project Status</b></label>
                         <Select id="newstate" type="text" name="newstate">
                             <option th:each="state :${States}"> <span th:text="${state}"></span> </option>
                         </Select><br>

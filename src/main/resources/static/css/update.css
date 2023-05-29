@@ -93,3 +93,8 @@ button:hover{
 h3 {
     color: #ffffff;
 }
+
+.dropdown {
+    background-color: #ffffff;
+    border-radius: 3px;
+}
