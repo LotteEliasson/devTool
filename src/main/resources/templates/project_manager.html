@@ -51,9 +51,16 @@
                 <span class="text1">Project Days:&ensp;</span><span th:text="${project.getProjectDays()}"> Total days </span><br>
                 <span class="text1">Work Days:&ensp;</span><span th:text="${project.getProjectWorkdays()}"> Total days </span><br><br>
 
-                <a th:href="@{'/updateproject/'+${project.getProjectId()}}"><h4>Update Project</h4></a>
+
                 <a th:href="@{'/processes/'+${project.getProjectId()}}"><h4>Show processes</h4></a>
-                <a th:href="@{'project/delete/'+${project.getProjectId()}}"><h4>Delete project</h4></a>
+<!--                <a th:href="@{'/updateproject/'+${project.getProjectId()}}"><h4>Update Project</h4></a>-->
+<!--                <a th:href="@{'project/delete/'+${project.getProjectId()}}"><h4>Delete project</h4></a>-->
+                <a class="hovertext" data-hover="Update Project" th:href="@{'/updateproject/'+${project.getProjectId()}}" href="updateproject.html">
+                    <img th:src="@{../pictures/editblack.png}" src="../static/pictures/editblack.png" width="20px">
+                </a>
+                <a class="hovertext" data-hover="Delete Project" th:href="@{'project/delete/'+${project.getProjectId()}}" href=>
+                    <img th:src="@{../pictures/trashblack.png}" src="../static/pictures/trashblack.png" width="20px">
+                </a>
             </div>
         </div>
     </div>
