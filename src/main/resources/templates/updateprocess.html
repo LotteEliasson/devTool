@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Update Process</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" th:href="@{../css/grid1.css}" href="../static/css/grid1.css">
   <link rel="stylesheet" th:href="@{../css/update.css}" href="../static/css/update.css">
 
@@ -31,8 +34,8 @@
     <section class="modal">
 
 
-      <form action="/updateprocess" method="post">
-       <div>
+      <form action="/updateprocess" class="formupdate "method="post">
+
 
             <h3>Update Process form</h3>
             <label for="updatename"><b>Process Name</b></label>
@@ -48,16 +51,13 @@
             <select class="inputfields" id="startAfterTask" type="text" name="startAfterTask" >
                  <option value="-1">Start with project</option>
                 <option th:each="tasknumber:${projectTasks}"><span th:text="${'Start after task number: '+tasknumber.getTaskId()}" > </span></option>
-            </select>
-
-            <input type="submit" class="btn btn-submit" value="Save Changes">
-
-
+            </select><br>
 
             <input id="processID" th:value="${processUpdate.getProcessId()}" name="processId" type="hidden">
             <input id="projectID" th:value="${processUpdate.getProjectId()}" name="projectId" type="hidden">
             <input id="projectId-update" type="hidden" name="ProjectId" th:value="${processUpdate.projectId}">
-       </div>
+            <input type="submit" class="btn btn-submit" value="Save Changes">
+
       </form>
   </section>
     </div>
