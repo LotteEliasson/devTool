@@ -22,10 +22,10 @@
             <li><span class="brand-name" data-value="PROJECTBREAKDOWN">PROJECTBREAKDOWN</span></li>
 
         </ul>
+        <!-- A button to go back to the previous page -->
         <li><button class="btn btn-back" onclick="history.back()">Go Back</button></li>
         <!-- A button to open the popup form -->
         <li><button class="btn btn-open">Create Project</button></li>
-    </div>
     </div>
     <div class="item2">
 <!--        <div class="navside">-->
@@ -39,7 +39,6 @@
                     </a>
                 </li>
             </ul>
-        </div>
     <div class="item3">
         <div class="view" th:each="project:${projects}">
 
@@ -65,6 +64,7 @@
                  th:src="@{../pictures/github-mark.png}" width="50px">
         </a>
     </div>
+</div>
 
 
 
