@@ -160,7 +160,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	processRepository.addProcess(newProcess, projectid);
 	return "redirect:/processes/" +projectid;
 	}
-	@GetMapping("/processes/updateprocess/{processid}")
+	@GetMapping("/updateprocess/{processid}")
 	public String updateProcess(@PathVariable("processid") int processID, Model processModel,HttpSession session) {
 		Processes updateProcess;
 		int projectid=(int) session.getAttribute("currentProject");
