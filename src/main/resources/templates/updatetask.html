@@ -4,22 +4,21 @@
     <meta charset="UTF-8">
     <title>Update Task</title>
 
-
-
-    <link rel="stylesheet" th:href="@{../css/grid1.css}" href="../static/css/grid1.css">
     <link rel="stylesheet" th:href="@{../css/update.css}" href="../static/css/update.css">
-
+    <link rel="stylesheet" th:href="@{../css/grid1.css}" href="../static/css/grid1.css">
 </head>
 <body>
 
 <div class="grid-container">
     <div class="item1">
         <ul class="logo">
-            <li><button class="btn btn-back" onclick="history.back()">Go Back</button></li>
             <li><img th:src="@{../pictures/logo1.jpg}" src="../static/pictures/logo1.jpg" width="200px"></li>
             <li><span class="brand-name" data-value="PROJECTBREAKDOWN">PROJECTBREAKDOWN</span></li>
-
         </ul>
+        <li><button class="btn btn-back" onclick="history.back()">Go Back</button></li>
+
+
+
     </div>
     <div class="item2">
 
@@ -29,9 +28,6 @@
     <div class="item3">
 <!-- The  update form -->
         <section class="modal">
-            <div>
-                <button class="btn-close">⨉</button>
-            </div>
 
             <form action="/updateTask" method="post">
                     <div>

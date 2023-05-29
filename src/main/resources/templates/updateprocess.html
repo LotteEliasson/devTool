@@ -12,13 +12,14 @@
 <div class="grid-container">
     <div class="item1">
         <ul class="logo">
-            <li><button class="btn btn-back" onclick="history.back()">Go Back</button></li>
             <li><img th:src="@{../pictures/logo1.jpg}" src="../static/pictures/logo1.jpg" width="200px"></li>
             <li><span class="brand-name" data-value="PROJECTBREAKDOWN">PROJECTBREAKDOWN</span></li>
-
         </ul>
-    </div>
+        <li><button class="btn btn-back" onclick="history.back()">Go Back</button></li>
 
+
+
+    </div>
 
   <div class="item2">
 
@@ -28,9 +29,7 @@
   <div class="item3">
     <!-- The  update form -->
     <section class="modal">
-      <div>
-        <button class="btn-close">⨉</button>
-      </div>
+
 
       <form action="/updateprocess" method="post">
        <div>
