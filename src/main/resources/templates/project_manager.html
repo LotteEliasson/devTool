@@ -31,7 +31,6 @@
 <!--        <div class="navside">-->
 <!--            <div class="navside-header">-->
         <a th:href="@{'/project_manager/'+ ${session.PmID}}"><p class="headline">Projects</p></a>
-            </div>
             <ul class="list-group">
                 <li th:each="project : ${projects}">
                     <a th:href="@{'/processes/'+${project.getProjectId()}}" href="processes.html">
@@ -39,6 +38,7 @@
                     </a>
                 </li>
             </ul>
+    </div>
     <div class="item3">
         <div class="view" th:each="project:${projects}">
 
