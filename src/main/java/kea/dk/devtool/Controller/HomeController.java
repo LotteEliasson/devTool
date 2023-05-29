@@ -161,10 +161,12 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	return "redirect:/processes/" +projectid;
 	}
 	@GetMapping("/processes/updateprocess/{processid}")
-	public String updateProcess(@PathVariable("processid") int processID, Model processModel) {
+	public String updateProcess(@PathVariable("processid") int processID, Model processModel,HttpSession session) {
 		Processes updateProcess;
+		int projectid=(int) session.getAttribute("currentProject");
 		 updateProcess = processRepository.findProcessById(processID);
 		processModel.addAttribute("processUpdate",updateProcess);
+		processModel.addAttribute("projectTasks",taskRepository.getProjectTasks(projectid));
 		return "updateprocess";
 	}
 	@PostMapping("/updateprocess")
@@ -263,11 +265,12 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 
 	//Opdater task
 	@GetMapping("/updatetask/{taskId}")
-	public String updateTask(@PathVariable("taskId") int updateTask, Model taskModel) {
-
+	public String updateTask(@PathVariable("taskId") int updateTask, Model taskModel,HttpSession session) {
+	int processId=(int) session.getAttribute("currentProcess") ;
 	Task updateTasks = taskRepository.findTaskById(updateTask);
 	taskModel.addAttribute("TaskStates",TaskStatus.values());
 	taskModel.addAttribute("taskUpdate", updateTasks);
+	taskModel.addAttribute("procesTasks",taskRepository.getTaskById(processId));
 		return "updatetask";
 	}
 

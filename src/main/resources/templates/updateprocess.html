@@ -39,7 +39,10 @@
             <input class="inputfields" id="expectedFinish" type="hidden" placeholder="Enter Finish Date" th:value="${processUpdate.getExpectedFinish()}" name="expectedFinish" >
 
             <label for="startAfterTask"><b>Start After Task</b></label>
-            <input class="inputfields" id="startAfterTask" type="text" placeholder="Enter Start After Task" th:value="${processUpdate.getStartAfterTask()}" name="startAfterTask" ><br>
+            <select class="inputfields" id="startAfterTask" type="text" name="startAfterTask" >
+                 <option value="-1">Start with project</option>
+                <option th:each="tasknumber:${projectTasks}"><span th:text="${'Start after task number: '+tasknumber.getTaskId()}" > </span></option>
+            </select>
 
             <input type="submit" class="btn btn-submit" value="Save Changes">
 
@@ -47,7 +50,7 @@
 
             <input id="processID" th:value="${processUpdate.getProcessId()}" name="processId" type="hidden">
             <input id="projectID" th:value="${processUpdate.getProjectId()}" name="projectId" type="hidden">
-            <input id="projectId-update" type="hidden" name="ProjectId" th:value="${taskUpdate.projectId}">
+            <input id="projectId-update" type="hidden" name="ProjectId" th:value="${processUpdate.projectId}">
        </div>
       </form>
   </section>

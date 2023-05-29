@@ -38,8 +38,8 @@
                         <label for="effort-update"><b>Effort</b></label>
                         <input class="inputfields" id="effort-update" type="text" placeholder="Enter effort" name="Effort" th:value="${taskUpdate.effort}"><br>
 
-                        <label for="expectedStartDate-update" th:value="${'Exp Start Date: '+ taskUpdate.expectedStartDate}"> <b> Exp Start Date: </b></label>
-                        <input class="inputfields" id="expectedStartDate-update" type="hidden" placeholder="Enter Expected Start Date" name="ExpectedStartDate" th:value="${taskUpdate.expectedStartDate}"><br>
+                        <b th:text="${'Exp Start Date: '+ taskUpdate.expectedStartDate}"> </b> <br><br>
+
 
                         <label for="minAllocation-update"><b>Allocation</b></label>
                         <input class="inputfields" id="minAllocation-update" type="text" placeholder="Enter Minimum Allocation" name="MinAllocation" th:value="${taskUpdate.minAllocation}"><br>
@@ -56,11 +56,15 @@
                         <input class="inputfields" id="developerId-update" type="text" placeholder="Enter Developer ID" name="developerId" th:value="${taskUpdate.developerId}"><br>
 
                         <label for="taskSequenceNumber-update"><b>Task Dependency</b></label>
-                        <input class="inputfields" id="taskSequenceNumber-update" type="text" placeholder="Enter Task Sequence Number" name="taskDependencyNumber" th:value="${taskUpdate.taskDependencyNumber}"><br>
+                        <select class="inputfields"  id="taskSequenceNumber-update" type="text"  name="taskDependencyNumber">
+                            <option value="-1">Start with process</option>
+                            <option th:each="tasknumber:${procesTasks}"><span th:text="${'Start after task number:'+tasknumber.getTaskId()}"></span> </option>
+
+                        </select> <br>
 
                         <input type="submit" class="btn btn-submit" value="Update Task">
 
-
+                        <input class="inputfields" id="expectedStartDate-update" type="hidden"  name="ExpectedStartDate" th:value="${taskUpdate.expectedStartDate}">
                         <input id="taskId-update" type="hidden" name="TaskId" th:value="${taskUpdate.taskId}">
                         <input id="processId-update" type="hidden" name="ProcessId" th:value="${taskUpdate.processId}">
                         <input id="projectId-update" type="hidden" name="ProjectId" th:value="${taskUpdate.projectId}">
