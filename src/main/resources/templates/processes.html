@@ -58,13 +58,13 @@
 
                 <a th:href="@{'/taskview/'+${proces.getProcessId()}}" href="taskview.html"><h4>Show tasks</h4></a>
 <!--                <a th:href="@{'/processes/delete/'+${proces.getProcessId()}}"><h4>Delete process</h4></a>-->
-<!--                <a th:href="@{'/processes/updateprocess/'+${proces.getProcessId()}}"><h4>Update proces</h4></a>-->
+<!--                <a th:href="@{'/processes/updateprocess/'+${proces.getProcessId()}}"><h4>Update proces</h4></a>     /processes     /processes       -->
 
 
-                <a class="hovertext" data-hover="Update Process" th:href="@{'/processes/updateprocess/'+${proces.getProcessId()}}" href="updateprocess.html">
+                <a class="hovertext" data-hover="Update Process" th:href="@{'/updateprocess/'+${proces.getProcessId()}}" href="updateprocess.html">
                     <img th:src="@{../pictures/editblack.png}" src="../static/pictures/editblack.png" width="20px">
                 </a>
-                <a class="hovertext" data-hover="Delete Process" th:href="@{'/processes/delete/'+${proces.getProcessId()}}" href=>
+                <a class="hovertext" data-hover="Delete Process" th:href="@{'/delete/'+${proces.getProcessId()}}" href=>
                     <img th:src="@{../pictures/trashblack.png}" src="../static/pictures/trashblack.png" width="20px">
                 </a>
             </div>
