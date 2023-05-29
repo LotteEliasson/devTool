@@ -65,13 +65,11 @@ public class TimeAndEffort
 		 */
 		public static LocalDate procesEnddate(Processes process){
 
-			LocalDate procesfinish;
+			LocalDate procesfinish=LocalDate.now();
 			// hvis der findes tasks i processen:
-			if(process.getTaskList().size()!=0) {
+			if(process.getTaskList()!=null|| !process.getTaskList().isEmpty()) {
 				ArrayList<Task> proces = (ArrayList<Task>) process.getTaskList();
 				HashMap<Integer, Task> pathlist = new HashMap<>();
-
-
 				for (Task t : proces) {
 
 					// tilføj pathlist hvis dependencynumber ikke findes i forvejen -compare t.dependency
@@ -92,9 +90,14 @@ public class TimeAndEffort
 
 				procesfinish = calculateDate(process.getExpectedStartDate(), totaldays);
 			}
+			//hvis der endnu ikke er tasks i processen:
 			else {
-
+				// hvis proces skal starte med projekt
+				if(process.getStartAfterTask()==-1){
 				procesfinish=process.getExpectedStartDate().plusDays(1);
+				}
+				//ellers skal den beregne expected finish ud fra projectTask - klares ved at sætte/beregne expected start først
+
 			}
 			return procesfinish;
 		}

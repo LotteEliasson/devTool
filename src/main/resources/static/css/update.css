@@ -94,7 +94,10 @@ h3 {
     color: #ffffff;
 }
 
-.dropdown {
-    background-color: #ffffff;
-    border-radius: 3px;
+/*.dropdown {*/
+/*    background-color: #ffffff;*/
+/*    border-radius: 3px;*/
+/*}*/
+label{
+    color: white;
 }

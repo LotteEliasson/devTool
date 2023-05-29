@@ -47,8 +47,8 @@
                         <label for="newduedate"><b>Due Date</b></label>
                         <input class="inputfields" id="newduedate" type="date" placeholder="Enter Due Date" th:value="${project.getDueDate()}" name="dueDate" >
 
-                        <label for="newexpectedenddate"><b>Delivery Date</b></label>
-                        <input class="inputfields" id="newexpectedenddate" type="date" placeholder="Enter expected delivery Date" th:value="${project.getExpectedEndDate()}" name="expectedEnddate" >
+                        <label for="newexpectedenddate"><span ><b th:text="${'Expected Delivery Date: '+project.getExpectedEndDate()}"></b></span></label> <br><br>
+
 
                         <label for="newprojectmanager"><b>Project Manager</b></label>
                         <input class="inputfields" id="newprojectmanager" type="text" placeholder="Enter Project Managers Name"  th:value="${project.getProjectManager()}" name="projectManager" >
@@ -63,7 +63,7 @@
                         </Select><br>
 
                         <input id="projectID" th:value="${project.getProjectId()}" name="projectID" type="hidden">
-
+                    <input class="inputfields" id="newexpectedenddate" type="hidden"  th:value="${project.getExpectedEndDate()}" name="expectedEnddate" >
                         <input type="submit" class="btn btn-submit" value="Save Changes">
 
 

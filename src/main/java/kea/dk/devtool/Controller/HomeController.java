@@ -50,13 +50,18 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		}
 
 	projectModel.addAttribute("projects",myProjects);
+		projectModel.addAttribute("States",ProjectStatus.values());
 	return "project_manager";
 	}
 
 	@PostMapping("create_projects")
-	public String createProject(@RequestParam("projectName") String projectName, @RequestParam("startDate")Date startDate,
-										 @RequestParam("dueDate") Date dueDate, @RequestParam("projectManager") String projectManager,
-										 @RequestParam("customerName") String customerName,HttpSession session){
+	public String createProject(@RequestParam("projectName") String projectName,
+										 @RequestParam("startDate")Date startDate,
+										 @RequestParam("dueDate") Date dueDate,
+										 @RequestParam("projectManager") String projectManager,
+										 @RequestParam("customerName") String customerName,
+										 @RequestParam("projectstate") ProjectStatus projectstate,
+										 HttpSession session){
 		Project newproject=new Project();
 		int pmID=(int) session.getAttribute("PmID");
 		newproject.setProjectName(projectName);
@@ -66,18 +71,19 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		newproject.setStartDate(startDate.toLocalDate());
 		newproject.setExpectedEndDate(dueDate.toLocalDate()); // når projektet er nyoprettet er expected og duedate ens
 		newproject.setProjectManagerID(pmID); // her skal bygges noget andet til en admin!
+		newproject.setStatus(projectstate);
 		projectRepository.addProject(newproject);
 		return "redirect:/project_manager/"+pmID;
 
 	}
 	@GetMapping("/updateproject/{id}")
-	public String updateProject(@PathVariable("id") int projectID, Model projektModel){
+	public String updateProject(@PathVariable("id") int projectID, Model projectModel){
 	Project project;
 	project=projectRepository.findProjectByID(projectID);
 
 	//ProjectStatus.values();
-	projektModel.addAttribute("States",ProjectStatus.values());
-	projektModel.addAttribute(project);
+	projectModel.addAttribute("States",ProjectStatus.values());
+	projectModel.addAttribute(project);
 
 
 	return "updateproject";
@@ -131,6 +137,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		processes.addAttribute("showProjectName", projectRepository.findProjectByID(id).getProjectName());
 		processes.addAttribute("showProjectManager", projectRepository.findProjectByID(id).getProjectManager());
 		processes.addAttribute("processes", processRepository.getProcessByProjectId(id) );
+		processes.addAttribute("projectTasks",taskRepository.getProjectTasks(id));
 
 		session.setAttribute("currentProject", id);
 	return "processes";
@@ -146,17 +153,24 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	Processes newProcess = new Processes();
 	newProcess.setProcessName(processName);
 
-	newProcess.setExpectedFinish(expectedFinish);
+
 	newProcess.setStartAfterTask(startAfter);
 	//hvis processen skal starte ved afslutningen af en bestemt task overskrives expectedStartDate
 	if (startAfter!=-1) {
 		Task task = taskRepository.findTaskById(startAfter);
 		expectedStartDate=task.getExpectedFinish();
 	}
+	else{
+		//ellers sættes processen til at starte med project
+		Project project=projectRepository.findProjectByID(projectid);
+		expectedStartDate=project.getStartDate();
+	}
 	//processen får sat expectedStartDate (som enten er opdateret af brugeren eller hentet fra task ved startAfter!=-1)
 	//overvej at lave StartAfter som dropdown selection med default =-1 i UI for at undgå at brugeren laver fejl under indtastning
 	//ved at indtaske ugyldigt taskId
 	newProcess.setExpectedStartDate(expectedStartDate);
+	newProcess.setTaskList(new ArrayList<>()); // kun ved create fordi der ikke er nogen tasks endnu
+	newProcess.setExpectedFinish(TimeAndEffort.procesEnddate(newProcess));
 	processRepository.addProcess(newProcess, projectid);
 	return "redirect:/processes/" +projectid;
 	}
@@ -223,6 +237,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		modelTask.addAttribute("showProjectManager", projectRepository.findProjectByID(projectID).getProjectManager());
 		modelTask.addAttribute("taskView", taskRepository.getTaskById(processId));
 		modelTask.addAttribute("projectsByPmId", projectRepository.getMyProjects(projectPMID));
+		modelTask.addAttribute("TaskStates",TaskStatus.values());
 		session.setAttribute("currentProcess", processId);
 
 		return "taskview";
@@ -231,7 +246,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	@PostMapping("/createTasks")
 	public String createTask(@RequestParam("TaskName") String newTaskName,
 							 @RequestParam("Effort") int newEffort,
-							 @RequestParam("ExpectedStartDate") Date newExpectedStartDate,
+							 @RequestParam("ExpectedStartDate") LocalDate newExpectedStartDate,
 							 @RequestParam("MinAllocation") int newMinAllocation,
 							 @RequestParam("TaskStatus") TaskStatus newTaskStatus,
 							 @RequestParam("AssignedId") String newAssignedId,
@@ -244,11 +259,20 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 
 		Task newTask = new Task();
 
-		newTask.setProcessId(newProcessId);
 
+		// hvis taskDependency !=-1 så skal expected startdate overskrives med en beregning
+		if (newTaskSequenceNumber!=-1){
+			Task task=taskRepository.findTaskById(newTaskSequenceNumber);
+			newExpectedStartDate=task.getExpectedFinish();
+		}
+		else {
+			Processes processes=processRepository.findProcessById(newProcessId);
+			newExpectedStartDate=processes.getExpectedStartDate();
+		}
+		newTask.setProcessId(newProcessId);
 		newTask.setTaskName(newTaskName);
 		newTask.setEffort(newEffort);
-		newTask.setExpectedStartDate(newExpectedStartDate.toLocalDate());
+		newTask.setExpectedStartDate(newExpectedStartDate);
 		newTask.setMinAllocation(newMinAllocation);
 		newTask.setTaskStatus(newTaskStatus);
 		newTask.setAssignedname(newAssignedId);
@@ -317,8 +341,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 			}
 
 		}
-		//updateTaskId, updateProcessId, updateTaskName, updateEffort, updateExpectedStartDate, updateMinAllocation, updateTaskStatus,updateAssignedId,updateTaskSequenceNumber,updateProjectId,developerId);
-//, , , , , , ,,,,);
+
 
 		updateTasks.setAssignedname(updateAssignedname);
 		updateTasks.setTaskStatus(updateTaskStatus);

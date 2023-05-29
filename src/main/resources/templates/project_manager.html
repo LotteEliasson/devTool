@@ -85,7 +85,12 @@
         <input id="projectmanager" type="text"  placeholder="Enter Project Managers Name" name="projectManager" required>
         <br>
         <label for="customername"><b>Customer Name</b></label>
-        <input id="customername" type="text"  placeholder="Enter Customer Name" name="customerName" required>
+        <input id="customername" type="text"  placeholder="Enter Customer Name" name="customerName" required><br><br>
+
+        <label for="projectstate"><b>Project Status</b></label>
+        <Select id="projectstate" type="text" name="projectstate">
+            <option th:each="state :${States}"> <span th:text="${state}"></span> </option>
+        </Select><br>
 
         <button type="submit" class="btn btn-submit">Create Project</button>
     </form>

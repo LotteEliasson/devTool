@@ -105,15 +105,21 @@
     <label for="minAllocation-create"><b>Minimum Allocation</b></label>
     <input id="minAllocation-create" type="text" placeholder="Enter Minimum Allocation" name="MinAllocation" required>
 
-    <label for="taskStatus-create"><b>Task status</b></label>
-    <input id="taskStatus-create" type="text" placeholder="Enter Task Status" name="TaskStatus" required>
+    <label  for="taskStatus-create"><b>Task Status</b></label>
+    <select id="taskStatus-create" type="text" name="TaskStatus" >
+      <option th:each=" state :${TaskStates}"> <span th:text="${state}"></span></option>
+    </select><br>
 
-    <label for="assignedId-create"><b>Assigned ID</b></label>
+    <label for="assignedId-create"><b>Assigned to</b></label>
     <input id="assignedId-create" type="text" placeholder="Enter Assignment ID" name="AssignedId" required>
 
-    <label for="taskDependencyNumber-create"><b>Task Sequence Number</b></label>
-    <input id="taskDependencyNumber-create" type="text" placeholder="Enter Task Sequence Number" name="TaskSequenceNumber" required>
 
+    <label for="taskDependencyNumber-create"><b>Task Dependency</b></label>
+    <select  id="taskDependencyNumber-create" type="text"  name="TaskSequenceNumber">
+      <option value="-1">Start with process</option>
+      <option th:each="tasknumber:${procesTasks}"><span th:text="${'Start after task number:'+tasknumber.getTaskId()}"></span> </option>
+
+    </select> <br>
     <button type="submit" class="btn btn-submit">Create Task</button>
 
   </form>

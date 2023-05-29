@@ -64,7 +64,7 @@
                 <a class="hovertext" data-hover="Update Process" th:href="@{'/updateprocess/'+${proces.getProcessId()}}" href="updateprocess.html">
                     <img th:src="@{../pictures/editblack.png}" src="../static/pictures/editblack.png" width="20px">
                 </a>
-                <a class="hovertext" data-hover="Delete Process" th:href="@{'/delete/'+${proces.getProcessId()}}" href=>
+                <a class="hovertext" data-hover="Delete Process" th:href="@{'/processes/delete/'+${proces.getProcessId()}}" href=>
                     <img th:src="@{../pictures/trashblack.png}" src="../static/pictures/trashblack.png" width="20px">
                 </a>
             </div>
@@ -94,7 +94,10 @@
         <input id="expectedFinish" type="date" placeholder="Enter Finish Date" name="expectedFinish" required>
 
         <label for="startAfter"><b>Start after task</b></label>
-        <input id="startAfter" type="text"  placeholder="Enter task id" name="startAfter">
+        <select class="inputfields" id="startAfter" type="text" name="startAfter" >
+            <option value="-1">Start with project</option>
+            <option th:each="tasknumber:${projectTasks}"><span th:text="${'Start after task number: '+tasknumber.getTaskId()}" > </span></option>
+        </select><br><br>
 
         <button type="submit" class="btn btn-submit">Create Project</button>
     </form>

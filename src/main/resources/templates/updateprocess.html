@@ -35,7 +35,7 @@
 
 
       <form action="/updateprocess" class="formupdate "method="post">
-
+            <div>
 
             <h3>Update Process form</h3>
             <label for="updatename"><b>Process Name</b></label>
@@ -51,13 +51,13 @@
             <select class="inputfields" id="startAfterTask" type="text" name="startAfterTask" >
                  <option value="-1">Start with project</option>
                 <option th:each="tasknumber:${projectTasks}"><span th:text="${'Start after task number: '+tasknumber.getTaskId()}" > </span></option>
-            </select><br>
+            </select><br><br>
 
             <input id="processID" th:value="${processUpdate.getProcessId()}" name="processId" type="hidden">
             <input id="projectID" th:value="${processUpdate.getProjectId()}" name="projectId" type="hidden">
             <input id="projectId-update" type="hidden" name="ProjectId" th:value="${processUpdate.projectId}">
             <input type="submit" class="btn btn-submit" value="Save Changes">
-
+        </div>
       </form>
   </section>
     </div>
