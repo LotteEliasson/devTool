@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Project view</title>
     <script src="https://kit.fontawesome.com/7c3c034aee.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,6 +10,8 @@
     <link rel="stylesheet" th:href="@{../css/modal1.css}" href="../static/css/modal1.css">
     <link rel="stylesheet" th:href="@{../css/view1.css}" href="../static/css/view1.css">
     <link rel="stylesheet" th:href="@{../css/grid1.css}" href="../static/css/grid1.css">
+<!--    <link rel="stylesheet" th:href="@{../css/popup.css}" href="../static/css/popup.css">-->
+<!--  <link rel="stylesheet" th:href="@{../css/style.css}">-->
 
 </head>
 <body>
@@ -18,11 +20,11 @@
         <ul class="logo">
             <li><img th:src="@{../pictures/logo1.jpg}" src="../static/pictures/logo1.jpg" width="200px"></li>
             <li><span class="brand-name" data-value="PROJECTBREAKDOWN">PROJECTBREAKDOWN</span></li>
-            <li><button class="btn btn-back" onclick="history.back()">Go Back</button></li>
-            <!-- A button to open the popup form -->
-            <li><button class="btn btn-open">Create Project</button></li>
-        </ul>
 
+        </ul>
+        <li><button class="btn btn-back" onclick="history.back()">Go Back</button></li>
+        <!-- A button to open the popup form -->
+        <li><button class="btn btn-open">Create Project</button></li>
     </div>
     <div class="item2">
 <!--        <div class="navside">-->
