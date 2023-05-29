@@ -58,7 +58,11 @@
                         <label for="taskSequenceNumber-update"><b>Task Dependency</b></label>
                         <select class="inputfields"  id="taskSequenceNumber-update" type="text"  name="taskDependencyNumber">
                             <option value="-1">Start with process</option>
-                            <option th:each="tasknumber:${procesTasks}"><span th:text="${'Start after task number:'+tasknumber.getTaskId()}"></span> </option>
+                            <option th:each="tasknumber:${procesTasks}">
+
+                                <span th:text="${tasknumber.getTaskId()}"></span>
+
+                            </option>
 
                         </select> <br><br>
 

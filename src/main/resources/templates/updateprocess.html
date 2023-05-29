@@ -50,7 +50,7 @@
             <label for="startAfterTask"><b>Start After Task</b></label>
             <select class="inputfields" id="startAfterTask" type="text" name="startAfterTask" >
                  <option value="-1">Start with project</option>
-                <option th:each="tasknumber:${projectTasks}"><span th:text="${'Start after task number: '+tasknumber.getTaskId()}" > </span></option>
+                <option th:each="tasknumber:${projectTasks} "><span th:text="${'Start after task number: '+tasknumber.getTaskId()}" > </span></option>
             </select><br><br>
 
             <input id="processID" th:value="${processUpdate.getProcessId()}" name="processId" type="hidden">

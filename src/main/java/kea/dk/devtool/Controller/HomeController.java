@@ -169,7 +169,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	//overvej at lave StartAfter som dropdown selection med default =-1 i UI for at undgå at brugeren laver fejl under indtastning
 	//ved at indtaske ugyldigt taskId
 	newProcess.setExpectedStartDate(expectedStartDate);
-	newProcess.setTaskList(new ArrayList<>()); // kun ved create fordi der ikke er nogen tasks endnu
+	newProcess.setTaskList(new ArrayList<>());
 	newProcess.setExpectedFinish(TimeAndEffort.procesEnddate(newProcess));
 	processRepository.addProcess(newProcess, projectid);
 	return "redirect:/processes/" +projectid;
@@ -192,6 +192,8 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 								@RequestParam("startAfterTask")int updatestartAfter,
 								Model model, HttpSession session) {
 		Processes updateProcess = processRepository.findProcessById(updateprocessId);
+		ArrayList<Task> taskList= new ArrayList<>();
+		taskList= (ArrayList<Task>) taskRepository.getTaskById(updateprocessId);
 
 		updateProcess.setStartAfterTask(updatestartAfter); //vi fourdsætter at der er valgt gyldig tasknummer eller default
 		//hvis processen skal starte ved afslutningen af en bestemt task overskrives expectedStartDate
@@ -202,6 +204,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		//processen får sat expectedStartDate (som enten er opdateret af brugeren eller hentet fra task ved startAfter!=-1)
 		//overvej at lave StartAfter som dropdown selection med default =-1 i UI for at undgå at brugeren laver fejl under indtastning
 		//ved at indtaske ugyldigt taskId
+		updateProcess.setTaskList(taskList);
 		updateProcess.setExpectedStartDate(updateexpectedStartDate);
 		updateexpectedFinish=TimeAndEffort.procesEnddate(updateProcess);
 		updateProcess.setExpectedFinish(updateexpectedFinish);
