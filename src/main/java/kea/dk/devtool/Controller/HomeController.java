@@ -161,10 +161,12 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	return "redirect:/processes/" +projectid;
 	}
 	@GetMapping("/processes/updateprocess/{processid}")
-	public String updateProcess(@PathVariable("processid") int processID, Model processModel) {
+	public String updateProcess(@PathVariable("processid") int processID, Model processModel,HttpSession session) {
 		Processes updateProcess;
+		int projectid=(int) session.getAttribute("currentProject");
 		 updateProcess = processRepository.findProcessById(processID);
 		processModel.addAttribute("processUpdate",updateProcess);
+		processModel.addAttribute("projectTasks",taskRepository.getProjectTasks(projectid));
 		return "updateprocess";
 	}
 	@PostMapping("/updateprocess")
@@ -263,11 +265,12 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 
 	//Opdater task
 	@GetMapping("/updatetask/{taskId}")
-	public String updateTask(@PathVariable("taskId") int updateTask, Model taskModel) {
-
+	public String updateTask(@PathVariable("taskId") int updateTask, Model taskModel,HttpSession session) {
+	int processId=(int) session.getAttribute("currentProcess") ;
 	Task updateTasks = taskRepository.findTaskById(updateTask);
 	taskModel.addAttribute("TaskStates",TaskStatus.values());
 	taskModel.addAttribute("taskUpdate", updateTasks);
+	taskModel.addAttribute("procesTasks",taskRepository.getTaskById(processId));
 		return "updatetask";
 	}
 
@@ -280,13 +283,54 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 							 @RequestParam("ExpectedStartDate") LocalDate updateExpectedStartDate,
 							 @RequestParam("MinAllocation") int updateMinAllocation,
 							 @RequestParam("TaskStatus") TaskStatus updateTaskStatus,
-							 @RequestParam("AssignedId") String updateAssignedId,
-							 @RequestParam("TaskSequenceNumber") int updateTaskSequenceNumber,
+							 @RequestParam("Assignedname") String updateAssignedname,
+							 @RequestParam("taskDependencyNumber") int updatetaskDependencyNumber,
 							 @RequestParam("ProjectId") int updateProjectId,
 							 @RequestParam("developerId") int developerId,
 							 Model modelUpdateTask,
 							 HttpSession session) {
-		Task updateTasks = new Task(updateTaskId, updateProcessId, updateTaskName, updateEffort, updateExpectedStartDate, updateMinAllocation, updateTaskStatus,updateAssignedId,updateTaskSequenceNumber,updateProjectId,developerId);
+
+		Task updateTasks = taskRepository.findTaskById(updateTaskId);
+
+		// ExpectedStartDate skal beregnes på ny hvis taskdependency ændres:
+		//hvis taskdependency=-1 fortsæt ellers check om taskId findes i process
+		if (updatetaskDependencyNumber!=-1){
+			// check if task exists
+			Task check;
+			if(taskRepository.findTaskById(updatetaskDependencyNumber)!=null){
+				check=taskRepository.findTaskById(updatetaskDependencyNumber);
+				//check if processId match
+				if (check.getProcessId()==updateProcessId){
+					//set expectedstartdate
+					updateExpectedStartDate=check.getExpectedFinish();
+				}
+				//processid doesn't match
+				Processes p=processRepository.findProcessById(updateProcessId);
+				updateExpectedStartDate=p.getExpectedStartDate();
+			}
+			//task doesn't exist
+			else{
+				updatetaskDependencyNumber=-1;
+				Processes p=processRepository.findProcessById(updateProcessId);
+				updateExpectedStartDate=p.getExpectedStartDate();
+
+			}
+
+		}
+		//updateTaskId, updateProcessId, updateTaskName, updateEffort, updateExpectedStartDate, updateMinAllocation, updateTaskStatus,updateAssignedId,updateTaskSequenceNumber,updateProjectId,developerId);
+//, , , , , , ,,,,);
+
+		updateTasks.setAssignedname(updateAssignedname);
+		updateTasks.setTaskStatus(updateTaskStatus);
+		updateTasks.setTaskId(updateTaskId);
+		updateTasks.setTaskName(updateTaskName);
+		updateTasks.setProcessId(updateProcessId);
+		updateTasks.setEffort(updateEffort);
+		updateTasks.setExpectedStartDate(updateExpectedStartDate);
+		updateTasks.setMinAllocation(updateMinAllocation);
+		updateTasks.setTaskDependencyNumber(updatetaskDependencyNumber);
+		updateTasks.setDeveloperId(developerId);
+		updateTasks.setProjectId(updateProjectId);
 
 		taskRepository.updateTask(updateTasks);
 		int processID = (int) session.getAttribute("currentProcess");

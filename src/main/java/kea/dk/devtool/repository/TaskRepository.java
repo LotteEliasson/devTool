@@ -167,6 +167,37 @@ public class TaskRepository {
             e.printStackTrace();
         }
     }
+    public List<Task> getProjectTasks(int projectId){
+       List<Task> projectTasks=new ArrayList<>();
+       final String QUERYPROJECTTASK="SELECT * FROM projectdb.task WHERE projectID=?";
+       try {
+          Connection connection=ConnectionManager.getConnection(DB_URL,UID,PWD);
+          PreparedStatement preparedStatement=connection.prepareStatement(QUERYPROJECTTASK);
+          preparedStatement.setInt(1,projectId);
+          ResultSet resultSet=preparedStatement.executeQuery();
+          while (resultSet.next()){
+             int taskId = resultSet.getInt(1);
+             int processId = resultSet.getInt(2);
+             String taskName = resultSet.getString(3);
+             int effort = resultSet.getInt(4);
+             LocalDate expectedStartDate = resultSet.getDate(5).toLocalDate();
+             int minAllocation = resultSet.getInt(6);
+             TaskStatus taskStatus = TaskStatus.valueOf(resultSet.getString(7));
+             String assignedname = resultSet.getString(8);
+             int taskSequenceNumber = resultSet.getInt(9);
+
+             int developerId=resultSet.getInt(11);
+             Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedname,taskSequenceNumber, projectId,developerId);
+             projectTasks.add(newTask);
+          }
+
+       }catch (SQLException e){
+          System.out.println("unable to retrieve projects task");
+          e.printStackTrace();
+       }
+
+       return projectTasks;
+    }
     // Developers task:
 //    public List<Task> getMyTasks(int userid){
 //       ArrayList<Task> myTasks=new ArrayList<>();

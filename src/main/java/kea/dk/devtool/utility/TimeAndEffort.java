@@ -1,8 +1,10 @@
 package kea.dk.devtool.utility;
 
 import kea.dk.devtool.model.Processes;
+import kea.dk.devtool.model.Project;
 import kea.dk.devtool.model.Task;
 import kea.dk.devtool.repository.ProcessRepository;
+import kea.dk.devtool.repository.ProjectRepository;
 import org.springframework.cglib.core.Local;
 
 import java.time.DayOfWeek;
@@ -62,29 +64,38 @@ public class TimeAndEffort
 		 * of the tasks. used to calculate proces enddate and startdate.
 		 */
 		public static LocalDate procesEnddate(Processes process){
-			ArrayList<Task> proces=(ArrayList<Task>) process.getTaskList();
-			HashMap<Integer,Task> pathlist=new HashMap<>();
+
 			LocalDate procesfinish;
+			// hvis der findes tasks i processen:
+			if(process.getTaskList().size()!=0) {
+				ArrayList<Task> proces = (ArrayList<Task>) process.getTaskList();
+				HashMap<Integer, Task> pathlist = new HashMap<>();
 
-			for (Task t:proces){
 
-				// tilføj pathlist hvis dependencynumber ikke findes i forvejen -compare t.dependency
-				if(!pathlist.containsKey(t.getTaskDependencyNumber())) {
-					pathlist.put(t.getTaskDependencyNumber(),t);
+				for (Task t : proces) {
+
+					// tilføj pathlist hvis dependencynumber ikke findes i forvejen -compare t.dependency
+					if (!pathlist.containsKey(t.getTaskDependencyNumber())) {
+						pathlist.put(t.getTaskDependencyNumber(), t);
+					}
+					// erstat hvis workdaysneeded er større end den task som ligger der i forvejen
+					else if (t.taskDaysNeeded() > pathlist.get(t.getTaskDependencyNumber()).taskDaysNeeded()) {
+						pathlist.replace(t.getTaskDependencyNumber(), t);
+					}
 				}
-				 // erstat hvis workdaysneeded er større end den task som ligger der i forvejen
-				else if (t.taskDaysNeeded()>pathlist.get(t.getTaskDependencyNumber()).taskDaysNeeded()) {
-						pathlist.replace(t.getTaskDependencyNumber(),t);
-						}
-			}
-			// iterer over tasks i pathlist for at få en sum af workdaysneeded
-			int totaldays=0;
-			for(Task cp:pathlist.values()){
-				totaldays=totaldays+cp.taskDaysNeeded();
-			}
-			//få fat i startdato for processen og kald calculateDate
+				// iterer over tasks i pathlist for at få en sum af workdaysneeded
+				int totaldays = 0;
+				for (Task criticalPath : pathlist.values()) {
+					totaldays = totaldays + criticalPath.taskDaysNeeded();
+				}
+				//få fat i startdato for processen og kald calculateDate
 
-			procesfinish=calculateDate(process.getExpectedStartDate(),totaldays);
+				procesfinish = calculateDate(process.getExpectedStartDate(), totaldays);
+			}
+			else {
+
+				procesfinish=process.getExpectedStartDate().plusDays(1);
+			}
 			return procesfinish;
 		}
 

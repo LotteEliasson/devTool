@@ -15,8 +15,8 @@ public class Task {
     private TaskStatus taskStatus;
     private String assignedname; // developer name
 
-    // the taskId of the predecessor - 0 if it is supposed to start with proces. this task starts when the dependent task finishes
-    private int taskDependencyNumber;
+    // the taskId of the predecessor - 1 if it is supposed to start with proces. this task starts when the dependent task finishes
+    private int taskDependencyNumber =-1;
     private int projectId;
     private int developerId;
     private LocalDate expectedFinish;
