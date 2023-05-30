@@ -8,6 +8,7 @@ import kea.dk.devtool.repository.TaskRepository;
 import kea.dk.devtool.repository.UserRepository;
 
 import kea.dk.devtool.utility.TimeAndEffort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -307,7 +308,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 							 @RequestParam("ProcessId") int updateProcessId,
 							 @RequestParam("TaskName") String updateTaskName,
 							 @RequestParam("Effort") int updateEffort,
-							 @RequestParam("ExpectedStartDate") LocalDate updateExpectedStartDate,
+							 @RequestParam("ExpectedStartDate")  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate updateExpectedStartDate,
 							 @RequestParam("MinAllocation") int updateMinAllocation,
 							 @RequestParam("TaskStatus") TaskStatus updateTaskStatus,
 							 @RequestParam("Assignedname") String updateAssignedname,
@@ -318,29 +319,37 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 							 HttpSession session) {
 
 		Task updateTasks = taskRepository.findTaskById(updateTaskId);
+		//debug:
+		System.out.println(updateTasks.getExpectedStartDate());
+		updateTasks.setTaskDependencyNumber(updatetaskDependencyNumber);
+
+
+//		updateTasks.setExpectedStartDate(updateExpectedStartDate);
 
 		// ExpectedStartDate skal beregnes på ny hvis taskdependency ændres:
 		//hvis taskdependency=-1 fortsæt ellers check om taskId findes i process
-		if (updatetaskDependencyNumber!=-1){
-			// check if task exists
+		if (updateTasks.getTaskDependencyNumber()!=-1){
+			// check if task exists : burde ikke være nødvendigt da jeg har frasorteret de som ikke kan vælges
 			Task check;
 			if(taskRepository.findTaskById(updatetaskDependencyNumber)!=null){
 				check=taskRepository.findTaskById(updatetaskDependencyNumber);
-				//check if processId match
-				if (check.getProcessId()==updateProcessId){
-					//set expectedstartdate
-					updateExpectedStartDate=check.getExpectedFinish();
-				}
-				//processid doesn't match
-				Processes p=processRepository.findProcessById(updateProcessId);
-				updateExpectedStartDate=p.getExpectedStartDate();
+//				//check if processId match
+//				if (check.getProcessId()!=updateProcessId){
+//					//processid doesn't match
+//					Processes p=processRepository.findProcessById(updateProcessId);
+//					updateExpectedStartDate=p.getExpectedStartDate();
+//				}
+//				updateExpectedStartDate=check.getExpectedFinish();
+			LocalDate checkfinish= check.getExpectedFinish();
+				//	check.getExpectedFinish();
+			updateTasks.setExpectedStartDate(checkfinish);
 			}
 			//task doesn't exist
 			else{
-				updatetaskDependencyNumber=-1;
-				Processes p=processRepository.findProcessById(updateProcessId);
-				updateExpectedStartDate=p.getExpectedStartDate();
-
+//				updatetaskDependencyNumber=-1;
+//				Processes p=processRepository.findProcessById(updateProcessId);
+//				updateExpectedStartDate=p.getExpectedStartDate();
+			updateTasks.setExpectedStartDate(updateExpectedStartDate);
 			}
 
 		}
@@ -352,7 +361,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		updateTasks.setTaskName(updateTaskName);
 		updateTasks.setProcessId(updateProcessId);
 		updateTasks.setEffort(updateEffort);
-		updateTasks.setExpectedStartDate(updateExpectedStartDate);
+
 		updateTasks.setMinAllocation(updateMinAllocation);
 		updateTasks.setTaskDependencyNumber(updatetaskDependencyNumber);
 		updateTasks.setDeveloperId(developerId);
