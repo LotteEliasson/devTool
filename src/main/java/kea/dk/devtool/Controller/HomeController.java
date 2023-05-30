@@ -6,8 +6,8 @@ import kea.dk.devtool.repository.ProcessRepository;
 import kea.dk.devtool.repository.ProjectRepository;
 import kea.dk.devtool.repository.TaskRepository;
 import kea.dk.devtool.repository.UserRepository;
-
 import kea.dk.devtool.utility.TimeAndEffort;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
