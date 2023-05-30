@@ -317,43 +317,46 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 							 @RequestParam("ProjectId") int updateProjectId,
 							 @RequestParam("developerId") int developerId,
 							 Model modelUpdateTask,
-							 HttpSession session) {
-
-		Task updateTasks =new Task(updateTaskId,updateProcessId,updateTaskName,updateEffort,updateExpectedStartDate,updateMinAllocation,updateTaskStatus,updateAssignedname,updatetaskDependencyNumber,updateProjectId,developerId);
-		//debug:
-
-		updateTasks.setTaskDependencyNumber(updatetaskDependencyNumber);
+							 HttpSession session)
+		{
+			if (updatetaskDependencyNumber != -1) {
+				updateExpectedStartDate = LocalDate.now();
+			}
+			Task updateTasks = new Task();
+			//debug:
+			//modelUpdateTask.getAttribute(updateTask());
+			updateTasks.setTaskDependencyNumber(updatetaskDependencyNumber);
 
 
 //		updateTasks.setExpectedStartDate(updateExpectedStartDate);
 
-		// ExpectedStartDate skal beregnes på ny hvis taskdependency ændres:
-		//hvis taskdependency=-1 fortsæt ellers check om taskId findes i process
-		if (updateTasks.getTaskDependencyNumber()!=-1){
-			// check if task exists : burde ikke være nødvendigt da jeg har frasorteret de som ikke kan vælges
-			Task check;
-			if(taskRepository.findTaskById(updatetaskDependencyNumber)!=null){
-				check=taskRepository.findTaskById(updatetaskDependencyNumber);
-//				//check if processId match
-//				if (check.getProcessId()!=updateProcessId){
-//					//processid doesn't match
-//					Processes p=processRepository.findProcessById(updateProcessId);
-//					updateExpectedStartDate=p.getExpectedStartDate();
-//				}
-//				updateExpectedStartDate=check.getExpectedFinish();
-			LocalDate checkfinish= check.getExpectedFinish();
-				//	check.getExpectedFinish();
-			updateTasks.setExpectedStartDate(checkfinish);
-			}
-			//task doesn't exist
-			else{
-//				updatetaskDependencyNumber=-1;
-//				Processes p=processRepository.findProcessById(updateProcessId);
-//				updateExpectedStartDate=p.getExpectedStartDate();
-			updateTasks.setExpectedStartDate(updateExpectedStartDate);
-			}
+			// ExpectedStartDate skal beregnes på ny hvis taskdependency ændres:
+			//hvis taskdependency=-1 fortsæt ellers check om taskId findes i process
+//		if (updateTasks.getTaskDependencyNumber()!=-1){
+//			// check if task exists : burde ikke være nødvendigt da jeg har frasorteret de som ikke kan vælges
+//			Task check;
+//			if(taskRepository.findTaskById(updatetaskDependencyNumber)!=null){
+//				check=taskRepository.findTaskById(updatetaskDependencyNumber);
+////				//check if processId match
+////				if (check.getProcessId()!=updateProcessId){
+////					//processid doesn't match
+////					Processes p=processRepository.findProcessById(updateProcessId);
+////					updateExpectedStartDate=p.getExpectedStartDate();
+////				}
+////				updateExpectedStartDate=check.getExpectedFinish();
+//			LocalDate checkfinish= check.getExpectedFinish();
+//				//	check.getExpectedFinish();
+//			updateTasks.setExpectedStartDate(checkfinish);
+//			}
+//			//task doesn't exist
+//			else{
+////				updatetaskDependencyNumber=-1;
+////				Processes p=processRepository.findProcessById(updateProcessId);
+////				updateExpectedStartDate=p.getExpectedStartDate();
+//			updateTasks.setExpectedStartDate(updateExpectedStartDate);
+//			}
 
-		}
+		//}
 
 
 		updateTasks.setAssignedname(updateAssignedname);
@@ -414,7 +417,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		if(user.getUserName()==null){
 			loginstatus="fail";
 			session.setAttribute("loginstatus",loginstatus);
-			return "login";
+			//return "redirect:/login";
 		}
 		else if (user.getRole()== HasRole.valueOf(access)) {
 			session.setAttribute("access", access);
@@ -458,10 +461,9 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	@GetMapping("admin/{id}")
 	public String showAdminPage(@PathVariable("id")int userid,Model userModel,HttpSession session){
 	User user=userRepository.getUserById(userid);
-	if(session.getAttribute("userid")==null || user.getRole()!=HasRole.ADMIN){
-	//	session.invalidate();
-		return "redirect:/login";
-	}
+
+
+
 		HasRole role;
 		String searchRole;
 	session.setAttribute("userid",userid);
@@ -471,13 +473,14 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		session.setAttribute("Role",role);
 		searchRole="";
 	}else {
-		role = (HasRole) session.getAttribute("Role");
+		searchRole = String.valueOf(session.getAttribute("Role"));
 
-		searchRole = String.valueOf(role);
+
 	}
 //	session.setAttribute("userid",userid);
 
 	userModel.addAttribute("Users",userRepository.getAllUsersByRole(searchRole));
+	userModel.addAttribute("Roles",HasRole.values());
 	return "admin";
 	}
 	@PostMapping("/admin")
@@ -531,5 +534,12 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	@GetMapping("/")
 	public String showindex(){
 	return "redirect:/login";
+	}
+@GetMapping("all_projects")
+	public String allprojects(Model model){
+
+	model.addAttribute("allprojects",userRepository.getAllProjects());
+
+	return "all_projects";
 	}
 }

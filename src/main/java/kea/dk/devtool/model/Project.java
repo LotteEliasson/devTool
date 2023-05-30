@@ -21,7 +21,7 @@ public class Project {
     public Project() {
     }
 
-    public Project(int projectId, String projectName, LocalDate startDate, LocalDate expectedEndDate, LocalDate dueDate, String projectManager, String customerName,int projectManagerID) {
+    public Project(int projectId, String projectName, LocalDate startDate, LocalDate expectedEndDate, LocalDate dueDate, String projectManager, String customerName,int projectManagerID,ProjectStatus status) {
         this.projectId = projectId;
         this.projectName = projectName;
         this.startDate = startDate;
@@ -30,6 +30,7 @@ public class Project {
         this.projectManager = projectManager;
         this.customerName = customerName;
         this.projectManagerID=projectManagerID;
+        this.status=status;
     }
 
     public int getProjectId() {

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Admin</title>
+    <title>Project view</title>
     <script src="https://kit.fontawesome.com/7c3c034aee.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,75 +22,60 @@
 
         </ul>
         <!-- A button to go back to the previous page -->
-        <li>
-            <button class="btn btn-back" onclick="history.back()">Go Back</button>
-        </li>
-        <li>
-
-        </li>
+        <li><button class="btn btn-back" onclick="history.back()">Go Back</button></li>
 
 
     </div>
     <div class="item2">
-        <a href="/all_projects">View all projects</a>
+        <!--        <div class="navside">-->
+        <!--            <div class="navside-header">-->
+
 
     </div>
     <div class="item3">
-        <div>
-            <form action="/admin" method="post">
-                <label for="usertypes"> </label>
-                <select id="usertypes" name="usertype" required>
-
-                    <option value=""> Select User type</option>
-                    <option value="ALL">ALL</option>
-                    <option th:each="role:${Roles}"><span th:text="${role}"></span></option>
-
-                </select>
-                <input type="submit" value="List selected usertype">
-            </form>
+        <div class="view" th:each="project:${allprojects}">
 
             <div>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>User ID</th>
-                        <th>User Name</th>
-                        <th>User Role</th>
-                        <th>Edit User Role</th>
-                        <th>Edit Password</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="user:${Users}">
-                        <td th:text="${user.getUserId()}"></td>
-                        <td th:text="${user.getUserName()}"></td>
-                        <td th:text="${user.getRole()}"></td>
-                        <td>
-                            <a class="hovertext" th:href="@{'/edit_role/'+${user.getUserId()}}" href="edit_role.html">
-                                Edit
-                                <img th:src="@{../pictures/editblack.png}" src="../static/pictures/editblack.png"
-                                     width="20px">
-                            </a>
-                        </td>
-                        <td>
-                            <a class="hovertext" th:href="@{'/edit_password/'+${user.getUserId()}}"
-                               href="edit_password.html">
-                                Edit Password
-                                <img th:src="@{../pictures/editblack.png}" src="../static/pictures/editblack.png"
-                                     width="20px">
-                            </a>
-                        </td>
-
-                    </tr>
-                    </tbody>
-                </table>
+                <h4>Project info</h4><br>
+                <span class="text1">Project Name:&ensp;</span><span th:text="${project.getProjectName()}"></span><br>
+                <span class="text1">Project Manager:&ensp;</span><span th:text="${project.getProjectManager()}"> Project Manager </span><br>
+                <span class="text1">Costumer:&ensp;</span><span th:text="${project.getCustomerName()}"> Customer </span><br>
+                <span class="text1">Start Date:&ensp;</span><span th:text="${project.getStartDate()}"> Start Date </span><br>
+                <span class="text1">Delivery Date:&ensp;</span><span th:text="${project.getDueDate()}"> Delivery Date </span><br>
+                <span class="text1">Project Days:&ensp;</span><span th:text="${project.getProjectDays()}"> Total days </span><br>
+                <span class="text1">Work Days:&ensp;</span><span th:text="${project.getProjectWorkdays()}"> Total days </span><br><br>
 
 
+                <a th:href="@{'/processes/'+${project.getProjectId()}}"><h4>Show processes</h4></a>
+                <!--                <a th:href="@{'/updateproject/'+${project.getProjectId()}}"><h4>Update Project</h4></a>-->
+                <!--                <a th:href="@{'project/delete/'+${project.getProjectId()}}"><h4>Delete project</h4></a>-->
+                <a class="hovertext" data-hover="Update Project" th:href="@{'/updateproject/'+${project.getProjectId()}}" href="updateproject.html">
+                    <img th:src="@{../pictures/editblack.png}" src="../static/pictures/editblack.png" width="20px">
+                </a>
+                <a class="hovertext" data-hover="Delete Project" th:href="@{'project/delete/'+${project.getProjectId()}}" href=>
+                    <img th:src="@{../pictures/trashblack.png}" src="../static/pictures/trashblack.png" width="20px">
+                </a>
             </div>
         </div>
     </div>
-
+    <div class="footer">
+        <a class="github" href="https://linktr.ee/devtool" target=”_blank”>
+            <img class="github" src="../static/pictures/github-mark.png"
+                 th:src="@{../pictures/github-mark.png}" width="50px">
+        </a>
+    </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
 
 
 <script>
@@ -138,7 +123,7 @@
             event.target.innerText = event.target.innerText
                 .split("")
                 .map((letter, index) => {
-                    if (index < iteration) {
+                    if(index < iteration) {
                         return event.target.dataset.value[index];
                     }
 
@@ -146,7 +131,7 @@
                 })
                 .join("");
 
-            if (iteration >= event.target.dataset.value.length) {
+            if(iteration >= event.target.dataset.value.length){
                 clearInterval(interval);
             }
 
@@ -154,7 +139,5 @@
         }, 30);
     }
 </script>
-
 </body>
 </html>
-

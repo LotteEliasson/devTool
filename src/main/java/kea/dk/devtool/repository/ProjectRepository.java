@@ -86,7 +86,9 @@ public class ProjectRepository
 					LocalDate duedate= resultSet.getDate(5).toLocalDate();
 					String pmName=resultSet.getString(6);
 					String customerName=resultSet.getString(7);
-					Project myProject= new Project(projectId,projectName,startdate,expectedend,duedate,pmName,customerName,pmID);
+					//pmID=resultSet.getInt(8);
+					ProjectStatus status=ProjectStatus.valueOf(resultSet.getString(9));
+					Project myProject= new Project(projectId,projectName,startdate,expectedend,duedate,pmName,customerName,pmID,status);
 					myProjects.add(myProject);
 				}
 
@@ -168,7 +170,7 @@ public class ProjectRepository
 			}
 		}
 		public void deleteProcessByProjecID(int id){
-			final String DELETE_QUERY = "DELETE FROM projectdb.process WHERE projectID=?";
+			final String DELETE_QUERY = "DELETE FROM projectdb.processes WHERE projectID=?";
 
 			try {
 				Connection connection=ConnectionManager.getConnection(DB_URL,UID,PWD);

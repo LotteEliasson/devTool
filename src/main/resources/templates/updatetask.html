@@ -42,7 +42,7 @@
                         <input class="inputfields" id="effort-update" type="text" placeholder="Enter effort" name="Effort" th:value="${taskUpdate.effort}"><br>
 
                         <label for="expectedStartDate-update"><b th:text="${'Exp Start Date: '+ taskUpdate.expectedStartDate}"> </b></label> <br><br>
-                        <input id="expectedStartDate-update" type="date"  name="ExpectedStartDate" th:value="${taskUpdate.expectedStartDate}" >
+                        <input id="expectedStartDate-update" type="date"  name="ExpectedStartDate" th:value="${taskUpdate.expectedStartDate}" pattern="YYYY-MM-dd">
 
                         <label for="minAllocation-update"><b>Allocation</b></label>
                         <input class="inputfields" id="minAllocation-update" type="text" placeholder="Enter Minimum Allocation" name="MinAllocation" th:value="${taskUpdate.minAllocation}"><br>

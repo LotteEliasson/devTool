@@ -1,12 +1,12 @@
 package kea.dk.devtool.repository;
 
-import kea.dk.devtool.model.User;
-import kea.dk.devtool.model.HasRole;
+import kea.dk.devtool.model.*;
 import kea.dk.devtool.utility.ConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -171,7 +171,7 @@ public class UserRepository {
         try{
             Connection connection=ConnectionManager.getConnection(DB_URL,UID,PWD);
             ResultSet resultSet;
-            if (usertype.isEmpty()){
+            if (usertype.isEmpty()||usertype.equals("ALL")){
                 PreparedStatement preparedStatement=connection.prepareStatement(ALL);
                 resultSet=preparedStatement.executeQuery();
             }
@@ -209,4 +209,65 @@ public class UserRepository {
             System.out.println("unable to change password");
         }
     }
+    public List<Project> getAllProjects(){
+        ArrayList<Project> allProjects=new ArrayList<>();
+        final String QUERY_MYPROJECTS="SELECT * FROM projectdb.project";
+        try {
+            Connection connection=ConnectionManager.getConnection(DB_URL,UID,PWD);
+            Statement statement=connection.createStatement();
+
+            ResultSet resultSet=statement.executeQuery(QUERY_MYPROJECTS);
+            while (resultSet.next()){
+                int projectId=resultSet.getInt(1);
+                String projectName=resultSet.getString(2);
+                LocalDate startdate= resultSet.getDate(3).toLocalDate();
+                LocalDate expectedend= resultSet.getDate(4).toLocalDate();
+                LocalDate duedate= resultSet.getDate(5).toLocalDate();
+                String pmName=resultSet.getString(6);
+                String customerName=resultSet.getString(7);
+                int pmID=resultSet.getInt(8);
+                ProjectStatus status=ProjectStatus.valueOf(resultSet.getString(9));
+
+                Project myProject= new Project(projectId,projectName,startdate,expectedend,duedate,pmName,customerName,pmID,status);
+                allProjects.add(myProject);
+            }
+
+        }catch (SQLException e){
+            System.out.println("could not retrieve list of projects");
+            e.printStackTrace();
+        }
+        return allProjects;
+    }
+    public List<Task> getMyTasks(int id){
+        ArrayList<Task> myTasks=new ArrayList<>();
+        final String QUERYDEVELOPER="SELECT * FROM projectdb.task WHERE developerID=?";
+        try {
+            Connection connection=ConnectionManager.getConnection(DB_URL,UID,PWD);
+            PreparedStatement preparedStatement=connection.prepareStatement(QUERYDEVELOPER);
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet=preparedStatement.executeQuery();
+            while (resultSet.next()){
+                Task task=new Task();
+                task.setTaskId(resultSet.getInt(1));
+                task.setProcessId(resultSet.getInt(2));
+                task.setTaskName(resultSet.getString(3));
+                task.setEffort(resultSet.getInt(4));
+                task.setExpectedStartDate(resultSet.getDate(5).toLocalDate());
+                task.setMinAllocation(resultSet.getInt(6));
+                task.setTaskStatus(TaskStatus.valueOf(resultSet.getString(7)));
+                task.setAssignedname(resultSet.getString(8));
+                task.setTaskDependencyNumber(resultSet.getInt(9));
+                task.setProjectId(resultSet.getInt(10));
+                task.setDeveloperId(id);
+                myTasks.add(task);
+
+            }
+
+        }catch (SQLException e){
+            System.out.println("could not retrieve developers tasks");
+            e.printStackTrace();
+        }
+        return myTasks;
+    }
+
 }
