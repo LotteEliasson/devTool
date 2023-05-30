@@ -20,16 +20,19 @@ public class TaskRepository {
     @Value("${PASSW}")
     private String PWD;
 
-  //  Get Tasks by ID
+  //  Henter opgaver(task) fra databasen ud fra et givent proces id, som opgaven ligger under.
     public List<Task> getTaskById(int taskProcessId ) {
         List<Task> tasks = new ArrayList<>();
 
         try {
+            //Connection til databasen
             Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);
             Statement statement = connection.createStatement();
+            //Henter data fra databasen
             final String SQL_GETTASKS = "SELECT * FROM projectdb.task WHERE processID=" + taskProcessId;
             ResultSet resultSet = statement.executeQuery(SQL_GETTASKS);
 
+            //Loop der kalder alle opgaver indtil der ikke er flere for et givent proces id
             while (resultSet.next()){
                 int taskId = resultSet.getInt(1);
                 int processId = resultSet.getInt(2);
@@ -62,6 +65,7 @@ public class TaskRepository {
                     "min_allocation, task_status, assignedname, tasksequencenumber, projectID) VALUES(?,?,?,?,?,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_addTask);
 
+            //Sætter variable for en ny opgave.
             preparedStatement.setInt(1, processId);
             preparedStatement.setString(2, task.getTaskName());
             preparedStatement.setInt(3, task.getEffort());
@@ -72,6 +76,7 @@ public class TaskRepository {
             preparedStatement.setInt(8, task.getTaskDependencyNumber());
             preparedStatement.setInt(9, task.getProjectId());
 
+            //Sender ny opgave til databasen.
             preparedStatement.executeUpdate();
 
             } catch (SQLException e) {
@@ -82,12 +87,14 @@ public class TaskRepository {
 
    //Update Tasks
    public void updateTask(Task task) {
+        //Henter parametre ud fra et specifikt task id i databasen
         final String UPDATE_task = "UPDATE projectdb.task SET task_name=?, effort=?, expected_startdate=?, min_allocation=?, task_status=?, assignedname=?, tasksequencenumber=? WHERE taskID=?";
 
         try {
            Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);
            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_task);
 
+           //Henter variable i model task
             String taskName = task.getTaskName();
             int effort = task.getEffort();
              LocalDate expectedStartDate = task.getExpectedStartDate();
@@ -95,7 +102,7 @@ public class TaskRepository {
             TaskStatus taskStatus = task.getTaskStatus();
             String assignedId = task.getAssignedname();
             int taskSequenceNumber = task.getTaskDependencyNumber();
-
+            //Sætter nye parametre for en task
             preparedStatement.setString(1, taskName);
             preparedStatement.setInt(2, effort);
             preparedStatement.setDate(3, Date.valueOf(expectedStartDate));
@@ -104,6 +111,7 @@ public class TaskRepository {
             preparedStatement.setString(6, assignedId);
             preparedStatement.setInt(7, taskSequenceNumber);
             preparedStatement.setInt(8,task.getTaskId());
+            //Opdaterer databasen
             preparedStatement.executeUpdate();
 
        } catch (SQLException e) {
@@ -116,6 +124,7 @@ public class TaskRepository {
     public Task findTaskById(int tasksId) {
         final String FIND_task = "SELECT * FROM projectdb.task WHERE taskID=?";
 
+        //Opretter nyt objekt
         Task task = new Task();
         task.setTaskId(tasksId);
 
@@ -167,6 +176,7 @@ public class TaskRepository {
             e.printStackTrace();
         }
     }
+    //Henter alle tasks der er i et givent projekt inkl developer id og project id for task.
     public List<Task> getProjectTasks(int projectId){
        List<Task> projectTasks=new ArrayList<>();
        final String QUERYPROJECTTASK="SELECT * FROM projectdb.task WHERE projectID=?";
