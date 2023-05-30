@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Update Task</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{../css/grid1.css}" href="../static/css/grid1.css">
     <link rel="stylesheet" th:href="@{../css/update.css}" href="../static/css/update.css">
 
@@ -44,7 +47,7 @@
                         <label for="minAllocation-update"><b>Allocation</b></label>
                         <input class="inputfields" id="minAllocation-update" type="text" placeholder="Enter Minimum Allocation" name="MinAllocation" th:value="${taskUpdate.minAllocation}"><br>
 
-                        <label class="dropdown" for="taskStatus-update"><b>Task Status</b></label>
+                        <label for="taskStatus-update"><b>Task Status</b></label>
                             <select id="taskStatus-update" type="text" name="TaskStatus" >
                                 <option th:each=" state :${TaskStates}"> <span th:text="${state}"></span></option>
                             </select><br>
@@ -56,7 +59,7 @@
                         <input class="inputfields" id="developerId-update" type="text" placeholder="Enter Developer ID" name="developerId" th:value="${taskUpdate.developerId}"><br>
 
                         <label for="taskSequenceNumber-update"><b>Task Dependency</b></label>
-                        <select class="inputfields"  id="taskSequenceNumber-update" type="text"  name="taskDependencyNumber">
+                        <select class="inputfields" id="taskSequenceNumber-update" type="text"  name="taskDependencyNumber">
                             <option value="-1">Start with process</option>
                             <option th:each="tasknumber:${procesTasks}">
 
