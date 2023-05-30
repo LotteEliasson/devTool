@@ -193,14 +193,14 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 								@RequestParam("startAfterTask")int updatestartAfter,
 								Model model, HttpSession session) {
 		Processes updateProcess = processRepository.findProcessById(updateprocessId);
-		ArrayList<Task> taskList= new ArrayList<>();
+		ArrayList<Task> taskList;
 		taskList= (ArrayList<Task>) taskRepository.getTaskById(updateprocessId);
 
 		updateProcess.setStartAfterTask(updatestartAfter); //vi fourdsætter at der er valgt gyldig tasknummer eller default
 		//hvis processen skal starte ved afslutningen af en bestemt task overskrives expectedStartDate
 		if (updatestartAfter!=-1) {
 			Task task = taskRepository.findTaskById(updatestartAfter);
-			updateexpectedStartDate=task.getExpectedFinish();
+			updateexpectedStartDate= task.getExpectedFinish();
 		}
 		//processen får sat expectedStartDate (som enten er opdateret af brugeren eller hentet fra task ved startAfter!=-1)
 		//overvej at lave StartAfter som dropdown selection med default =-1 i UI for at undgå at brugeren laver fejl under indtastning
@@ -319,9 +319,9 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 							 Model modelUpdateTask,
 							 HttpSession session) {
 
-		Task updateTasks = taskRepository.findTaskById(updateTaskId);
+		Task updateTasks =new Task(updateTaskId,updateProcessId,updateTaskName,updateEffort,updateExpectedStartDate,updateMinAllocation,updateTaskStatus,updateAssignedname,updatetaskDependencyNumber,updateProjectId,developerId);
 		//debug:
-		System.out.println(updateTasks.getExpectedStartDate());
+
 		updateTasks.setTaskDependencyNumber(updatetaskDependencyNumber);
 
 

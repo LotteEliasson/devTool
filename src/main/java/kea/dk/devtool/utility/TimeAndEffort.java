@@ -45,7 +45,8 @@ public class TimeAndEffort
 			return days;
 		}
 		public static LocalDate calculateDate(LocalDate startdate,int workdays){
-		LocalDate newEnddate=startdate;
+		LocalDate newEnddate=LocalDate.of(startdate.getYear(),startdate.getMonthValue(),startdate.getDayOfMonth());
+
 		int checkdays=0;
 		while (checkdays<=workdays){
 			newEnddate=newEnddate.plusDays(1);
