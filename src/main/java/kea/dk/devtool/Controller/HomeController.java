@@ -209,6 +209,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		updateProcess.setExpectedStartDate(updateexpectedStartDate);
 		updateexpectedFinish=TimeAndEffort.procesEnddate(updateProcess);
 		updateProcess.setExpectedFinish(updateexpectedFinish);
+		updateProcess.setProcessName(updateprocessName);
 
 		processRepository.updateProcess(updateProcess);
 		int projectid=(int)session.getAttribute("currentProject");
