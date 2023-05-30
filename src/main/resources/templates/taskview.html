@@ -3,191 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <title>Task view</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{../css/modal1.css}" href="../static/css/modal1.css">
-  <link rel="stylesheet" th:href="@{../css/grid1.css}" href="../static/css/grid1.css">
-  <link rel="stylesheet" th:href="@{../css/view1.css}" href="../static/css/view1.css">
+    <link rel="stylesheet" th:href="@{../css/grid1.css}" href="../static/css/grid1.css">
+    <link rel="stylesheet" th:href="@{../css/view1.css}" href="../static/css/view1.css">
 
 
 </head>
-<body >
+<body>
 
 
 <div class="grid-container">
-  <div class="item1">
+    <div class="item1">
 
 
-    <ul class="logo">
-      <li><img th:src="@{../pictures/logo1.jpg}" src="../static/pictures/logo1.jpg" width="200px"></li>
-      <li><span class="brand-name" data-value="PROJECTBREAKDOWN">PROJECTBREAKDOWN</span></li>
-    </ul>
-      <li><button class="btn btn-back" onclick="history.back()">Go Back</button></li>
-      <!-- A button to open the popup form -->
-      <li><button class="btn btn-open">Create Task</button></li>
-
-
-  </div>
-
-
-  <div class="item2">
-<!--    <div class="navside">-->
-<!--      <div class="navside-header">-->
-        <a th:href="@{'/project_manager/'+ ${session.PmID}}"><p class="headline">Projects</p></a>
-<!--      </div>-->
-      <ul class="list-group" >
-        <li th:each="project : ${projectsByPmId}">
-          <a th:href="@{'/processes/'+${project.getProjectId()}}" href="processes.html">
-            <span th:text="${project.getProjectName()}"></span>
-          </a>
+        <ul class="logo">
+            <li><img th:src="@{../pictures/logo1.jpg}" src="../static/pictures/logo1.jpg" width="200px"></li>
+            <li><span class="brand-name" data-value="PROJECTBREAKDOWN">PROJECTBREAKDOWN</span></li>
+        </ul>
+        <li>
+            <button class="btn btn-back" onclick="history.back()">Go Back</button>
         </li>
-      </ul>
-<!--    </div>-->
-  </div>
+        <!-- A button to open the popup form -->
+        <li>
+            <button class="btn btn-open">Create Task</button>
+        </li>
 
-
-  <div class="item3">
-    <div>
-      <h3>Current Project: <span th:text="${showProjectName}"></span></h3>
-      <h3>Project Manager: <span th:text="${showProjectManager}"></span></h3>
 
     </div>
-    <div  class="view" th:each="task : ${taskView}">
-      <div>
-        <h4>Task info</h4>
-        <span class="text1">Task id:&ensp;</span><span th:text="${task.taskId}"></span><br>
-        <span class="text1">Process id:&ensp;</span><span th:text="${task.processId}"></span><br>
-        <span class="text1">Task name:&ensp;</span><span th:text="${task.taskName}"></span><br>
-        <span class="text1">Effort:&ensp;</span><span th:text="${task.effort}"></span><br>
-        <span class="text1">Exp start date:&ensp;</span><span th:text="${task.expectedStartDate}"></span><br>
-        <span class="text1">Allocation:&ensp;</span><span th:text="${task.minAllocation}"></span><br>
-        <span class="text1">Workdays needed:&ensp;</span><span th:text="${task.taskDaysNeeded()}"></span><br>
-        <span class="text1">Status:&ensp;</span><span th:text="${task.taskStatus}"></span><br>
-        <span class="text1">Assigned to:&ensp;</span><span th:text="${task.assignedname}"></span><br>
-        <span class="text1">Task no.:&ensp;</span><span th:text="${task.taskDependencyNumber}"></span><br><br>
 
-        <a class="hovertext" data-hover="Update Task" th:href="@{'/updatetask/' + ${task.taskId}}" href="/updatetask.html">
-          <img th:src="@{../pictures/editblack.png}" src="../static/pictures/editblack.png" width="20px">
-        </a>
 
-        <a class="hovertext" data-hover="Delete Task" th:href="@{'/deletetask/' + ${task.taskId}}" href="/deletetask.html">
-          <img th:src="@{../pictures/trashblack.png}" src="../static/pictures/trashblack.png" width="20px">
-        </a>
-
-      </div>
+    <div class="item2">
+        <!--    <div class="navside">-->
+        <!--      <div class="navside-header">-->
+        <a th:href="@{'/project_manager/'+ ${session.PmID}}"><p class="headline">Projects</p></a>
+        <!--      </div>-->
+        <ul class="list-group">
+            <li th:each="project : ${projectsByPmId}">
+                <a th:href="@{'/processes/'+${project.getProjectId()}}" href="processes.html">
+                    <span th:text="${project.getProjectName()}"></span>
+                </a>
+            </li>
+        </ul>
+        <!--    </div>-->
     </div>
-  </div>
+
+
+    <div class="item3">
+        <div>
+            <h3>Current Project: <span th:text="${showProjectName}"></span></h3>
+            <h3>Project Manager: <span th:text="${showProjectManager}"></span></h3>
+
+        </div>
+        <div class="view" th:each="task : ${taskView}">
+            <div>
+                <h4>Task info</h4>
+                <span class="text1">Task id:&ensp;</span><span th:text="${task.taskId}"></span><br>
+                <span class="text1">Process id:&ensp;</span><span th:text="${task.processId}"></span><br>
+                <span class="text1">Task name:&ensp;</span><span th:text="${task.taskName}"></span><br>
+                <span class="text1">Effort:&ensp;</span><span th:text="${task.effort}"></span><br>
+                <span class="text1">Exp start date:&ensp;</span><span th:text="${task.expectedStartDate}"></span><br>
+                <span class="text1">Allocation:&ensp;</span><span th:text="${task.minAllocation}"></span><br>
+                <span class="text1">Workdays needed:&ensp;</span><span th:text="${task.taskDaysNeeded()}"></span><br>
+                <span class="text1">Status:&ensp;</span><span th:text="${task.taskStatus}"></span><br>
+                <span class="text1">Assigned to:&ensp;</span><span th:text="${task.assignedname}"></span><br>
+                <span class="text1">Task no.:&ensp;</span><span th:text="${task.taskDependencyNumber}"></span><br><br>
+
+                <a class="hovertext" data-hover="Update Task" th:href="@{'/updatetask/' + ${task.taskId}}"
+                   href="/updatetask.html">
+                    <img th:src="@{../pictures/editblack.png}" src="../static/pictures/editblack.png" width="20px">
+                </a>
+
+                <a class="hovertext" data-hover="Delete Task" th:href="@{'/deletetask/' + ${task.taskId}}"
+                   href="/deletetask.html">
+                    <img th:src="@{../pictures/trashblack.png}" src="../static/pictures/trashblack.png" width="20px">
+                </a>
+
+            </div>
+        </div>
+    </div>
 </div>
 <div class="footer">
-  <a class="github" href="https://linktr.ee/devtool"target=”_blank”>
-    <img class="github" src="../static/pictures/github-mark.png"
-         th:src="@{../pictures/github-mark.png}" width="50px">
-  </a>
+    <a class="github" href="https://linktr.ee/devtool" target=”_blank”>
+        <img class="github" src="../static/pictures/github-mark.png"
+             th:src="@{../pictures/github-mark.png}" width="50px">
+    </a>
 </div>
 
 
 <section class="modal hidden">
-  <div class="flex">
-    <button class="btn-close">⨉</button>
-  </div>
-<!-- The  Create form -->
-  <form action="/createTasks" class="form-container" method="post">
+    <div class="flex">
+        <button class="btn-close">⨉</button>
+    </div>
+    <!-- The  Create form -->
+    <form action="/createTasks" class="form-container" method="post">
 
-    <label for="taskName-create"><b>Task Name</b></label>
-    <input id="taskName-create" type="text" placeholder="Enter Task Name" name="TaskName" required>
+        <label for="taskName-create"><b>Task Name</b></label>
+        <input id="taskName-create" type="text" placeholder="Enter Task Name" name="TaskName" required>
 
-    <label for="effort-create"><b>Effort</b></label>
-    <input id="effort-create" type="text" placeholder="Enter effort" name="Effort" required>
+        <label for="effort-create"><b>Effort</b></label>
+        <input id="effort-create" type="text" placeholder="Enter effort" name="Effort" required>
 
-    <label for="expectedStartDate-create"><b>Expected Start Date</b></label>
-    <input id="expectedStartDate-create" type="date" placeholder="Enter Expected Start Date" name="ExpectedStartDate" required>
+        <label for="expectedStartDate-create"><b>Expected Start Date</b></label>
+        <input id="expectedStartDate-create" type="date" placeholder="Enter Expected Start Date"
+               name="ExpectedStartDate" required>
 
-    <label for="minAllocation-create"><b>Minimum Allocation</b></label>
-    <input id="minAllocation-create" type="text" placeholder="Enter Minimum Allocation" name="MinAllocation" required>
+        <label for="minAllocation-create"><b>Minimum Allocation</b></label>
+        <input id="minAllocation-create" type="text" placeholder="Enter Minimum Allocation" name="MinAllocation"
+               required>
 
-    <label  for="taskStatus-create"><b>Task Status</b></label>
-    <select id="taskStatus-create" type="text" name="TaskStatus" >
-      <option th:each=" state :${TaskStates}"> <span th:text="${state}"></span></option>
-    </select><br>
+        <label for="taskStatus-create"><b>Task Status</b></label>
+        <select id="taskStatus-create" type="text" name="TaskStatus">
+            <option th:each=" state :${TaskStates}"><span th:text="${state}"></span></option>
+        </select><br>
 
-    <label for="assignedId-create"><b>Assigned to</b></label>
-    <input id="assignedId-create" type="text" placeholder="Enter Assignment ID" name="AssignedId" required>
+        <label for="assignedId-create"><b>Assigned to</b></label>
+        <input id="assignedId-create" type="text" placeholder="Enter Assignment ID" name="AssignedId" required>
 
+        <label for="developerId-create"><b>Developer ID</b></label>
+        <input class="inputfields" id="developerId-create" type="text" placeholder="Enter Developer ID" name="developerId" th:value="${taskUpdate.developerId}"><br>
 
-    <label for="taskDependencyNumber-create"><b>Task Dependency</b></label>
-    <select  id="taskDependencyNumber-create" type="text"  name="TaskSequenceNumber">
-      <option value="-1">Start with process</option>
-      <option th:each="tasknumber:${procesTasks}"><span th:text="${'Start after task number:'+tasknumber.getTaskId()}"></span> </option>
+        <label for="taskDependencyNumber-create"><b>Task Dependency</b></label>
+        <select id="taskDependencyNumber-create" type="text" name="TaskSequenceNumber">
+            <option value="-1">Start with process</option>
+            <option th:each="tasknumber:${procesTasks}"><span
+                    th:text="${'Start after task number:'+tasknumber.getTaskId()}"></span></option>
 
-    </select> <br>
-    <button type="submit" class="btn btn-submit">Create Task</button>
+        </select> <br>
+        <button type="submit" class="btn btn-submit">Create Task</button>
 
-  </form>
+    </form>
 </section>
 <div class="overlay hidden"></div>
 
 
 <script>
-  const modal = document.querySelector(".modal");
-  const overlay = document.querySelector(".overlay");
-  const openModalBtn = document.querySelector(".btn-open");
-  const closeModalBtn = document.querySelector(".btn-close");
+    const modal = document.querySelector(".modal");
+    const overlay = document.querySelector(".overlay");
+    const openModalBtn = document.querySelector(".btn-open");
+    const closeModalBtn = document.querySelector(".btn-close");
 
-  // close modal function
-  const closeModal = function () {
-    modal.classList.add("hidden");
-    overlay.classList.add("hidden");
-  };
+    // close modal function
+    const closeModal = function () {
+        modal.classList.add("hidden");
+        overlay.classList.add("hidden");
+    };
 
-  // close the modal when the close button and overlay is clicked
-  closeModalBtn.addEventListener("click", closeModal);
-  overlay.addEventListener("click", closeModal);
+    // close the modal when the close button and overlay is clicked
+    closeModalBtn.addEventListener("click", closeModal);
+    overlay.addEventListener("click", closeModal);
 
-  // close modal when the Esc key is pressed
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && !modal.classList.contains("hidden")) {
-      closeModal();
-    }
-  });
+    // close modal when the Esc key is pressed
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+            closeModal();
+        }
+    });
 
-  // open modal function
-  const openModal = function () {
-    modal.classList.remove("hidden");
-    overlay.classList.remove("hidden");
-  };
-  // open modal event
-  openModalBtn.addEventListener("click", openModal);
+    // open modal function
+    const openModal = function () {
+        modal.classList.remove("hidden");
+        overlay.classList.remove("hidden");
+    };
+    // open modal event
+    openModalBtn.addEventListener("click", openModal);
 
-  //titel-hacking'ish
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    //titel-hacking'ish
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-  let interval = null;
+    let interval = null;
 
-  document.querySelector("span").onmouseover = event => {
-    let iteration = 0;
+    document.querySelector("span").onmouseover = event => {
+        let iteration = 0;
 
-    clearInterval(interval);
-
-    interval = setInterval(() => {
-      event.target.innerText = event.target.innerText
-              .split("")
-              .map((letter, index) => {
-                if(index < iteration) {
-                  return event.target.dataset.value[index];
-                }
-
-                return letters[Math.floor(Math.random() * 26)]
-              })
-              .join("");
-
-      if(iteration >= event.target.dataset.value.length){
         clearInterval(interval);
-      }
 
-      iteration += 1 / 3;
-    }, 30);
-  }
+        interval = setInterval(() => {
+            event.target.innerText = event.target.innerText
+                .split("")
+                .map((letter, index) => {
+                    if (index < iteration) {
+                        return event.target.dataset.value[index];
+                    }
+
+                    return letters[Math.floor(Math.random() * 26)]
+                })
+                .join("");
+
+            if (iteration >= event.target.dataset.value.length) {
+                clearInterval(interval);
+            }
+
+            iteration += 1 / 3;
+        }, 30);
+    }
 </script>
 
 </body>

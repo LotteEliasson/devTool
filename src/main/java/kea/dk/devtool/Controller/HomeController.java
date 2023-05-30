@@ -256,6 +256,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 							 @RequestParam("TaskStatus") TaskStatus newTaskStatus,
 							 @RequestParam("AssignedId") String newAssignedId,
 							 @RequestParam("TaskSequenceNumber") int newTaskSequenceNumber,
+							 @RequestParam("developerId") int developerId,
 							 HttpSession session) {
 
 		//Opret ny Task
@@ -283,6 +284,7 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		newTask.setAssignedname(newAssignedId);
 		newTask.setTaskDependencyNumber(newTaskSequenceNumber);
 		newTask.setProjectId(newProjectId);
+		newTask.setDeveloperId(developerId);
 
 		//Gem ny Task
 
@@ -541,5 +543,11 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	model.addAttribute("allprojects",userRepository.getAllProjects());
 
 	return "all_projects";
+	}
+	@GetMapping("developer/{id}")
+	public String showDeveloper(@PathVariable("id") int id, Model userModel){
+
+	userModel.addAttribute("myTasks",userRepository.getMyTasks(id));
+	return "developer";
 	}
 }

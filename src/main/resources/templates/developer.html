@@ -2,14 +2,181 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Admin</title>
+    <title>Project view</title>
+    <script src="https://kit.fontawesome.com/7c3c034aee.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{../css/modal1.css}" href="../static/css/modal1.css">
+    <link rel="stylesheet" th:href="@{../css/view1.css}" href="../static/css/view1.css">
+    <link rel="stylesheet" th:href="@{../css/grid1.css}" href="../static/css/grid1.css">
+
+
 </head>
 <body>
-<div>
-    <form action="/developer" method="post">
+<div class="grid-container">
+    <div class="item1">
+        <ul class="logo">
+            <li><img th:src="@{../pictures/logo1.jpg}" src="../static/pictures/logo1.jpg" width="200px"></li>
+            <li><span class="brand-name" data-value="PROJECTBREAKDOWN">PROJECTBREAKDOWN</span></li>
 
+        </ul>
+        <!-- A button to go back to the previous page -->
+        <li><button class="btn btn-back" onclick="history.back()">Go Back</button></li>
+        <!-- A button to open the popup form -->
+        <li><button class="btn btn-open">Create Project</button></li>
+    </div>
+    <div class="item2">
+        <!--        <div class="navside">-->
+        <!--            <div class="navside-header">-->
+        <a th:href="@{'/project_manager/'+ ${session.PmID}}"><p class="headline">Projects</p></a>
+        <ul class="list-group">
+            <li th:each="project : ${projects}">
+                <a th:href="@{'/processes/'+${project.getProjectId()}}" href="processes.html">
+                    <span th:text="${project.getProjectName()}"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="item3">
+        <div class="view" th:each="task : ${myTasks}">
+            <div>
+                <h4>Task info</h4>
+                <span class="text1">Task id:&ensp;</span><span th:text="${task.taskId}"></span><br>
+                <span class="text1">Process id:&ensp;</span><span th:text="${task.processId}"></span><br>
+                <span class="text1">Task name:&ensp;</span><span th:text="${task.taskName}"></span><br>
+                <span class="text1">Effort:&ensp;</span><span th:text="${task.effort}"></span><br>
+                <span class="text1">Exp start date:&ensp;</span><span th:text="${task.expectedStartDate}"></span><br>
+                <span class="text1">Allocation:&ensp;</span><span th:text="${task.minAllocation}"></span><br>
+                <span class="text1">Workdays needed:&ensp;</span><span th:text="${task.taskDaysNeeded()}"></span><br>
+                <span class="text1">Status:&ensp;</span><span th:text="${task.taskStatus}"></span><br>
+                <span class="text1">Assigned to:&ensp;</span><span th:text="${task.assignedname}"></span><br>
+                <span class="text1">Task no.:&ensp;</span><span th:text="${task.taskDependencyNumber}"></span><br><br>
+
+                <a class="hovertext" data-hover="Update Task" th:href="@{'/updatetask/' + ${task.taskId}}"
+                   href="/updatetask.html">
+                    <img th:src="@{../pictures/editblack.png}" src="../static/pictures/editblack.png" width="20px">
+                </a>
+
+                <a class="hovertext" data-hover="Delete Task" th:href="@{'/deletetask/' + ${task.taskId}}"
+                   href="/deletetask.html">
+                    <img th:src="@{../pictures/trashblack.png}" src="../static/pictures/trashblack.png" width="20px">
+                </a>
+
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <a class="github" href="https://linktr.ee/devtool" target=”_blank”>
+            <img class="github" src="../static/pictures/github-mark.png"
+                 th:src="@{../pictures/github-mark.png}" width="50px">
+        </a>
+    </div>
+</div>
+
+
+
+<section class="modal hidden">
+    <div class="flex">
+        <button class="btn-close">⨉</button>
+    </div>
+    <form action="/create_projects" class="form-container" method="post">
+        <label for="projectname"><b>Project Name</b></label>
+        <input id="projectname" type="text"  placeholder="Enter Project Name" name="projectName">
+        <br>
+        <label for="startdate"><b>Startdate</b></label>
+        <input id="startdate" type="date" placeholder="Enter Start Date" name="startDate" required>
+        <br>
+        <label for="duedate"><b>Due Date</b></label>
+        <input id="duedate" type="date" placeholder="Enter Due Date" name="dueDate" required>
+        <br>
+        <label for="projectmanager"><b>Project Manager</b></label>
+        <input id="projectmanager" type="text"  placeholder="Enter Project Managers Name" name="projectManager" required>
+        <br>
+        <label for="customername"><b>Customer Name</b></label>
+        <input id="customername" type="text"  placeholder="Enter Customer Name" name="customerName" required><br><br>
+
+        <label for="projectstate"><b>Project Status</b></label>
+        <Select id="projectstate" type="text" name="projectstate">
+            <option th:each="state :${States}"> <span th:text="${state}"></span> </option>
+        </Select><br>
+
+        <button type="submit" class="btn btn-submit">Create Project</button>
     </form>
+</section>
+<div class="overlay hidden"></div>
 
 
+
+
+
+
+
+
+
+
+
+
+<script>
+    const modal = document.querySelector(".modal");
+    const overlay = document.querySelector(".overlay");
+    const openModalBtn = document.querySelector(".btn-open");
+    const closeModalBtn = document.querySelector(".btn-close");
+
+    // close modal function
+    const closeModal = function () {
+        modal.classList.add("hidden");
+        overlay.classList.add("hidden");
+    };
+
+    // close the modal when the close button and overlay is clicked
+    closeModalBtn.addEventListener("click", closeModal);
+    overlay.addEventListener("click", closeModal);
+
+    // close modal when the Esc key is pressed
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+            closeModal();
+        }
+    });
+
+    // open modal function
+    const openModal = function () {
+        modal.classList.remove("hidden");
+        overlay.classList.remove("hidden");
+    };
+    // open modal event
+    openModalBtn.addEventListener("click", openModal);
+
+    //titel-hacking'ish
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    let interval = null;
+
+    document.querySelector("span").onmouseover = event => {
+        let iteration = 0;
+
+        clearInterval(interval);
+
+        interval = setInterval(() => {
+            event.target.innerText = event.target.innerText
+                .split("")
+                .map((letter, index) => {
+                    if(index < iteration) {
+                        return event.target.dataset.value[index];
+                    }
+
+                    return letters[Math.floor(Math.random() * 26)]
+                })
+                .join("");
+
+            if(iteration >= event.target.dataset.value.length){
+                clearInterval(interval);
+            }
+
+            iteration += 1 / 3;
+        }, 30);
+    }
+</script>
 </body>
 </html>
