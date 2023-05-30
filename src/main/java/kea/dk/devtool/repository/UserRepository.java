@@ -80,6 +80,8 @@ public class UserRepository {
         BCryptPasswordEncoder cryptPasswordEncoder=new BCryptPasswordEncoder(10);
         return cryptPasswordEncoder.encode(password);
     }
+
+
     public User login(String username, String password){
         User user=new User();
         final String LOGIN="SELECT * FROM projectdb.users WHERE user_name=? ";
