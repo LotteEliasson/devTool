@@ -6,6 +6,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
+import static kea.dk.devtool.utility.TimeAndEffort.procesEnddate;
+
 public class Processes {
     private int processId;
     private int projectId;
@@ -70,7 +72,7 @@ public class Processes {
     }
 
     public LocalDate getExpectedFinish() {
-        return expectedFinish;
+        return this.expectedFinish;
     }
 
     public void setExpectedFinish(LocalDate expectedFinish) {
@@ -115,7 +117,9 @@ public class Processes {
 
     }
     public LocalDate getProcessEndDate(){
-        return TimeAndEffort.procesEnddate(this);
+        LocalDate end= TimeAndEffort.procesEnddate(this);
+        this.setExpectedFinish(end);
+        return end;
     }
 
 }

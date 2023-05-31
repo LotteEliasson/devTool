@@ -73,7 +73,7 @@ public class TimeAndEffort
 				HashMap<Integer, Task> pathlist = new HashMap<>();
 				for (Task t : proces) {
 
-					// tilføj pathlist hvis dependencynumber ikke findes i forvejen -compare t.dependency
+					// tilføj pathlist hvis taskdependencynumber ikke findes i forvejen
 					if (!pathlist.containsKey(t.getTaskDependencyNumber())) {
 						pathlist.put(t.getTaskDependencyNumber(), t);
 					}
