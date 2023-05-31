@@ -49,6 +49,7 @@ public class HomeController
 					ArrayList<Processes> myprocesses=(ArrayList<Processes>) processRepository.getProcessByProjectId(p.getProjectId());
 					if(myprocesses.size()!=0) {
 						p.setProcesses(myprocesses);
+
 					}else {
 						myprocesses.add(new Processes());
 					}
@@ -57,6 +58,7 @@ public class HomeController
 							ArrayList<Task> tasks = (ArrayList<Task>) taskRepository.getTaskById(proc.getProcessId());
 							if (tasks.size() != 0) {
 								proc.setTaskList(tasks);
+								proc.getProcessEndDate();
 							}
 							else {
 								tasks.add(new Task());
@@ -194,6 +196,7 @@ public class HomeController
 						if (procesTask.size() != 0) {
 
 							p.setTaskList(procesTask);
+							p.getProcessEndDate();
 						}
 
 					}
