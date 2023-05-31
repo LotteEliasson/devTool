@@ -23,9 +23,9 @@ class ConnectionManagerTest {
         // Assert if the connection is not null
         assertNotNull(connection, "Connection should not be null");
         try {
-            /*  assertfalse forventer at condition er false.
+            /*  assertFalse forventer at condition er false.
                 connection.isClosed tjekker om forbindelsen er lukket.
-                ergo passer AssertNotNull, hvis forbindelsen ikke er lukket.
+                ergo vil assertFalse pass, hvis forbindelsen ikke er lukket.
             */
             assertFalse(connection.isClosed(), "Connection is open");
         } catch (SQLException e) {
