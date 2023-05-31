@@ -166,17 +166,19 @@ public class ProcessRepository {
             preparedStatement.setInt(1,id);
 
              ResultSet resultSet = preparedStatement.executeQuery();
-             resultSet.next();
+             while(resultSet.next()) {
 
-             String process_name = resultSet.getString(3);
-             LocalDate expected_start_date = resultSet.getDate(4).toLocalDate();
-             LocalDate expected_finish = resultSet.getDate(5).toLocalDate();
-             int start_after_task = resultSet.getInt(6);
 
-             process.setProcessName(process_name);
-             process.setExpectedStartDate(expected_start_date);
-             process.setExpectedFinish(expected_finish);
-             process.setStartAfterTask(start_after_task);
+                String process_name = resultSet.getString(3);
+                LocalDate expected_start_date = resultSet.getDate(4).toLocalDate();
+                LocalDate expected_finish = resultSet.getDate(5).toLocalDate();
+                int start_after_task = resultSet.getInt(6);
+
+                process.setProcessName(process_name);
+                process.setExpectedStartDate(expected_start_date);
+                process.setExpectedFinish(expected_finish);
+                process.setStartAfterTask(start_after_task);
+             }
          }
          catch(SQLException e) {
              System.out.println("could not find process");

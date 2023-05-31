@@ -10,7 +10,7 @@ public class Task {
     private int processId;
     private String taskName;
     private int effort=1; // man-hours needed to complete task
-    private LocalDate expectedStartDate;
+    private LocalDate expectedStartDate=LocalDate.now();
     private int minAllocation=1; // assigned man-hours per day
     private TaskStatus taskStatus;
     private String assignedname; // developer name
@@ -24,7 +24,7 @@ public class Task {
     public Task() {
     }
 
-    public Task(int taskId, int processId, String taskName, int effort, LocalDate expectedStartDate, int minAllocation, TaskStatus taskStatus, String assignedname, int taskDependencyNumber, int projectId, int developerId) {
+    public Task(int taskId, int processId, String taskName, int effort, LocalDate expectedStartDate, int minAllocation, TaskStatus taskStatus, String assignedname, int taskDependencyNumber, int projectId, int developerId,LocalDate expectedFinish) {
         this.taskId = taskId;
         this.processId = processId;
         this.taskName = taskName;
@@ -36,7 +36,7 @@ public class Task {
         this.taskDependencyNumber = taskDependencyNumber;
         this.projectId = projectId;
         this.developerId = developerId;
-        this.expectedFinish=TimeAndEffort.calculateDate(this.expectedStartDate,TimeAndEffort.normalWorkdaysNeeded(this.effort,this.minAllocation));
+        this.expectedFinish=expectedFinish;
     }
 
     public int getTaskId() {
@@ -72,11 +72,17 @@ public class Task {
     }
 
     public LocalDate getExpectedStartDate() {
+
+
         return expectedStartDate;
     }
 
     public void setExpectedStartDate(LocalDate expectedStartDate) {
         this.expectedStartDate = expectedStartDate;
+    }
+    public void setExpectedStartDate(Task depependent) {
+
+        this.expectedStartDate = TimeAndEffort.taskStart(depependent);
     }
 
     public int getMinAllocation() {
@@ -131,11 +137,15 @@ public class Task {
 
     public LocalDate getExpectedFinish()
         {
-            return expectedFinish;
+         LocalDate newfinish=TimeAndEffort.calculateDate(this.expectedStartDate,TimeAndEffort.normalWorkdaysNeeded(this.effort,this.minAllocation));
+         this.setExpectedFinish(newfinish);
+            return newfinish;
         }
 
     public void setExpectedFinish(LocalDate expectedFinish)
         {
+
+
             this.expectedFinish = expectedFinish;
         }
 

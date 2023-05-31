@@ -45,7 +45,8 @@ public class TaskRepository {
                 int taskSequenceNumber = resultSet.getInt(9);
                 int projectId = resultSet.getInt(10);
                 int developerId=resultSet.getInt(11);
-                Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedname,taskSequenceNumber, projectId,developerId);
+                LocalDate expectedfinish=resultSet.getDate(12).toLocalDate();
+                Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedname,taskSequenceNumber, projectId,developerId,expectedfinish);
                 tasks.add(newTask);
             }
 
@@ -62,7 +63,7 @@ public class TaskRepository {
         try {
             Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);
             final String SQL_addTask = "INSERT INTO projectdb.task(processID, task_name, effort, expected_startdate, " +
-                    "min_allocation, task_status, assignedname, tasksequencenumber, projectID) VALUES(?,?,?,?,?,?,?,?,?)";
+                    "min_allocation, task_status, assignedname, tasksequencenumber, projectID,expected_finish) VALUES(?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_addTask);
 
             //Sætter variable for en ny opgave.
@@ -75,6 +76,7 @@ public class TaskRepository {
             preparedStatement.setString(7, task.getAssignedname());
             preparedStatement.setInt(8, task.getTaskDependencyNumber());
             preparedStatement.setInt(9, task.getProjectId());
+            preparedStatement.setDate(10,Date.valueOf(task.getExpectedFinish()));
 
             //Sender ny opgave til databasen.
             preparedStatement.executeUpdate();
@@ -201,7 +203,8 @@ public class TaskRepository {
              int taskSequenceNumber = resultSet.getInt(9);
 
              int developerId=resultSet.getInt(11);
-             Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedname,taskSequenceNumber, projectId,developerId);
+             LocalDate expectedfinish=resultSet.getDate(12).toLocalDate();
+             Task newTask = new Task(taskId, processId,taskName,effort,expectedStartDate,minAllocation,taskStatus,assignedname,taskSequenceNumber, projectId,developerId,expectedfinish);
              projectTasks.add(newTask);
           }
 

@@ -102,5 +102,9 @@ public class TimeAndEffort
 			}
 			return procesfinish;
 		}
+		public static LocalDate taskStart(Task task){
+			LocalDate newstart=task.getExpectedFinish();
+			return newstart;
+		}
 
 	}
