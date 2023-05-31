@@ -184,25 +184,29 @@ public class HomeController
 
 		// processes:
 		@GetMapping("/processes/{projektid}")
-		public String showProcesses(@PathVariable("projektid") int id, Model processes, HttpSession session)
+		public String showProcesses(@PathVariable("projektid") int id, Model processesModel, HttpSession session)
 			{
-				Processes process = processRepository.findProcessById(id);
+				ArrayList<Processes> processes=(ArrayList<Processes>) processRepository.getProcessByProjectId(id);
 
-				ArrayList<Task> procesTask = (ArrayList<Task>) taskRepository.getTaskById(process.getProcessId());
-				if (procesTask.size() != 0) {
+				if (processes.size()!=0){
+					for (Processes p:processes){
+						ArrayList<Task> procesTask = (ArrayList<Task>) taskRepository.getTaskById(p.getProcessId());
+						if (procesTask.size() != 0) {
+
+							p.setTaskList(procesTask);
+						}
+
+					}
+			}
 
 
-					process.setTaskList(procesTask);
-				}
-				else {
-					procesTask.add(new Task());
-				}
 
-				processes.addAttribute("process", process);
-				processes.addAttribute("showProjectName", projectRepository.findProjectByID(id).getProjectName());
-				processes.addAttribute("showProjectManager", projectRepository.findProjectByID(id).getProjectManager());
-				processes.addAttribute("processes", processRepository.getProcessByProjectId(id));
-				processes.addAttribute("projectTasks", taskRepository.getProjectTasks(id));
+
+				processesModel.addAttribute("project", projectRepository.findProjectByID(id));
+				processesModel.addAttribute("showProjectName", projectRepository.findProjectByID(id).getProjectName());
+				processesModel.addAttribute("showProjectManager", projectRepository.findProjectByID(id).getProjectManager());
+				processesModel.addAttribute("processes",processes );
+				processesModel.addAttribute("projectTasks", taskRepository.getProjectTasks(id));
 
 				session.setAttribute("currentProject", id);
 				return "processes";
@@ -311,7 +315,7 @@ public class HomeController
 				int projectID = (int) session.getAttribute("currentProject");
 				int projectPMID = (int) session.getAttribute("PmID");
 
-
+				modelTask.addAttribute("project",projectRepository.findProjectByID(projectID));
 				modelTask.addAttribute("showProjectName", projectRepository.findProjectByID(projectID).getProjectName());
 				modelTask.addAttribute("showProjectManager", projectRepository.findProjectByID(projectID).getProjectManager());
 				modelTask.addAttribute("taskView", taskRepository.getTaskById(processId));

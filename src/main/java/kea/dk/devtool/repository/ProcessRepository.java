@@ -45,7 +45,7 @@ public class ProcessRepository {
             response=response.concat(" task");
 
         }catch (SQLException e){
-            System.out.println("could not query database");
+            System.out.println("could not query database: "+"/n"+QueryTasks+"/n in ProcesRepository");
         }
         return response;
     }
