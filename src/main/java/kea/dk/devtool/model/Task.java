@@ -81,8 +81,10 @@ public class Task {
         this.expectedStartDate = expectedStartDate;
     }
     public void setExpectedStartDate(Task depependent) {
+        int plusdays=depependent.taskDaysNeeded();
+        LocalDate newstart=TimeAndEffort.calculateDate(this.getExpectedStartDate(),plusdays);
+        this.expectedStartDate = newstart;
 
-        this.expectedStartDate = TimeAndEffort.taskStart(depependent);
     }
 
     public int getMinAllocation() {

@@ -194,21 +194,29 @@ public class HomeController
 					for (Processes p:processes){
 						ArrayList<Task> procesTask = (ArrayList<Task>) taskRepository.getTaskById(p.getProcessId());
 						if (procesTask.size() != 0) {
-
+							for(Task t:procesTask){
+								if (t.getTaskDependencyNumber()!=-1){
+									t.setExpectedStartDate(taskRepository.findTaskById(t.getTaskDependencyNumber()));
+									t.getExpectedFinish();
+								//	taskRepository.updateTask(t);
+								}
+								else{
+									t.setExpectedStartDate(processRepository.findProcessById(t.getProcessId()).getExpectedStartDate());
+									t.getExpectedFinish();
+								}
+							}
 							p.setTaskList(procesTask);
 							p.getProcessEndDate();
+						//	processRepository.updateProcess(p);
 						}
 
 					}
 			}
 
-
-
-
 				processesModel.addAttribute("project", projectRepository.findProjectByID(id));
 				processesModel.addAttribute("showProjectName", projectRepository.findProjectByID(id).getProjectName());
 				processesModel.addAttribute("showProjectManager", projectRepository.findProjectByID(id).getProjectManager());
-				processesModel.addAttribute("processes",processes );
+				processesModel.addAttribute("processes",processes);
 				processesModel.addAttribute("projectTasks", taskRepository.getProjectTasks(id));
 
 				session.setAttribute("currentProject", id);
@@ -276,14 +284,17 @@ public class HomeController
 				//hvis processen skal starte ved afslutningen af en bestemt task overskrives expectedStartDate
 				if (updatestartAfter != -1) {
 					Task task = taskRepository.findTaskById(updatestartAfter);
+
 					updateexpectedStartDate = task.getExpectedFinish();
+					updateProcess.setExpectedStartDate(updateexpectedStartDate);
+					updateexpectedFinish=updateProcess.getProcessEndDate();
 				}
 				//processen får sat expectedStartDate (som enten er opdateret af brugeren eller hentet fra task ved startAfter!=-1)
 				//overvej at lave StartAfter som dropdown selection med default =-1 i UI for at undgå at brugeren laver fejl under indtastning
 				//ved at indtaske ugyldigt taskId
 				updateProcess.setTaskList(taskList);
 				updateProcess.setExpectedStartDate(updateexpectedStartDate);
-				updateexpectedFinish = TimeAndEffort.procesEnddate(updateProcess);
+
 				updateProcess.setExpectedFinish(updateexpectedFinish);
 				updateProcess.setProcessName(updateprocessName);
 
@@ -317,11 +328,25 @@ public class HomeController
 			{
 				int projectID = (int) session.getAttribute("currentProject");
 				int projectPMID = (int) session.getAttribute("PmID");
+				ArrayList<Task> taskArrayList=(ArrayList<Task>) taskRepository.getTaskById(processId);
+				if(taskArrayList.size()!=0){
+					for(Task task:taskArrayList){
+						if (task.getTaskDependencyNumber()!=-1){
+							task.setExpectedStartDate(taskRepository.findTaskById(task.getTaskDependencyNumber()));
+							task.getExpectedFinish();
+						}
+						else{
+						task.setExpectedStartDate(processRepository.findProcessById(task.getProcessId()).getExpectedStartDate());
+						task.getExpectedFinish();
+						}
+
+					}
+				}
 
 				modelTask.addAttribute("project",projectRepository.findProjectByID(projectID));
 				modelTask.addAttribute("showProjectName", projectRepository.findProjectByID(projectID).getProjectName());
 				modelTask.addAttribute("showProjectManager", projectRepository.findProjectByID(projectID).getProjectManager());
-				modelTask.addAttribute("taskView", taskRepository.getTaskById(processId));
+				modelTask.addAttribute("taskView", taskArrayList);
 				modelTask.addAttribute("projectsByPmId", projectRepository.getMyProjects(projectPMID));
 				modelTask.addAttribute("TaskStates", TaskStatus.values());
 				session.setAttribute("currentProcess", processId);
