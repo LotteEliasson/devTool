@@ -43,7 +43,7 @@ public class ProjectRepository
 				response=response.concat(" task");
 
 			}catch (SQLException e){
-				System.out.println("could not query database");
+				System.out.println("could not query database: "+QueryProcess+" or query: "+ QueryTasks+" projectRepository");
 			}
 			return response;
 		}

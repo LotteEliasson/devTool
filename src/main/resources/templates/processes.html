@@ -88,7 +88,7 @@
         <input id="processName" type="text" placeholder="Enter Process Name" name="processName" required>
 
         <label for="expectedStartDate"><b>Expected startdate</b></label>
-        <input id="expectedStartDate" type="date" placeholder="Enter Start Date" name="expectedStartDate" required>
+        <input id="expectedStartDate" type="date" th:attr="min=${project.getStartDate()}" name="expectedStartDate" required>
 
         <label for="expectedFinish"><b>Expected finish</b></label>
         <input id="expectedFinish" type="date" placeholder="Enter Finish Date" name="expectedFinish" required>

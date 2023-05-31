@@ -18,89 +18,101 @@ public class TimeAndEffort
 	{
 
 
-		public static int daysBetween(LocalDate d1, LocalDate d2){
-			LocalDate check=d1;
-			int days=0;
-			while (check.isBefore(d2)){
-				days++;
-				check=check.plusDays(1);
-			}
-			return days;
-		}
-		public static int workingDaysBetween(LocalDate d1, LocalDate d2){
-			LocalDate check =d1;
-			int workingdays=0;
-			while (check.isBefore(d2)){
-
-				if(!(check.getDayOfWeek()== DayOfWeek.SATURDAY || check.getDayOfWeek()==DayOfWeek.SUNDAY)){
-					workingdays+=1;
+		public static int daysBetween(LocalDate d1, LocalDate d2)
+			{
+				LocalDate check = d1;
+				int days = 0;
+				while (check.isBefore(d2)) {
+					days++;
+					check = check.plusDays(1);
 				}
-				check=check.plusDays(1);
+				return days;
 			}
-			return workingdays;
-		}
-		public static int normalWorkdaysNeeded(double totalEffort,double workhoursPerDay){
 
-			int days= (int) Math.ceil(totalEffort/workhoursPerDay);
-			return days;
-		}
-		public static LocalDate calculateDate(LocalDate startdate,int workdays){
-		LocalDate newEnddate=LocalDate.of(startdate.getYear(),startdate.getMonthValue(),startdate.getDayOfMonth());
+		public static int workingDaysBetween(LocalDate d1, LocalDate d2)
+			{
+				LocalDate check = d1;
+				int workingdays = 0;
+				while (check.isBefore(d2)) {
 
-		int checkdays=0;
-		while (checkdays<=workdays){
-			newEnddate=newEnddate.plusDays(1);
-			if(newEnddate.getDayOfWeek()!=DayOfWeek.SATURDAY||newEnddate.getDayOfWeek()!=DayOfWeek.SUNDAY){
-				checkdays++;
+					if (!(check.getDayOfWeek() == DayOfWeek.SATURDAY || check.getDayOfWeek() == DayOfWeek.SUNDAY)) {
+						workingdays += 1;
+					}
+					check = check.plusDays(1);
+				}
+				return workingdays;
 			}
-		}
-		return newEnddate;
-		}
+
+		public static int normalWorkdaysNeeded(double totalEffort, double workhoursPerDay)
+			{
+
+				int days = (int) Math.ceil(totalEffort / workhoursPerDay);
+				return days;
+			}
+
+		public static LocalDate calculateDate(LocalDate startdate, int workdays)
+			{
+				LocalDate newEnddate = LocalDate.of(startdate.getYear(), startdate.getMonthValue(), startdate.getDayOfMonth());
+
+				int checkdays = 0;
+				while (checkdays <= workdays) {
+					newEnddate = newEnddate.plusDays(1);
+					if (newEnddate.getDayOfWeek() != DayOfWeek.SATURDAY || newEnddate.getDayOfWeek() != DayOfWeek.SUNDAY) {
+						checkdays++;
+					}
+				}
+				return newEnddate;
+			}
 
 		/**
-		 *
 		 * @param process
-		 * @return
-		 * this method takes a process and returns a calculated date based on the duration of the critical path
+		 * @return this method takes a process and returns a calculated date based on the duration of the critical path
 		 * of the tasks. used to calculate proces enddate and startdate.
 		 */
-		public static LocalDate procesEnddate(Processes process){
+		public static LocalDate procesEnddate(Processes process)
+			{
 
-			LocalDate procesfinish=LocalDate.now();
-			// hvis der findes tasks i processen:
-			if(process.getTaskList()!=null|| !process.getTaskList().isEmpty()) {
-				ArrayList<Task> proces = (ArrayList<Task>) process.getTaskList();
-				HashMap<Integer, Task> pathlist = new HashMap<>();
-				for (Task t : proces) {
+				LocalDate procesfinish = LocalDate.now();
+				// hvis der findes tasks i processen:
+				if (process.getTaskList() != null || !process.getTaskList().isEmpty()) {
+					ArrayList<Task> processTaskList = (ArrayList<Task>) process.getTaskList();
+					HashMap<Integer, Task> pathlist = new HashMap<>();
+					for (Task t : processTaskList) {
 
-					// tilføj pathlist hvis taskdependencynumber ikke findes i forvejen
-					if (!pathlist.containsKey(t.getTaskDependencyNumber())) {
-						pathlist.put(t.getTaskDependencyNumber(), t);
+						// tilføj task til pathlist hvis taskdependencynumber ikke findes i forvejen
+						if (!pathlist.containsKey(t.getTaskDependencyNumber())) {
+							pathlist.put(t.getTaskDependencyNumber(), t);
+						}
+						// erstat hvis workdaysneeded er større end den task som ligger der i forvejen
+						else if (t.taskDaysNeeded() > pathlist.get(t.getTaskDependencyNumber()).taskDaysNeeded()) {
+							pathlist.replace(t.getTaskDependencyNumber(), t);
+						}
 					}
-					// erstat hvis workdaysneeded er større end den task som ligger der i forvejen
-					else if (t.taskDaysNeeded() > pathlist.get(t.getTaskDependencyNumber()).taskDaysNeeded()) {
-						pathlist.replace(t.getTaskDependencyNumber(), t);
+					// iterer over tasks i pathlist for at få en sum af workdaysneeded
+					int totaldays = 0;
+					for (Task criticalPath : pathlist.values()) {
+						totaldays += criticalPath.taskDaysNeeded();
 					}
-				}
-				// iterer over tasks i pathlist for at få en sum af workdaysneeded
-				int totaldays = 0;
-				for (Task criticalPath : pathlist.values()) {
-					totaldays = totaldays + criticalPath.taskDaysNeeded();
-				}
-				//få fat i startdato for processen og kald calculateDate
+					//få fat i startdato for processen og kald calculateDate
 
-				procesfinish = calculateDate(process.getExpectedStartDate(), totaldays);
-			}
-			//hvis der endnu ikke er tasks i processen:
-			else {
-				// hvis proces skal starte med projekt
-				if(process.getStartAfterTask()==-1){
-				procesfinish=process.getExpectedStartDate().plusDays(1);
+					procesfinish = calculateDate(process.getExpectedStartDate(), totaldays);
 				}
-				//ellers skal den beregne expected finish ud fra projectTask - klares ved at sætte/beregne expected start først
+				//hvis der endnu ikke er tasks i processen:
+				else {
+					// hvis proces skal starte med projekt
+					if (process.getStartAfterTask() == -1) {
+						procesfinish = process.getExpectedStartDate().plusDays(1);
+					}
+					//ellers skal den beregne expected finish ud fra projectTask - klares ved at sætte/beregne expected start først
 
+				}
+				return procesfinish;
 			}
-			return procesfinish;
-		}
+
+		public static LocalDate taskStart(Task task)
+			{
+				LocalDate newstart = task.getExpectedFinish();
+				return newstart;
+			}
 
 	}

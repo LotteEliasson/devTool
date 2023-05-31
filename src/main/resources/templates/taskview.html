@@ -65,6 +65,7 @@
                 <span class="text1">Task name:&ensp;</span><span th:text="${task.taskName}"></span><br>
                 <span class="text1">Effort:&ensp;</span><span th:text="${task.effort}"></span><br>
                 <span class="text1">Exp start date:&ensp;</span><span th:text="${task.expectedStartDate}"></span><br>
+                <span class="text1">Exp finish date:;</span><span th:text="${task.getExpectedFinish()}"></span><br>
                 <span class="text1">Allocation:&ensp;</span><span th:text="${task.minAllocation}"></span><br>
                 <span class="text1">Workdays needed:&ensp;</span><span th:text="${task.taskDaysNeeded()}"></span><br>
                 <span class="text1">Status:&ensp;</span><span th:text="${task.taskStatus}"></span><br>
@@ -107,7 +108,7 @@
         <input id="effort-create" type="text" placeholder="Enter effort" name="Effort" required>
 
         <label for="expectedStartDate-create"><b>Expected Start Date</b></label>
-        <input id="expectedStartDate-create" type="date" placeholder="Enter Expected Start Date"
+        <input id="expectedStartDate-create" type="date" th:attr="min=${project.getStartDate()}"
                name="ExpectedStartDate" required>
 
         <label for="minAllocation-create"><b>Minimum Allocation</b></label>
