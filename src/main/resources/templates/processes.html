@@ -34,7 +34,7 @@
         <a th:href="@{'/project_manager/'+ ${session.PmID}}"><p class="headline">Projects</p></a>
     <ul class="list-group">
         <li th:each="proces : ${processes}">
-            <a th:href="@{'/taskview/'+${proces.getProcessId()}}" href="processes.html">
+            <a th:href="@{'/taskview/'+ ${proces.getProcessId()}}" href="processes.html">
                 <span th:text="${proces.getProcessName()}"></span>
             </a>
         </li>

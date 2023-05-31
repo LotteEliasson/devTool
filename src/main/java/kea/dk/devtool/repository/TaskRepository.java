@@ -88,8 +88,8 @@ public class TaskRepository {
    //Update Tasks
    public void updateTask(Task task) {
         //Henter parametre ud fra et specifikt task id i databasen
-        final String UPDATE_task = "UPDATE projectdb.task SET task_name=?, effort=?, expected_startdate=?, min_allocation=?, task_status=?, assignedname=?, tasksequencenumber=? WHERE taskID=?";
-
+        final String UPDATE_task = "UPDATE projectdb.task SET task_name=?, effort=?, expected_startdate=?, min_allocation=?, task_status=?, assignedname=?, tasksequencenumber=? ,developerID=? ,expected_finish=? WHERE taskID=?";
+         final String UPDATE2="UPDATE projectdb.task SET task_name=?, effort=?, expected_startdate=?, min_allocation=?, task_status=?, assignedname=?, tasksequencenumber=? ,developerID=? ,expected_finish=? WHERE taskID=?";
         try {
            Connection connection = ConnectionManager.getConnection(DB_URL, UID, PWD);
            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_task);
@@ -102,6 +102,8 @@ public class TaskRepository {
             TaskStatus taskStatus = task.getTaskStatus();
             String assignedId = task.getAssignedname();
             int taskSequenceNumber = task.getTaskDependencyNumber();
+            int developerId=task.getDeveloperId();
+            LocalDate expectedFinish=task.getExpectedFinish();
             //Sætter nye parametre for en task
             preparedStatement.setString(1, taskName);
             preparedStatement.setInt(2, effort);
@@ -110,7 +112,9 @@ public class TaskRepository {
             preparedStatement.setString(5, String.valueOf(taskStatus));
             preparedStatement.setString(6, assignedId);
             preparedStatement.setInt(7, taskSequenceNumber);
-            preparedStatement.setInt(8,task.getTaskId());
+            preparedStatement.setInt(8,developerId);
+            preparedStatement.setDate(9,Date.valueOf(expectedFinish));
+            preparedStatement.setInt(10,task.getTaskId());
             //Opdaterer databasen
             preparedStatement.executeUpdate();
 

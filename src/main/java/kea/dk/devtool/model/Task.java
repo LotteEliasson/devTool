@@ -9,9 +9,9 @@ public class Task {
     private int taskId;
     private int processId;
     private String taskName;
-    private int effort; // man-hours needed to complete task
+    private int effort=1; // man-hours needed to complete task
     private LocalDate expectedStartDate;
-    private int minAllocation; // assigned man-hours per day
+    private int minAllocation=1; // assigned man-hours per day
     private TaskStatus taskStatus;
     private String assignedname; // developer name
 

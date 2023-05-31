@@ -15,7 +15,7 @@ public class Project {
     private String projectManager;
     private String customerName;
     private int projectManagerID;
-    private ProjectStatus status;
+    private ProjectStatus status=ProjectStatus.OPEN;
     private List<Processes> processes;
 
     public Project() {

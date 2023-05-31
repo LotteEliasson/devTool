@@ -92,25 +92,52 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	@PostMapping("updateproject")
 	public String showUpdateprojects(@RequestParam("projectID") int projectID, @RequestParam("projectName") String projectName, @RequestParam("startDate")Date startDate,
 												@RequestParam("dueDate") Date dueDate, @RequestParam("projectManager") String projectManager,
-												@RequestParam("customerName") String customerName, @RequestParam("expectedEnddate") Date expectedEnddate,
-												HttpSession session){
+												@RequestParam("customerName") String customerName, @RequestParam("expectedEnddate") LocalDate expectedEnddate,
+												@RequestParam("newstate") ProjectStatus state,HttpSession session){
 		int pmID=(int) session.getAttribute("PmID");
+		// slå projektet op
 	Project updateproject= projectRepository.findProjectByID(projectID);
-		updateproject.setProcesses(processRepository.getProcessByProjectId(updateproject.getProjectId()));
-		ArrayList<Processes> myprocesses= (ArrayList<Processes>) updateproject.getProcesses();
-		ArrayList<LocalDate> processEndDates=new ArrayList<>();
-		for (Processes p:myprocesses){
-			processEndDates.add(p.getProcessEndDate());
-		}
-		Collections.sort(processEndDates);
-		updateproject.setExpectedEndDate(processEndDates.get(processEndDates.size()-1));
 
+	//forbered proces-liste og hent tasks
+		ArrayList<Processes> myprocesses= (ArrayList<Processes>) processRepository.getProcessByProjectId(projectID);
+		if (myprocesses.size()!=0) {
+			for (Processes proc : myprocesses) {
+				ArrayList<Task> tasklist= (ArrayList<Task>) taskRepository.getTaskById(proc.getProcessId());
+				if(tasklist.size()!=0){
+					proc.setTaskList(tasklist);
+					ArrayList<LocalDate> taskEndDates = new ArrayList<>();
+					for(Task enddate:tasklist){
+						taskEndDates.add(enddate.getExpectedFinish());
+					}
+					//denne getter setter en ny expectedfinish
+					proc.getExpectedFinish();
+				}
+				proc.setExpectedFinish(processRepository.findProcessById(projectID).getExpectedFinish());
+			}
+			//tilføj procesliste med task til updateprojektet
+			updateproject.setProcesses(myprocesses);
+
+			//lav en liste slut datoer for processer
+			ArrayList<LocalDate> processEndDates = new ArrayList<>();
+
+			for (Processes p : myprocesses) {
+				processEndDates.add(p.getProcessEndDate());
+			}
+			//sorter og tag den datoen for den proces som slutter senest og sæt det til projektets slutdato
+			Collections.sort(processEndDates);
+			updateproject.setExpectedEndDate(processEndDates.get(processEndDates.size() - 1));
+		}
+		else{
+			updateproject.setExpectedEndDate(expectedEnddate);
+		}
+		//opdater øvrige felter
 	updateproject.setProjectName(projectName);
 	updateproject.setStartDate(startDate.toLocalDate());
 	updateproject.setDueDate(dueDate.toLocalDate());
 	updateproject.setProjectManager(projectManager);
 	updateproject.setCustomerName(customerName);
-
+	updateproject.setStatus(state);
+	//gem projektet
 	projectRepository.updateProject(updateproject);
 	return "redirect:project_manager/"+pmID;
 	}
@@ -135,6 +162,19 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	// processes:
 	@GetMapping("/processes/{projektid}")
 	public String showProcesses(@PathVariable("projektid") int id, Model processes, HttpSession session){
+	Processes process=processRepository.findProcessById(id);
+
+		ArrayList<Task> procesTask=(ArrayList<Task>) taskRepository.getTaskById(process.getProcessId());
+		if (procesTask.size()!=0){
+
+
+			process.setTaskList(procesTask);
+		}
+		else{
+			procesTask.add(new Task());
+		}
+
+		processes.addAttribute("process",process);
 		processes.addAttribute("showProjectName", projectRepository.findProjectByID(id).getProjectName());
 		processes.addAttribute("showProjectManager", projectRepository.findProjectByID(id).getProjectManager());
 		processes.addAttribute("processes", processRepository.getProcessByProjectId(id) );
@@ -238,6 +278,8 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 	public String taskview(@PathVariable("processId") int processId, Model modelTask, HttpSession session){
 		int projectID = (int) session.getAttribute("currentProject");
 		int projectPMID = (int) session.getAttribute("PmID");
+
+
 		modelTask.addAttribute("showProjectName", projectRepository.findProjectByID(projectID).getProjectName());
 		modelTask.addAttribute("showProjectManager", projectRepository.findProjectByID(projectID).getProjectManager());
 		modelTask.addAttribute("taskView", taskRepository.getTaskById(processId));
@@ -321,45 +363,13 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 							 Model modelUpdateTask,
 							 HttpSession session)
 		{
-			if (updatetaskDependencyNumber != -1) {
-				updateExpectedStartDate = LocalDate.now();
-			}
 			Task updateTasks = new Task();
-			//debug:
-			//modelUpdateTask.getAttribute(updateTask());
+				if (updatetaskDependencyNumber != -1) {
+					Task pretask=taskRepository.findTaskById(updatetaskDependencyNumber);
+					updateExpectedStartDate=pretask.getExpectedFinish();
+				}
+
 			updateTasks.setTaskDependencyNumber(updatetaskDependencyNumber);
-
-
-//		updateTasks.setExpectedStartDate(updateExpectedStartDate);
-
-			// ExpectedStartDate skal beregnes på ny hvis taskdependency ændres:
-			//hvis taskdependency=-1 fortsæt ellers check om taskId findes i process
-//		if (updateTasks.getTaskDependencyNumber()!=-1){
-//			// check if task exists : burde ikke være nødvendigt da jeg har frasorteret de som ikke kan vælges
-//			Task check;
-//			if(taskRepository.findTaskById(updatetaskDependencyNumber)!=null){
-//				check=taskRepository.findTaskById(updatetaskDependencyNumber);
-////				//check if processId match
-////				if (check.getProcessId()!=updateProcessId){
-////					//processid doesn't match
-////					Processes p=processRepository.findProcessById(updateProcessId);
-////					updateExpectedStartDate=p.getExpectedStartDate();
-////				}
-////				updateExpectedStartDate=check.getExpectedFinish();
-//			LocalDate checkfinish= check.getExpectedFinish();
-//				//	check.getExpectedFinish();
-//			updateTasks.setExpectedStartDate(checkfinish);
-//			}
-//			//task doesn't exist
-//			else{
-////				updatetaskDependencyNumber=-1;
-////				Processes p=processRepository.findProcessById(updateProcessId);
-////				updateExpectedStartDate=p.getExpectedStartDate();
-//			updateTasks.setExpectedStartDate(updateExpectedStartDate);
-//			}
-
-		//}
-
 
 		updateTasks.setAssignedname(updateAssignedname);
 		updateTasks.setTaskStatus(updateTaskStatus);
@@ -367,12 +377,10 @@ public HomeController(ProjectRepository projectRepository, ProcessRepository pro
 		updateTasks.setTaskName(updateTaskName);
 		updateTasks.setProcessId(updateProcessId);
 		updateTasks.setEffort(updateEffort);
-
 		updateTasks.setMinAllocation(updateMinAllocation);
-		updateTasks.setTaskDependencyNumber(updatetaskDependencyNumber);
+		updateTasks.setExpectedStartDate(updateExpectedStartDate);
 		updateTasks.setDeveloperId(developerId);
 		updateTasks.setProjectId(updateProjectId);
-
 		taskRepository.updateTask(updateTasks);
 		int processID = (int) session.getAttribute("currentProcess");
 		modelUpdateTask.addAttribute("updateTask", processID);

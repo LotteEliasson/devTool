@@ -123,13 +123,13 @@
         <input id="assignedId-create" type="text" placeholder="Enter Assignment ID" name="AssignedId" required>
 
         <label for="developerId-create"><b>Developer ID</b></label>
-        <input class="inputfields" id="developerId-create" type="text" placeholder="Enter Developer ID" name="developerId" th:value="${taskUpdate.developerId}"><br>
+        <input  id="developerId-create" type="text" placeholder="Enter Developer ID" name="developerId" ><br>
 
         <label for="taskDependencyNumber-create"><b>Task Dependency</b></label>
         <select id="taskDependencyNumber-create" type="text" name="TaskSequenceNumber">
             <option value="-1">Start with process</option>
-            <option th:each="tasknumber:${procesTasks}"><span
-                    th:text="${'Start after task number:'+tasknumber.getTaskId()}"></span></option>
+            <option th:each="tasknumber:${taskView}" ><span
+                    th:text="${tasknumber.getTaskId()}"></span></option>
 
         </select> <br>
         <button type="submit" class="btn btn-submit">Create Task</button>
