@@ -70,7 +70,7 @@
                 <span class="text1">Workdays needed:&ensp;</span><span th:text="${task.taskDaysNeeded()}"></span><br>
                 <span class="text1">Status:&ensp;</span><span th:text="${task.taskStatus}"></span><br>
                 <span class="text1">Assigned to:&ensp;</span><span th:text="${task.assignedname}"></span><br>
-                <span class="text1">Task no.:&ensp;</span><span th:text="${task.taskDependencyNumber}"></span><br><br>
+                <span class="text1">Task no.:&ensp;</span><span th:text="${task.taskDependencyNumber}"></span><br>
 
                 <a class="hovertext" data-hover="Update Task" th:href="@{'/updatetask/' + ${task.taskId}}"
                    href="/updatetask.html">
