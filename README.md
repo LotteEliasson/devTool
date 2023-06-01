@@ -6,7 +6,7 @@ Username: ADMIN
 
 Password: ADMIN
 
-Hvis databasen slettes lokalt, skal der manuelt oprettes en ADMIN i databasen, for at programmet fungerer og der kan oprettes nye brugere af programmet
+Hvis databasen slettes lokalt, skal der manuelt oprettes en bruger med has_role:ADMIN i databasen, for at programmet fungerer og der kan oprettes nye brugere af programmet
 
 http://52.157.205.86:8080
 
