@@ -3,9 +3,13 @@
 
 http://52.157.205.86:8080
 
-Login as:
-Username:
-Password:
+Login as: PROJECT_MANAGER
+
+Username: Morten1
+
+Password: manager
+
+
 
 
 
