@@ -10,7 +10,11 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ConnectionManagerTest {
-  //  @Test
+//   @Test
+
+    // Tests er udkommenteret, da denne ville fejle ved kørsel af applikation, hvis ikke man har en DB liggende med
+    // samme test data som dette.
+    // Kommentar kan fjernes hvis tests vil afprøves.
     public void testGetConnection() {
 
         // Test data
