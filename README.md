@@ -10,7 +10,7 @@ Username: Morten1
 Password: manager
 
 
-
+-----------------------------
 
 
 Create New User:
@@ -37,4 +37,4 @@ Username: nyt brugernavn
 
 Password: nyt password
 
-
+------------------------------------
